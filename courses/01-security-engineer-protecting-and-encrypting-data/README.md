@@ -104,6 +104,18 @@ flowchart LR
     App --> S3[(S3 SSE-KMS)]
 ```
 
+**KMS key vs. key material origin**
+
+```mermaid
+flowchart TD
+    K["KMS key<br/>(the object you control in KMS)"] --> KM{"Key material origin<br/>(the actual encrypt/decrypt bytes)"}
+
+    KM -->|AWS_KMS| M1["AWS KMS generates &amp; stores<br/>the key material (default)"]
+    KM -->|EXTERNAL| M2["You import key material<br/>generated elsewhere into KMS"]
+    KM -->|AWS_CLOUDHSM| M3["Key material in a CloudHSM<br/>cluster you control (AWS-provided HSM)"]
+    KM -->|EXTERNAL_KEY_STORE| M4["Key material in an external<br/>key store you fully manage"]
+```
+
 ## Screenshots
 
 _No screenshots yet._ When you capture one, save it under this folder's
