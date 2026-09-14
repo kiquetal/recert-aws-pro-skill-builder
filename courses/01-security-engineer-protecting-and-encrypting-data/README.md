@@ -20,6 +20,18 @@
 > Reminder: Professional recert needs **700 points total** including **at least
 > 2 practical activities (labs)**. "Type = Lab" counts toward the 2-lab minimum.
 
+## Course Outline
+
+- **Introduction** — How to Use This Course · Course Overview
+- **Keys, Certificates and Encryption** — Preliminary concepts · Managing Keys
+  and Certificates on AWS · Deployment Considerations
+- **Protecting data at rest** — Data encryption at rest · Data Integrity ·
+  Masking and redacting data · Retention and Lifecycle management · Data
+  replication and backups
+- **Protecting data in transit** — Requiring encryption at edge · Secure and
+  Private Access to Compute Resources · Inter-resource encryption
+- **Conclusion** — Knowledge Check · Recap and Resources · Contact Us
+
 ## Key Takeaways
 
 - <Bullet the most important concepts you learned.>
