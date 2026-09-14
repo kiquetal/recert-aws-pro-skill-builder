@@ -128,3 +128,20 @@ _No screenshots yet._ When you capture one, save it under this folder's
   A digital certificate is an electronic credential that proves the authenticity
   of a user, device, server, or website. This form of authentication uses
   public-key encryption to validate identities communicating over networks.
+
+
+### About key materials
+
+AWS distingues between the key, the object you control with KMS, and the key material, the actual bytes using to encrypt and decrypt values.
+
+- Origin: external
+
+We use an external key store for the key material (you are the responible of almost everything)
+
+- Origin: using cloudHSM key store for the material
+
+You use cloudhsm provided by aws but in your control
+
+- Origin: Import the key material generated elsewher einto AWS KSM
+
+- Origin: AWS KMS create the key material
