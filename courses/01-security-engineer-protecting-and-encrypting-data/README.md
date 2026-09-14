@@ -23,8 +23,8 @@
 ## Course Outline
 
 - **Introduction** — How to Use This Course · Course Overview
-- **Keys, Certificates and Encryption** — Preliminary concepts · Managing Keys
-  and Certificates on AWS · Deployment Considerations
+- **Keys, Certificates and Encryption** — Preliminary concepts · **Managing Keys
+  and Certificates on AWS** ← current · Deployment Considerations
 - **Protecting data at rest** — Data encryption at rest · Data Integrity ·
   Masking and redacting data · Retention and Lifecycle management · Data
   replication and backups
