@@ -91,6 +91,38 @@ the key metadata from those folders.
 
 ---
 
+## Candidate Labs (AWS SimuLearn)
+
+Available practical activities on Skill Builder. Each is a **Practical** lab worth
+**+100 pts** (~1h) and counts toward the **2-lab minimum**. Not yet started; folders
+are scaffolded under `courses/` only when a lab is committed to.
+
+| Lab                                                          | Points | Recommended |
+| ------------------------------------------------------------ | ------ | ----------- |
+| AWS SimuLearn: Resolve VPC Routing Conflicts                 | 100    | ⭐          |
+| AWS SimuLearn: Inter-Region Peering                          | 100    | ⭐          |
+| AWS SimuLearn: Securing Hybrid Access                        | 100    | ⭐          |
+| AWS SimuLearn: Securing a Banking Data Lake                  | 100    | ⭐          |
+| AWS SimuLearn: Hybrid Storage Solution for PACS              | 100    |             |
+| AWS SimuLearn: Content Acceleration on the Edge              | 100    |             |
+| AWS SimuLearn: Edge to Cloud Architecture for Digital Twins  | 100    |             |
+| AWS SimuLearn: Provision SageMaker in a Secure Environment   | 100    |             |
+
+**Recommended for SA-Professional learning value** (⭐): these give the broadest
+coverage of Pro-level exam domains — complex networking, hybrid connectivity,
+multi-region, and data security:
+
+- **Resolve VPC Routing Conflicts** — core VPC networking troubleshooting.
+- **Inter-Region Peering** — multi-region / DR networking patterns.
+- **Securing Hybrid Access** — hybrid connectivity plus security controls.
+- **Securing a Banking Data Lake** — data security and governance at scale.
+
+Doing these four = 400 pts; with course 01 (80) that's **480 / 700**. The 2-lab
+minimum is easily met; the 700-point total is the binding constraint, so plan a
+mix of labs and courses to close the gap.
+
+---
+
 ## References
 
 - AWS Certification Renewal (official): <https://aws.amazon.com/certification/recertification/>
