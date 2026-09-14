@@ -91,6 +91,48 @@ the key metadata from those folders.
 
 ---
 
+## Available Courses (Skill Builder)
+
+Digital courses offered on the recert path. Points/time as listed on Skill
+Builder. Folders under `courses/` are scaffolded only when a course is started.
+
+| Course                                                                   | Points | Time  |
+| ------------------------------------------------------------------------ | ------ | ----- |
+| AWS Security Engineer - Protecting and Encrypting Data *(course 01)*      | 80     | 1h    |
+| AWS Security Engineer - Edge Security                                    | 100    | 1h15m |
+| AWS Security Engineer - Centralized Account Management                    | 80     | 1h    |
+| AWS Security Engineer - Network Security and Secure Hybrid Connectivity   | 100    | 1h15m |
+| Well-Architected For Enterprises                                         | 80     | 1h    |
+| Automating Cloud Security Posture Management on AWS                       | 80     | 50m   |
+| Selecting your Data Migration Strategy with AWS                          | 40     | 30m   |
+| Deploying Serverless Applications                                        | 120    | 1h30m |
+| Security and Observability for Serverless Applications                   | 120    | 1h30m |
+| Advanced Architecting on AWS - Online Course Supplement                  | 160    | 2h    |
+| Building Your Agentic Applications the Well-Architected Way               | 160    | 2h    |
+| Security, Compliance, and Governance for AI Solutions                    | 80     | 1h    |
+| Automate Generative AI workflows using Amazon Bedrock Flows              | 40     | 30m   |
+
+### Recommended path to 700
+
+A mix weighted toward SA-Professional exam domains (architecture, networking,
+hybrid connectivity, security), satisfying the 2-lab minimum:
+
+| Item                                                                     | Type | Points |
+| ------------------------------------------------------------------------ | ---- | ------ |
+| AWS SimuLearn: Resolve VPC Routing Conflicts                             | Lab  | 100    |
+| AWS SimuLearn: Inter-Region Peering                                      | Lab  | 100    |
+| Advanced Architecting on AWS - Online Course Supplement                  | Course | 160  |
+| AWS Security Engineer - Network Security and Secure Hybrid Connectivity   | Course | 100  |
+| AWS Security Engineer - Edge Security                                    | Course | 100  |
+| AWS Security Engineer - Protecting and Encrypting Data *(course 01)*      | Course | 80   |
+| Well-Architected For Enterprises                                         | Course | 80   |
+| **Total**                                                                |      | **720** |
+
+720 ≥ 700 with the 2-lab minimum met (~9h of content). Swap items freely — the
+700-point total is the binding constraint, not the lab count.
+
+---
+
 ## Candidate Labs (AWS SimuLearn)
 
 Available practical activities on Skill Builder. Each is a **Practical** lab worth
