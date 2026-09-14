@@ -79,9 +79,9 @@ the key metadata from those folders.
 
 | #  | Name                                                                                                         | Type | Points | Status      | Date completed |
 | -- | ------------------------------------------------------------------------------------------------------------ | ---- | ------ | ----------- | -------------- |
-| 01 | [AWS Security Engineer: Protecting and Encrypting Data](./courses/01-security-engineer-protecting-and-encrypting-data/) | TBD  | TBD    | In progress | —              |
+| 01 | [AWS Security Engineer: Protecting and Encrypting Data](./courses/01-security-engineer-protecting-and-encrypting-data/) | Course | 80     | In progress | —              |
 
-**Running totals:** 0 / 700 points · 0 / 2 labs.
+**Running totals:** 0 / 700 points confirmed (80 pending on completion of course 01) · 0 / 2 labs.
 
 ### Adding a new course
 
