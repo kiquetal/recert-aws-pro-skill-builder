@@ -15,7 +15,7 @@
 | Points          | 80 (≈1h)                                                     |
 | Status          | In progress                                                  |
 | Date completed  | —                                                            |
-| Skill Builder   | <paste the course/lab URL>                                   |
+| Skill Builder   | https://skillbuilder.aws/learn/MJPE1TPS52/aws-security-engineer--protecting-and-encrypting-data/YVZ3YRWQEK                                   |
 
 > Reminder: Professional recert needs **700 points total** including **at least
 > 2 practical activities (labs)**. "Type = Lab" counts toward the 2-lab minimum.
