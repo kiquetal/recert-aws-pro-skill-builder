@@ -77,9 +77,9 @@ The `courses/` folder holds one subfolder per course/lab (each with its own
 `README.md` notes + `assets/` for diagrams and screenshots). This table mirrors
 the key metadata from those folders.
 
-| #  | Name                                                                                                         | Type | Points | Status      | Date completed |
-| -- | ------------------------------------------------------------------------------------------------------------ | ---- | ------ | ----------- | -------------- |
-| 01 | [AWS Security Engineer: Protecting and Encrypting Data](./courses/01-security-engineer-protecting-and-encrypting-data/) | Course | 80     | In progress | —              |
+| #  | Name                                                                                                         | Type | Points | Status      | Date started | Date completed |
+| -- | ------------------------------------------------------------------------------------------------------------ | ---- | ------ | ----------- | ------------ | -------------- |
+| 01 | [AWS Security Engineer: Protecting and Encrypting Data](./courses/01-security-engineer-protecting-and-encrypting-data/) | Course | 80     | In progress | 2026-09-14   | —              |
 
 **Running totals:** 0 / 700 points confirmed (80 pending on completion of course 01) · 0 / 2 labs.
 
