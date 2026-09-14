@@ -11,8 +11,8 @@
 | Field           | Value                                                        |
 | --------------- | ------------------------------------------------------------ |
 | Name            | AWS Security Engineer: Protecting and Encrypting Data        |
-| Type            | TBD (confirm on Skill Builder: Course or Lab)                |
-| Points          | TBD                                                          |
+| Type            | Course                                                       |
+| Points          | 80 (≈1h)                                                     |
 | Status          | In progress                                                  |
 | Date completed  | —                                                            |
 | Skill Builder   | <paste the course/lab URL>                                   |
