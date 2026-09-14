@@ -61,9 +61,45 @@
 
 ## Diagrams
 
+**Symmetric vs. asymmetric encryption**
+
 ```mermaid
 flowchart LR
-    Client -->|TLS| App
+    subgraph Symmetric["Symmetric (same key)"]
+        P1[Plaintext] -->|encrypt with Key K| C1[Ciphertext]
+        C1 -->|decrypt with Key K| P1b[Plaintext]
+    end
+    subgraph Asymmetric["Asymmetric (key pair)"]
+        P2[Plaintext] -->|encrypt with Public key| C2[Ciphertext]
+        C2 -->|decrypt with Private key| P2b[Plaintext]
+    end
+```
+
+**Hashing is one-way**
+
+```mermaid
+flowchart LR
+    M[Message] -->|hash algorithm| H[Fixed-length hash]
+    H -.->|cannot reverse| M
+```
+
+**Digital certificate proves identity (TLS handshake)**
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    Server->>Client: Certificate (server public key + CA signature)
+    Client->>Client: Validate cert against trusted CA
+    Client->>Server: Encrypt session secret with server public key
+    Server->>Server: Decrypt with private key -> secure channel
+```
+
+**Protecting data at rest & in transit on AWS**
+
+```mermaid
+flowchart LR
+    Client -->|TLS via ACM| App
     App -->|encrypt with CMK| KMS[AWS KMS]
     App --> S3[(S3 SSE-KMS)]
 ```
