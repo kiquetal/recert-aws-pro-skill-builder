@@ -48,9 +48,16 @@
 
 ## Services Covered
 
-- <e.g., AWS KMS> — <how it was used>
-- <e.g., Amazon S3 encryption / SSE-KMS> — <...>
-- <e.g., AWS Certificate Manager, Secrets Manager> — <...>
+- **AWS KMS** — Create and manage encryption keys (symmetric CMKs, asymmetric
+  key pairs); envelope encryption for data at rest.
+- **AWS Certificate Manager (ACM)** — Provision, manage, and deploy digital
+  certificates (public-key) for TLS/HTTPS on AWS resources.
+- **Amazon S3 encryption (SSE-KMS / SSE-S3)** — Encrypt objects at rest; enforce
+  encryption in transit via bucket policies (`aws:SecureTransport`).
+- **AWS Secrets Manager** — Store, rotate, and protect secrets used by
+  applications and services.
+- **Amazon Macie** — Discover, classify, mask/redact sensitive data (PII) at
+  scale for data protection and integrity.
 
 ## Diagrams
 
