@@ -177,3 +177,21 @@ There are four **key material origins**. The two things that separate them are
   does the crypto. Driver: control how the key is *created*.
 - `EXTERNAL_KEY_STORE` = the material stays **outside** AWS permanently, and your
   external system does the crypto. Driver: AWS must never hold the material.
+
+**Origin capabilities (who runs the crypto + key-type support):**
+
+| Origin               | Where crypto runs        | Material lives     | Key types supported                         |
+| -------------------- | ------------------------ | ------------------ | ------------------------------------------- |
+| `AWS_KMS` (default)  | AWS KMS                  | In KMS (AWS-gen)   | Symmetric, asymmetric, HMAC                  |
+| `EXTERNAL` (import)  | AWS KMS                  | In KMS (imported)  | Mostly symmetric; asymmetric/HMAC also importable; limited rotation |
+| `AWS_CLOUDHSM`       | Your CloudHSM cluster    | In your CloudHSM   | Symmetric (and some RSA); restricted specs  |
+| `EXTERNAL_KEY_STORE` | Your external key mgr    | Outside AWS        | **Symmetric only** (AES-256, ENCRYPT_DECRYPT) |
+
+Rules of thumb:
+
+- **KMS itself performs the crypto** only for `AWS_KMS` and `EXTERNAL`. For
+  `AWS_CLOUDHSM` and `EXTERNAL_KEY_STORE` the crypto happens *outside* KMS (in
+  your HSM cluster or your external key manager).
+- The **symmetric-only restriction is tightest for `EXTERNAL_KEY_STORE`** (XKS):
+  AES-256, encrypt/decrypt usage only — no asymmetric, no HMAC, no signing.
+  Custom key stores (CloudHSM) are similarly limited.
