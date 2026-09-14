@@ -11,7 +11,7 @@
     "shell": {
       "autoAllowReadonly": true,
       "allowedCommands": ["mkdir -p .*", "cp -r courses/_TEMPLATE .*", "cp courses/_TEMPLATE/.* .*", "ls .*", "cat .*", "tree .*", "find courses.*"],
-      "deniedCommands": ["rm -rf .*", "git push.*", "git reset --hard.*", "sudo .*"]
+      "deniedCommands": ["rm -rf .*", "git reset --hard.*", "sudo .*"]
     }
   },
   "resources": [
