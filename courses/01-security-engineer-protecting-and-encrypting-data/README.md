@@ -106,7 +106,8 @@ flowchart LR
 
 ## Screenshots
 
-Store images in `./assets/` and embed them here:
+_No screenshots yet._ Store images in this folder's `./assets/` directory and
+embed them here using:
 
 ```md
 ![Description](./assets/example-screenshot.png)
