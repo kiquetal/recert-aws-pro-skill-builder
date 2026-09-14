@@ -96,21 +96,24 @@ the key metadata from those folders.
 Digital courses offered on the recert path. Points/time as listed on Skill
 Builder. Folders under `courses/` are scaffolded only when a course is started.
 
-| Course                                                                   | Points | Time  |
-| ------------------------------------------------------------------------ | ------ | ----- |
-| AWS Security Engineer - Protecting and Encrypting Data *(course 01)*      | 80     | 1h    |
-| AWS Security Engineer - Edge Security                                    | 100    | 1h15m |
-| AWS Security Engineer - Centralized Account Management                    | 80     | 1h    |
-| AWS Security Engineer - Network Security and Secure Hybrid Connectivity   | 100    | 1h15m |
-| Well-Architected For Enterprises                                         | 80     | 1h    |
-| Automating Cloud Security Posture Management on AWS                       | 80     | 50m   |
-| Selecting your Data Migration Strategy with AWS                          | 40     | 30m   |
-| Deploying Serverless Applications                                        | 120    | 1h30m |
-| Security and Observability for Serverless Applications                   | 120    | 1h30m |
-| Advanced Architecting on AWS - Online Course Supplement                  | 160    | 2h    |
-| Building Your Agentic Applications the Well-Architected Way               | 160    | 2h    |
-| Security, Compliance, and Governance for AI Solutions                    | 80     | 1h    |
-| Automate Generative AI workflows using Amazon Bedrock Flows              | 40     | 30m   |
+| Course                                                                   | Points | Time  | Recommendation      |
+| ------------------------------------------------------------------------ | ------ | ----- | ------------------- |
+| AWS Security Engineer - Protecting and Encrypting Data *(course 01)*      | 80     | 1h    | ⭐ Start (finish it) |
+| AWS Security Engineer - Edge Security                                    | 100    | 1h15m | ⭐ Start            |
+| AWS Security Engineer - Centralized Account Management                    | 80     | 1h    | Next               |
+| AWS Security Engineer - Network Security and Secure Hybrid Connectivity   | 100    | 1h15m | ⭐ Start            |
+| Well-Architected For Enterprises                                         | 80     | 1h    | ⭐ Start            |
+| Automating Cloud Security Posture Management on AWS                       | 80     | 50m   | Next               |
+| Selecting your Data Migration Strategy with AWS                          | 40     | 30m   | Next               |
+| Deploying Serverless Applications                                        | 120    | 1h30m | Optional           |
+| Security and Observability for Serverless Applications                   | 120    | 1h30m | Optional           |
+| Advanced Architecting on AWS - Online Course Supplement                  | 160    | 2h    | ⭐ Start (top pick) |
+| Building Your Agentic Applications the Well-Architected Way               | 160    | 2h    | Optional           |
+| Security, Compliance, and Governance for AI Solutions                    | 80     | 1h    | Optional           |
+| Automate Generative AI workflows using Amazon Bedrock Flows              | 40     | 30m   | Optional           |
+
+**Legend:** ⭐ Start = highest SA-Professional learning value, begin here ·
+Next = solid secondary picks · Optional = valuable but less central to SAP-C02.
 
 ### Recommended path to 700
 
