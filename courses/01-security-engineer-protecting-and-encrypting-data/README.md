@@ -114,4 +114,20 @@ Store images in `./assets/` and embed them here:
 
 ## Notes / Scratchpad
 
-- <Gotchas, follow-up reading, questions.>
+- **Symmetric vs Asymmetric**
+
+  Symmetric encryption uses the same key to encrypt and to decrypt. Asymmetric
+  encryption uses one key to encrypt and another to decrypt.
+
+- **Hash**
+
+  Hashing is another application of cryptography in which an algorithm is applied
+  to a message to generate a randomized string of bits — this time a hash.
+  However, unlike encryption, hashing is a one-way operation: the hash material
+  cannot be converted back to plaintext.
+
+- **Digital certificate**
+
+  A digital certificate is an electronic credential that proves the authenticity
+  of a user, device, server, or website. This form of authentication uses
+  public-key encryption to validate identities communicating over networks.
