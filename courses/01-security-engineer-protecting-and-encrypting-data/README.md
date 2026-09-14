@@ -147,15 +147,33 @@ _No screenshots yet._ When you capture one, save it under this folder's
 AWS distinguishes between the key, the object you control with KMS, and the key
 material, the actual bytes used to encrypt and decrypt values.
 
-- Origin: external
+There are four **key material origins**. The two things that separate them are
+*where the key material lives* and *who performs the crypto operations*:
 
-We use an external key store for the key material (you are responsible for almost
-everything).
+- **`AWS_KMS` (default)** — AWS KMS generates and stores the key material, and
+  AWS performs the crypto. Simplest option; least for you to manage.
 
-- Origin: using CloudHSM key store for the material
+- **`EXTERNAL` (import your own material)** — You generate the key material
+  outside AWS, then **import the bytes into KMS**. After import it lives *inside*
+  KMS and **AWS performs the crypto**. You keep the original copy yourself (KMS
+  does not back up imported material), so you can delete it from KMS as a kill
+  switch. Use when you must control key *generation*/provenance but are fine with
+  AWS holding and using the material afterward.
 
-You use CloudHSM provided by AWS, but under your control.
+- **`AWS_CLOUDHSM` (CloudHSM key store)** — Key material lives in a CloudHSM
+  cluster that AWS provides but **you control**. Crypto runs in your HSM cluster.
 
-- Origin: import the key material generated elsewhere into AWS KMS
+- **`EXTERNAL_KEY_STORE` / XKS (external key store)** — Key material **never
+  enters AWS at all**. It stays in an external key manager you run, and **every
+  crypto operation is proxied out to that external system** (KMS forwards
+  requests through an XKS proxy). Use when regulation/data-sovereignty requires
+  AWS to *never* possess the key material. Trade-off: added latency and an
+  availability dependency — if your external store/proxy is down, KMS operations
+  fail.
 
-- Origin: AWS KMS creates the key material
+**EXTERNAL vs EXTERNAL_KEY_STORE (the confusing pair):**
+
+- `EXTERNAL` = you *import* the material → it ends up **inside** AWS KMS, and AWS
+  does the crypto. Driver: control how the key is *created*.
+- `EXTERNAL_KEY_STORE` = the material stays **outside** AWS permanently, and your
+  external system does the crypto. Driver: AWS must never hold the material.
