@@ -34,7 +34,17 @@
 
 ## Key Takeaways
 
-- <Bullet the most important concepts you learned.>
+- **Symmetric vs. asymmetric encryption** — Symmetric encryption uses the *same*
+  key to encrypt and decrypt. Asymmetric encryption uses a *key pair*: one key
+  encrypts and a different (mathematically related) key decrypts.
+- **Hashing is one-way** — Hashing applies an algorithm to a message to produce
+  a fixed, randomized string of bits (a hash). Unlike encryption, it is a
+  one-way operation: the hash cannot be reversed back to the original plaintext.
+  Useful for integrity checks, not confidentiality.
+- **Digital certificates prove identity** — A digital certificate is an
+  electronic credential that proves the authenticity of a user, device, server,
+  or website. It relies on public-key cryptography to validate identities of
+  parties communicating over a network.
 
 ## Services Covered
 
