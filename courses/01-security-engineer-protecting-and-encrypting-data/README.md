@@ -262,13 +262,18 @@ You can replicate a KMS key from one region to another. This creates a
 
 - **EBS:** you *cannot* change encryption on an existing volume — you can't turn
   encryption on for an unencrypted volume, nor swap to a different KMS key in
-  place. Workaround: **snapshot the volume, then create a new volume from that
-  snapshot** with the desired encryption (enable encryption, or copy the
-  snapshot specifying a new KMS key, then restore). The encryption change lands
-  on the *new* volume, not the original.
-- **FSx:** similarly, at-rest encryption and its KMS key are chosen at file-system
-  creation and are **not** changeable in place. To change them you go through a
-  **backup → restore** flow (create a new file system with the new key).
-  _(Per-flavor specifics vary — confirm against AWS docs for your FSx type;
-  ONTAP also has NetApp-level mechanisms.)_
+  place (per AWS docs: "You cannot change the KMS key that is associated with an
+  existing snapshot or volume"). Workarounds:
+  - *Encrypt an unencrypted volume:* snapshot it, then create a **new encrypted
+    volume from that snapshot**.
+  - *Re-key (change to a different KMS key):* perform a **snapshot copy** and
+    associate the new KMS key during the copy; the resulting snapshot is
+    encrypted with the new key. Encryption can never be *removed* once set.
+- **FSx:** at-rest encryption is enabled automatically at creation, and for
+  persistent file systems you **choose the KMS key at create time**. There is no
+  in-place "change to a different KMS key" for an existing file system — to
+  change it you go through a **backup → restore** flow onto a new file system.
+  Notes: FSx accepts **symmetric KMS keys only**; with a customer-managed key you
+  can enable **annual key rotation** (rotates that key's material, which is *not*
+  the same as switching to a different key).
 
