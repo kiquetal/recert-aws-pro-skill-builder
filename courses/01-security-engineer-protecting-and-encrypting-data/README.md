@@ -246,5 +246,15 @@ You can replicate a KMS key from one region to another. This creates a
 
 - **Amazon FSx**
 
-  Supports encryption for data both in transit and at rest.
+  Managed file-system family; **all four flavors support encryption at rest
+  (KMS-backed) and in transit**:
+
+  - **FSx for Windows File Server** — Windows/NTFS shares over **SMB**, with
+    Active Directory integration. (SMB is the *protocol*, not an FSx type.)
+  - **FSx for Lustre** — high-performance parallel file system (POSIX) for
+    HPC/ML; integrates with **S3** (present bucket objects as files). The "fast"
+    one.
+  - **FSx for NetApp ONTAP** — enterprise storage; multi-protocol **NFS, SMB,
+    iSCSI**; snapshots, dedup/compression, SnapMirror replication.
+  - **FSx for OpenZFS** — ZFS file systems over **NFS**; snapshots and cloning.
 
