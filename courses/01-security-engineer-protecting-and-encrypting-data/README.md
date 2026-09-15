@@ -269,6 +269,35 @@ You can replicate a KMS key from one region to another. This creates a
   - *Re-key (change to a different KMS key):* perform a **snapshot copy** and
     associate the new KMS key during the copy; the resulting snapshot is
     encrypted with the new key. Encryption can never be *removed* once set.
+
+  ```text
+  Encrypt an UNENCRYPTED volume:
+
+    [Unencrypted volume]
+           |
+           |  create snapshot
+           v
+    [Unencrypted snapshot]
+           |
+           |  create volume  (enable encryption, pick KMS key)
+           v
+    [NEW encrypted volume]   <-- encryption applied here, not in place
+
+
+  Re-key an ENCRYPTED volume/snapshot (change to a DIFFERENT KMS key):
+
+    [Snapshot encrypted with KMS key A]
+           |
+           |  CopySnapshot  --KmsKeyId = key B   (Encrypted=true)
+           v
+    [NEW snapshot encrypted with KMS key B]
+           |
+           |  create volume from copy
+           v
+    [Volume encrypted with key B]
+
+    Note: the original stays on key A; the key change lands on the COPY.
+  ```
 - **FSx:** at-rest encryption is enabled automatically at creation, and for
   persistent file systems you **choose the KMS key at create time**. There is no
   in-place "change to a different KMS key" for an existing file system — to
