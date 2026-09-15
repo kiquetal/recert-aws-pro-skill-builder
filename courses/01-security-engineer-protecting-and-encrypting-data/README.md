@@ -258,3 +258,17 @@ You can replicate a KMS key from one region to another. This creates a
     iSCSI**; snapshots, dedup/compression, SnapMirror replication.
   - **FSx for OpenZFS** — ZFS file systems over **NFS**; snapshots and cloning.
 
+**Gotcha — encryption state / KMS key is set at creation:**
+
+- **EBS:** you *cannot* change encryption on an existing volume — you can't turn
+  encryption on for an unencrypted volume, nor swap to a different KMS key in
+  place. Workaround: **snapshot the volume, then create a new volume from that
+  snapshot** with the desired encryption (enable encryption, or copy the
+  snapshot specifying a new KMS key, then restore). The encryption change lands
+  on the *new* volume, not the original.
+- **FSx:** similarly, at-rest encryption and its KMS key are chosen at file-system
+  creation and are **not** changeable in place. To change them you go through a
+  **backup → restore** flow (create a new file system with the new key).
+  _(Per-flavor specifics vary — confirm against AWS docs for your FSx type;
+  ONTAP also has NetApp-level mechanisms.)_
+
