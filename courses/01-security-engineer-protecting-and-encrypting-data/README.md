@@ -116,6 +116,20 @@ flowchart TD
     KM -->|EXTERNAL_KEY_STORE| M4["Key material in an external<br/>key store you fully manage"]
 ```
 
+**Multi-Region Key (MRK) replication**
+
+```mermaid
+flowchart LR
+    subgraph R1["Region A (us-east-1)"]
+        P["Primary key<br/>mrk-1234..."]
+    end
+    subgraph R2["Region B (eu-west-1)"]
+        Rep["Replica key<br/>mrk-1234... (same ID & material)"]
+    end
+    P -->|replicate| Rep
+    C["Ciphertext encrypted in Region A"] -.->|decryptable in| Rep
+```
+
 ## Screenshots
 
 _No screenshots yet._ When you capture one, save it under this folder's
