@@ -194,4 +194,17 @@ Rules of thumb:
   your HSM cluster or your external key manager).
 - The **symmetric-only restriction is tightest for `EXTERNAL_KEY_STORE`** (XKS):
   AES-256, encrypt/decrypt usage only — no asymmetric, no HMAC, no signing.
-  Custom key stores (CloudHSM) are similarly limited.
+  Custom key stores (CloudHSM) are similarly limited
+
+
+### Multi-Region Keys (MRK) — replicate a key across regions
+
+You can replicate a KMS key from one region to another. This creates a
+**multi-region key**, whose key ID uses the **`mrk-` prefix**.
+
+- A primary key in one region can be replicated to a **replica key** in another
+  region. They share the same key ID and key material, so ciphertext encrypted
+  in one region can be decrypted in another without re-encrypting.
+- Required for certain cross-region features — for example **DynamoDB global
+  tables** with customer-managed encryption need an MRK so all regional replicas
+  can decrypt the data.
