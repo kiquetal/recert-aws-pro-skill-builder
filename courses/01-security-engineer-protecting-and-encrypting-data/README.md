@@ -338,3 +338,26 @@ You can help safeguard sensitive data ingested by **CloudWatch Logs** using
   existed may not be masked.
 - Only users/roles with the **`logs:Unmask`** IAM permission can view the
   unmasked data.
+
+**Types of data CloudWatch Logs can detect** (managed data identifiers). When a
+match is found, a CloudWatch **metric is emitted**:
+
+- **Credentials** — e.g., private keys, AWS secret access keys.
+- **Financial information** — e.g., credit card numbers.
+- **PII (Personally Identifiable Information)** — e.g., driver's licenses,
+  social security numbers.
+- **PHI (Protected Health Information)** — e.g., health insurance / medical
+  identification numbers.
+- **Device identifiers** — e.g., IP addresses, MAC addresses.
+- **Custom data identifiers** — define your own patterns for your use case.
+
+**Amazon SNS — Message Data Protection**
+
+A feature that lets you define rules/policies to **audit and control the message
+content** flowing through SNS topics — governance, compliance, and auditing for
+sensitive data. It can **audit**, **de-identify (mask/redact)**, and
+**block/deny** messages containing sensitive data (using managed data
+identifiers similar to CloudWatch Logs).
+
+> Note: per AWS docs, **SNS message data protection is no longer available to new
+> customers** — keep this in mind for real-world use vs. exam trivia.
