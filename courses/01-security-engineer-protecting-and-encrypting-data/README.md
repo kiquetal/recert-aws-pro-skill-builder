@@ -222,3 +222,29 @@ You can replicate a KMS key from one region to another. This creates a
 - Required for certain cross-region features — for example **DynamoDB global
   tables** with customer-managed encryption need an MRK so all regional replicas
   can decrypt the data.
+
+
+#### Specific service encryption
+
+- **Amazon S3**
+
+  By default, all objects in Amazon S3 are encrypted with S3-managed keys
+  (SSE-S3, AES-256) before they are stored on disk. You can instead choose
+  SSE-KMS (a KMS key) or SSE-C (customer-provided keys).
+
+  **S3 Bucket Key (cost optimization for SSE-KMS):** S3 can generate a
+  short-lived bucket-level key that is used to encrypt objects, so S3 does not
+  have to call KMS for every object operation. This reduces KMS request volume
+  (and cost) for buckets with many SSE-KMS objects.
+
+- **Amazon EBS**
+
+  EBS encryption uses a KMS key. By default (when encryption is enabled) it uses
+  the AWS managed key `aws/ebs`, but you can specify a different customer-managed
+  key. Note: volumes are only encrypted if you enable encryption (per-volume or
+  via account-level "encryption by default").
+
+- **Amazon FSx**
+
+  Supports encryption for data both in transit and at rest.
+
