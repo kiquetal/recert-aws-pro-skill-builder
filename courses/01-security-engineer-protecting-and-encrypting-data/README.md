@@ -361,3 +361,68 @@ identifiers similar to CloudWatch Logs).
 
 > Note: per AWS docs, **SNS message data protection is no longer available to new
 > customers** — keep this in mind for real-world use vs. exam trivia.
+
+Detecting custom sensitive data
+
+Amazon macie is a service that enables you to automate discovery, logging and reporting of sensitive data in your S3.
+Allows you to detect common managed identifiers, or define custom identifiers using regular expresions.
+
+Another service that can do this task is AWS glue, and with some lines the amazon comprehend also can be used to this matter.
+
+
+#### Retention and Lifecycle management
+
+**Amazon EFS — storage lifecycle management**
+
+EFS can automatically move files between storage classes to save cost, based on
+**when a file was last accessed** (accessing a file resets its lifecycle timer).
+Policies apply to the **entire file system** and comprise three lifecycle
+policies:
+
+- **Transition into IA** — move files into **Infrequent Access (IA)** after N
+  days without access.
+- **Transition into Archive** — move colder files into the **Archive** storage
+  class.
+- **Transition out of IA/Archive** — optionally move files back to **Standard**
+  on first access.
+
+**Amazon S3 — Object Lock (WORM retention)**
+
+S3 Object Lock stores objects using a **write-once-read-many (WORM)** model to
+prevent objects from being **deleted or overwritten** for a fixed time or
+indefinitely. Useful for regulatory/compliance requirements. It offers two
+mechanisms (an object version can have either or both):
+
+- **Retention period** — protect the object version until a *retain-until-date*.
+- **Legal hold** — protects the object version until you **explicitly remove**
+  it (no expiry date).
+
+Two **retention modes**:
+
+- **Governance mode** — users can't overwrite/delete or change lock settings
+  **unless** they have special permission (`s3:BypassGovernanceRetention`).
+  Good for internal controls you may need to override.
+- **Compliance mode** — a protected version **can't be overwritten or deleted by
+  anyone, including the AWS account root user**, until the retention period
+  expires. The retention period can't be shortened and the mode can't be
+  changed. Strictest — for true regulatory WORM.
+
+> Object Lock requires **versioning** on the bucket. Retention/legal hold protect
+> the *specific object version*, and don't stop new versions being created.
+
+**Amazon S3 — Lifecycle rules**
+
+S3 Lifecycle rules automate moving/removing objects to manage cost. Two action
+types:
+
+- **Transition actions** — move objects to a lower-cost storage class after N
+  days (e.g., → S3 Standard-IA after 30 days, → S3 Glacier Flexible Retrieval
+  after 1 year).
+- **Expiration actions** — S3 **deletes** expired objects on your behalf after N
+  days (can also clean up incomplete multipart uploads and old noncurrent
+  versions).
+
+> Note: an S3 Object Lock retention/legal hold **overrides** lifecycle deletion —
+> a lifecycle rule can't expire an object that is still locked.
+
+
