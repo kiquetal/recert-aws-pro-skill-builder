@@ -306,3 +306,35 @@ You can replicate a KMS key from one region to another. This creates a
   can enable **annual key rotation** (rotates that key's material, which is *not*
   the same as switching to a different key).
 
+
+#### Data Integrity
+
+For **Amazon S3**, several options help ensure data stays correct:
+
+- Redundancy and durability
+- Access control
+- Versioning
+- Object locking
+- Encryption
+
+For **Amazon EBS**: at no additional charge, EBS volume data is replicated across
+multiple servers within an Availability Zone to prevent data loss from the
+failure of any single component.
+
+For **Amazon FSx**: automatically replicates your data within or across
+Availability Zones. It also integrates with **AWS Backup** for centralized backup
+management and an additional level of compliance.
+
+#### Masking and redacting data
+
+**Personally Identifiable Information (PII)** is any data that could be used to
+identify an individual — for example, addresses, bank account numbers, and phone
+numbers.
+
+You can help safeguard sensitive data ingested by **CloudWatch Logs** using
+**log group data protection policies**:
+
+- Data is masked **at ingestion**, so log events ingested *before* the policy
+  existed may not be masked.
+- Only users/roles with the **`logs:Unmask`** IAM permission can view the
+  unmasked data.
