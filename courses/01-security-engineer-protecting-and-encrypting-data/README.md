@@ -425,4 +425,18 @@ types:
 > Note: an S3 Object Lock retention/legal hold **overrides** lifecycle deletion —
 > a lifecycle rule can't expire an object that is still locked.
 
+**Amazon FSx — backup policies (retention)**
+
+FSx supports backups you can use to meet retention/compliance needs:
+
+- **Automatic daily backups** — enabled by default, taken during a configurable
+  daily backup window, kept for a **retention period** (default 30 days in the
+  console).
+- **User-initiated backups** — take an on-demand backup at any time.
+- Backups are **file-system-consistent, incremental, highly durable**, and
+  stored in **Amazon S3**.
+- **AWS Backup** integration — centralize backups across AWS services with backup
+  plans that support different **frequencies and retention periods** (an extra
+  level of compliance/governance).
+
 
