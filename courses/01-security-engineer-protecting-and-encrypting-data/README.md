@@ -13,8 +13,8 @@
 | Name            | AWS Security Engineer: Protecting and Encrypting Data        |
 | Type            | Course                                                       |
 | Points          | 80 (≈1h)                                                     |
-| Status          | In progress                                                  |
-| Date completed  | —                                                            |
+| Status          | Done                                                         |
+| Date completed  | 2026-09-18                                                   |
 | Skill Builder   | https://skillbuilder.aws/learn/MJPE1TPS52/aws-security-engineer--protecting-and-encrypting-data/YVZ3YRWQEK                                   |
 
 > Reminder: Professional recert needs **700 points total** including **at least
@@ -23,8 +23,8 @@
 ## Course Outline
 
 - **Introduction** — How to Use This Course · Course Overview
-- **Keys, Certificates and Encryption** — Preliminary concepts · **Managing Keys
-  and Certificates on AWS** ← current · Deployment Considerations
+- **Keys, Certificates and Encryption** — Preliminary concepts · Managing Keys
+  and Certificates on AWS · Deployment Considerations
 - **Protecting data at rest** — Data encryption at rest · Data Integrity ·
   Masking and redacting data · Retention and Lifecycle management · Data
   replication and backups
