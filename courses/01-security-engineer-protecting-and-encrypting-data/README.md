@@ -439,4 +439,55 @@ FSx supports backups you can use to meet retention/compliance needs:
   plans that support different **frequencies and retention periods** (an extra
   level of compliance/governance).
 
+### Protecting data in transit — connectivity & access options
+
+Options for encrypting/securing traffic to and between resources:
+
+- **AWS PrivateLink** — private connectivity between VPCs and AWS/partner/your
+  own services using **interface VPC endpoints**, so traffic stays on the **AWS
+  private network** and never traverses the public internet. Reduces exposure;
+  pairs with TLS on the service endpoint for encryption.
+
+- **AWS Client VPN** — managed, client-based **remote-access VPN**. Users connect
+  from their devices over an **encrypted TLS tunnel (OpenVPN-based)** to reach
+  resources in AWS (and on-prem). For individual users/remote workforce.
+
+- **AWS Verified Access** — provides secure access to applications **without a
+  VPN**, using a **zero-trust** model: it evaluates **each request in real time**
+  against identity and device/security signals before granting access. Makes
+  lateral movement between apps hard (unlike VPNs that grant broad network
+  access once connected).
+
+- **Site-to-Site VPN** — **encrypted IPsec tunnels** between your on-premises
+  network (customer gateway) and AWS (virtual private gateway / transit gateway).
+  For connecting whole networks (data center ↔ VPC) over the internet.
+
+- **AWS Direct Connect** — a **dedicated private network link** from on-prem to
+  AWS (not over the internet). Note: Direct Connect by itself is **not encrypted**
+  — layer a **VPN over it (or MACsec** on supported connections) if you need
+  encryption in transit.
+
+- **AWS Nitro System** — on supported EC2 instance types, the Nitro hardware
+  **automatically encrypts in-transit traffic between instances** (offloaded to
+  Nitro), and provides strong isolation. No config on the app side; depends on
+  instance type/placement.
+
+Quick framing:
+
+- **Individual users →** Client VPN or **Verified Access** (zero-trust, no VPN).
+- **Whole networks (hybrid) →** Site-to-Site VPN (encrypted over internet) or
+  **Direct Connect** (dedicated; add VPN/MACsec for encryption).
+- **Private service access (no public internet) →** PrivateLink.
+- **Between EC2 instances →** Nitro auto-encryption on supported types.
+
+### Data Replication and backups
+
+The services provided by aws are:
+- amazon data lifecycle manager: automates the creation,retention, and deletion of EBS snapshot and ebs-backed images
+
+- aws data sync: an online data movement service that simplified and accelerate data migrations to AWS as well as moving
+data to and from on-premises storage, edge locations, other cloud provders
+
+- aws backup: fuly managed service that centralize and automates data protecttiona cross AWS services and hybrid workloads
+
 
