@@ -18,7 +18,7 @@
 | Points          | 100 (≈1h15m)                                                 |
 | Status          | In progress                                                  |
 | Date completed  | —                                                            |
-| Skill Builder   | <paste the course/lab URL>                                   |
+| Skill Builder   | https://skillbuilder.aws/learn/Q8QC4V4BMF/aws-security-engineer-edge-security/M3ZVNJGPX7 |
 
 > Reminder: Professional recert needs **700 points total** including **at least
 > 2 practical activities (labs)**. "Type = Lab" counts toward the 2-lab minimum.
