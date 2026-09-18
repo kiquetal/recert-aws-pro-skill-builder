@@ -80,8 +80,9 @@ the key metadata from those folders.
 | #  | Name                                                                                                         | Type | Points | Status      | Date started | Date completed |
 | -- | ------------------------------------------------------------------------------------------------------------ | ---- | ------ | ----------- | ------------ | -------------- |
 | 01 | [AWS Security Engineer: Protecting and Encrypting Data](./courses/01-security-engineer-protecting-and-encrypting-data/) | Course | 80     | Done        | 2026-09-14   | 2026-09-18     |
+| 02 | [AWS Security Engineer: Edge Security](./courses/02-security-engineer-edge-security/) | Course | 100    | In progress | 2026-09-18   | —              |
 
-**Running totals:** 80 / 700 points confirmed · 0 / 2 labs.
+**Running totals:** 80 / 700 points confirmed (100 pending on completion of course 02) · 0 / 2 labs.
 
 ### Adding a new course
 
