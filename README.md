@@ -11,11 +11,11 @@ by 1 year, instead of retaking the full exam.
 
 | Metric                          | Value                          |
 | ------------------------------- | ------------------------------ |
-| Points earned                   | **0 / 700**                    |
+| Points earned                   | **80 / 700**                   |
 | Practical activities (labs)     | **0 / 2** minimum              |
-| Overall completion              | **0%**                         |
+| Overall completion              | **11%**                        |
 | Certification expiry            | **2026-12-13**                 |
-| Days remaining                  | **~90** (as of 2026-09-14)     |
+| Days remaining                  | **~86** (as of 2026-09-18)     |
 | Path                            | Maintain via Skill Builder (+1 year) |
 
 > **How to update:** Edit the course's own `README.md` under `courses/` first
@@ -79,9 +79,9 @@ the key metadata from those folders.
 
 | #  | Name                                                                                                         | Type | Points | Status      | Date started | Date completed |
 | -- | ------------------------------------------------------------------------------------------------------------ | ---- | ------ | ----------- | ------------ | -------------- |
-| 01 | [AWS Security Engineer: Protecting and Encrypting Data](./courses/01-security-engineer-protecting-and-encrypting-data/) | Course | 80     | In progress | 2026-09-14   | —              |
+| 01 | [AWS Security Engineer: Protecting and Encrypting Data](./courses/01-security-engineer-protecting-and-encrypting-data/) | Course | 80     | Done        | 2026-09-14   | 2026-09-18     |
 
-**Running totals:** 0 / 700 points confirmed (80 pending on completion of course 01) · 0 / 2 labs.
+**Running totals:** 80 / 700 points confirmed · 0 / 2 labs.
 
 ### Adding a new course
 
