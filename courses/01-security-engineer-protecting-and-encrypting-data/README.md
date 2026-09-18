@@ -458,6 +458,11 @@ Options for encrypting/securing traffic to and between resources:
   lateral movement between apps hard (unlike VPNs that grant broad network
   access once connected).
 
+  > Naming gotcha: "AWS Verified Access" and "Amazon Verified Access" are the
+  > **same** service. Don't confuse it with **AWS Verified *Permissions***, a
+  > *different* service for fine-grained app authorization (Cedar policy
+  > language) — that one is about permissions, not network access.
+
 - **Site-to-Site VPN** — **encrypted IPsec tunnels** between your on-premises
   network (customer gateway) and AWS (virtual private gateway / transit gateway).
   For connecting whole networks (data center ↔ VPC) over the internet.
