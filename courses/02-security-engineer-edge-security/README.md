@@ -414,28 +414,37 @@ using object-key **prefixes** that reflect:
 
 ### Implementing third-party WAF rule integration
 
-Initializes the AWS WAF v2 client
-Creates the rule group named "ThirdPartyRules" in a regional scope
-Allocates 100 capacity units to the rule group
-Adds a placeholder for a third-party rule
-Enables visibility features including request sampling and CloudWatch metrics
+Example setup (AWS WAF v2 rule group):
 
-For the integration of WAF with third-party THE AWS support the following
+- Initialize the AWS WAF v2 client.
+- Create a rule group named `ThirdPartyRules` in a **regional** scope.
+- Allocate **100 capacity units (WCU)** to the rule group.
+- Add a placeholder for a third-party rule.
+- Enable **visibility** features — **request sampling** and **CloudWatch
+  metrics**.
 
-- AWS Marketplace integrations
-- Partner API connections
-- Custom rule imports
+**Ways to integrate third-party WAF content:**
 
-Third paprty rule security
-iam-role design for third-party integration
-rule group isolation architecture
-design war rule group architecture that isolates third-party rules from internal rules
-create separate rule groups for each third-party provide to enable granular control and quick isolation if a provider deliers problematic rules
-configure rule group priorities to ensure your internal security rules take precedence over third-party content
+- **AWS Marketplace** integrations (managed rule groups).
+- **Partner API** connections.
+- **Custom rule imports**.
 
-netwrok security for rule updates
-implement vpc endpoints for s3 to keep traffice within your AWS network
-configure security groups that restrict third-party rule processing infraestrcuture access t only required services and port.
+**Third-party rule security:**
+
+- **IAM role design** for the third-party integration (least privilege).
+- **Rule group isolation architecture** — keep third-party rules separate from
+  internal rules.
+- Create a **separate rule group per third-party provider** for granular control
+  and **quick isolation** if a provider ships problematic rules.
+- Configure **rule group priorities** so your **internal security rules take
+  precedence** over third-party content.
+
+**Network security for rule updates:**
+
+- Use **VPC endpoints for S3** to keep rule-update traffic **within the AWS
+  network**.
+- Configure **security groups** that restrict the third-party rule-processing
+  infrastructure to only the **required services and ports**.
 
 ### Amazon cloudfront integration with third-party rules
 
