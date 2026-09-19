@@ -92,4 +92,34 @@ network controls act as internal checkpoints between resources.
 
 ## Notes / Scratchpad
 
-- <Anything else: gotchas, follow-up reading, questions.>
+The AWS edge security landscape:
+
+- **AWS Shield Standard**
+
+  Provides free, automatic protection against common **network and transport
+  layer (L3/L4)** DDoS attacks. It defends AWS services like CloudFront, Route 53,
+  and Global Accelerator with **always-on detection and inline mitigation**.
+  Enabled automatically at no extra charge.
+
+- **AWS Shield Advanced**
+
+  Premium (subscription) service offering enhanced DDoS protection against
+  sophisticated **application layer (L7)** attacks. Includes real-time visibility
+  into attack vectors, 24/7 access to the **DDoS Response Team (DRT/SRT)**, **cost
+  protection** during attacks (absorbing scaling charges from a DDoS), and **AWS
+  WAF integration** for high-value applications.
+
+- **AWS WAF**
+
+  Monitors and filters **HTTP/HTTPS** traffic before it reaches your
+  applications, protecting them from common web exploits and malicious bots that
+  could affect availability, compromise security, or consume excessive resources.
+  Provides customizable security rules to inspect web requests and block attack
+  patterns including **SQL injection, cross-site scripting (XSS)**, and other
+  **OWASP Top 10** vulnerabilities.
+
+- **Amazon CloudFront**
+
+  A global **content delivery network (CDN)** that securely delivers content with
+  low latency, while providing robust security features including **HTTPS**,
+  **field-level encryption**, and **geographic (geo) access controls**.
