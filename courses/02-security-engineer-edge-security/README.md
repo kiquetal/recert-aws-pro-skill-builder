@@ -521,6 +521,34 @@ Example setup (AWS WAF v2 rule group):
 - Configure **security groups** that restrict the third-party rule-processing
   infrastructure to only the **required services and ports**.
 
+**Rule prioritization & conflict resolution:**
+
+- **Priority assignment** — assign priorities by **security impact** and
+  **specificity**. High-impact rules (block malicious traffic) rank above
+  rate-limiting rules; **more specific rules** rank above broad pattern matches
+  to reduce false positives. **Document** the priority logic so the team
+  understands rule interactions when adding new rules.
+- **Conflict detection** — use automated **rule-analysis tools** to find
+  overlapping conditions; run regular analysis to prevent interactions that could
+  **bypass controls** or cause **excessive false positives**.
+- **Resolution techniques** — **consolidate** similar rules into one; **refine
+  conditions** to remove overlaps; or **temporarily disable** conflicting rules
+  while building a permanent fix.
+
+**Integration with CloudFront edge locations:**
+
+- Deploy third-party WAF rules across **CloudFront edge locations** for global
+  protection with minimal latency.
+- Use **CloudFront behaviors** to apply rule sets **selectively** by request
+  characteristics (e.g., different rules for API endpoints vs. static content).
+- **Monitor rule performance per edge location** to spot regional threat
+  variations; some regions may need extra customization for local attack patterns
+  or compliance.
+
+**Configuring a third-party WAF rule (example intent):** a rule set that **blocks
+SQL injection** using a third-party vendor's **managed rule group**, with
+**CloudWatch metrics** and **request sampling** enabled for monitoring/analysis.
+
 ### Amazon CloudFront integration with third-party rules
 
 **Rule isolation and control**
