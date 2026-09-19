@@ -518,6 +518,45 @@ end
 
 ![Attach AWS WAF (WebACL) to a CloudFront distribution — CreateWebACL (CLOUDFRONT scope, us-east-1) → add rule groups/rules → set priorities → UpdateDistribution → deploy to edge → per-request evaluation (allow to origin, or block 403/CAPTCHA/challenge).](./assets/waf-cloudfront.png)
 
+**Where the rules live (containment model):** the CloudFront distribution holds
+no rules itself — it references **one WebACL** by ARN, and the WebACL is the
+container that holds the rules (inline rules, your own rule groups, AWS/Marketplace
+managed rule groups, and third-party rule groups). Each entry has a **priority**
+that sets evaluation order.
+
+```plantuml
+@startuml
+title Where WAF rules live and how they integrate with CloudFront
+
+package "CloudFront distribution" {
+  [Distribution] as DIST
+}
+
+package "AWS WAF (scope = CLOUDFRONT, us-east-1)" {
+  [WebACL] as WACL
+  package "Rule Groups (by priority)" {
+    [Managed rule groups\n(AWS / Marketplace)] as MRG
+    [Your rule groups\n(internal, priority first)] as IRG
+    [Third-party rule groups\n(one per provider)] as TRG
+    [Inline rules\n(geo-match / rate-based / custom)] as INL
+  }
+}
+
+DIST --> WACL : associated by\nWebACLId (ARN)
+WACL --> IRG : priority 0..n (highest precedence)
+WACL --> MRG : priority
+WACL --> TRG : priority (lowest, easy to isolate)
+WACL --> INL : priority
+
+note bottom of WACL
+  Default action (Allow/Block) applies
+  when no rule matches.
+end note
+@enduml
+```
+
+![Where WAF rules live — a CloudFront distribution references one WebACL by ARN; the WebACL contains inline rules plus your rule groups (highest priority), managed rule groups, and third-party rule groups (lowest priority, easy to isolate); a default Allow/Block action applies when no rule matches.](./assets/waf-rules.png)
+
 > Note: for CloudFront, the WebACL scope is **CLOUDFRONT** and it must be created
 > in **us-east-1**. (For regional resources like ALB/API Gateway the scope is
 > **REGIONAL** in that resource's region.) This diagram uses PlantUML syntax —
