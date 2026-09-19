@@ -11,9 +11,9 @@ by 1 year, instead of retaking the full exam.
 
 | Metric                          | Value                          |
 | ------------------------------- | ------------------------------ |
-| Points earned                   | **180 / 700**                  |
-| Practical activities (labs)     | **0 / 2** minimum              |
-| Overall completion              | **26%**                        |
+| Points earned                   | **280 / 700**                  |
+| Practical activities (labs)     | **1 / 2** minimum              |
+| Overall completion              | **40%**                        |
 | Certification expiry            | **2026-12-13**                 |
 | Days remaining                  | **~85** (as of 2026-09-19)     |
 | Path                            | Maintain via Skill Builder (+1 year) |
@@ -81,9 +81,9 @@ the key metadata from those folders.
 | -- | ------------------------------------------------------------------------------------------------------------ | ---- | ------ | ----------- | ------------ | -------------- |
 | 01 | [AWS Security Engineer: Protecting and Encrypting Data](./courses/01-security-engineer-protecting-and-encrypting-data/) | Course | 80     | Done        | 2026-09-14   | 2026-09-18     |
 | 02 | [AWS Security Engineer: Edge Security](./courses/02-security-engineer-edge-security/) | Course | 100    | Done        | 2026-09-18   | 2026-09-19     |
-| 03 | [AWS SimuLearn: Resolve VPC Routing Conflicts](./courses/03-simulearn-resolve-vpc-routing-conflicts/) | Lab | 100 | In progress | 2026-09-19   | —              |
+| 03 | [AWS SimuLearn: Resolve VPC Routing Conflicts](./courses/03-simulearn-resolve-vpc-routing-conflicts/) | Lab | 100 | Done | 2026-09-19   | 2026-09-19     |
 
-**Running totals:** 180 / 700 points confirmed (100 pending on completion of lab 03) · 0 / 2 labs.
+**Running totals:** 280 / 700 points confirmed · 1 / 2 labs.
 
 ### Adding a new course
 
