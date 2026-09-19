@@ -242,3 +242,32 @@ connections, public web apps, and API endpoints — with ordered layers:
 - **CloudWatch alarms** for suspicious activity.
 - **AWS Shield Advanced DDoS Response Team (DRT/SRT)** access.
 - **EventBridge** for automated remediation workflows.
+
+
+### Advanced edge controls
+
+**Geographic and geolocation controls**
+
+- **Advanced CloudFront geo-restriction** — beyond the built-in country
+  allow/block list, you can use a **CloudFront Function** for **path-specific
+  geo-restrictions** (apply different geo rules to different URL paths).
+- **Amazon Route 53 geolocation routing** — route DNS responses based on the
+  geographic location of the requester (for compliance or localized content).
+- **DNS-based security controls:**
+  - **DNSSEC** — cryptographically signs DNS responses to prevent DNS spoofing /
+    cache poisoning.
+  - **DNS query logging** — log Route 53 resolver queries for visibility/audit.
+  - **Private DNS** — private hosted zones so records resolve only inside your
+    VPC(s), not on the public internet.
+
+**Advanced rate-limiting controls**
+
+- **Intelligent rate limiting with WAF** — advanced WAF rate limiting goes beyond
+  simple IP-based counting; you can create a rule that limits, for example,
+  **login attempts per username/session** (aggregating on request attributes,
+  not just source IP).
+- **Behavioral rate limiting** — throttle based on abnormal request patterns
+  rather than a fixed threshold.
+- **JA4 fingerprinting** — a **TLS client fingerprint** used for advanced client
+  identification; lets WAF distinguish clients by their TLS handshake
+  characteristics (useful against bots that rotate IPs).
