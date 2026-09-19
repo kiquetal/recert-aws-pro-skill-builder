@@ -514,6 +514,10 @@ end
 @enduml
 ```
 
+**Rendered diagram:**
+
+![Attach AWS WAF (WebACL) to a CloudFront distribution — CreateWebACL (CLOUDFRONT scope, us-east-1) → add rule groups/rules → set priorities → UpdateDistribution → deploy to edge → per-request evaluation (allow to origin, or block 403/CAPTCHA/challenge).](./assets/waf-cloudfront.png)
+
 > Note: for CloudFront, the WebACL scope is **CLOUDFRONT** and it must be created
 > in **us-east-1**. (For regional resources like ALB/API Gateway the scope is
 > **REGIONAL** in that resource's region.) This diagram uses PlantUML syntax —
