@@ -45,11 +45,12 @@ flowchart LR
 
 ## Screenshots
 
-Store images in this folder's `./assets/` directory and embed them here:
+**Network controls vs. edge controls** — network controls operate *inside* the
+VPC (security groups, network ACLs, AWS Network Firewall, Transit Gateway),
+acting as internal barriers for east-west and north-south traffic within your
+VPC boundaries.
 
-```md
-![Description of screenshot](./assets/example-screenshot.png)
-```
+![Network controls operate within the AWS VPC — internal barriers (security groups, NACLs, Network Firewall, Transit Gateway) for traffic that has already entered the cloud environment.](./assets/network-controls.png)
 
 ## Notes / Scratchpad
 
