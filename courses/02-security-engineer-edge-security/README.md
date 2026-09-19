@@ -289,38 +289,39 @@ Grant time-bound, revocable access to content/endpoints. Examples:
 - **Signed cookies** — signed credentials in a cookie for **authenticated
   sessions** across multiple objects/paths.
 
-#### Integrating multiples edge access controls 
+#### Integrating multiple edge access controls
 
-First layer
-DNS LEVEL (route53 geolocation routing)
-direct users to appropiate regional endpoints
-configure health checks and failover routing
-implement dnssec for dns security
-monitor dns query patterns for anomaly detection
+A layered implementation strategy across four levels:
 
-Second Layer
-CDN Level
-implement broad geographic restrictions
-enable https
-set up origin access controls
-implement caghinc
+**Layer 1 — DNS level (Route 53 geolocation routing)**
 
-Third layer
-WAF rules
-configure geo-matching for granular path restrictions
-implement adaptive rate limiting
-deploy client fingerprinting detections
-set up xsss
-enable sql injection
-implement custome rules set for application-specific threasts
+- Direct users to the appropriate **regional endpoints**.
+- Configure **health checks and failover routing**.
+- Implement **DNSSEC** for DNS security.
+- Monitor DNS query patterns for **anomaly detection**.
 
-Fourth layer
-Token authentication
-deploy signed url for temp access
-implement signed cookies for authenticated sessions
-configure token expriration and rotation
-set up token revocation mechanism
-monitor taken usage patterns
+**Layer 2 — CDN level (CloudFront)**
+
+- Implement **broad geographic restrictions**.
+- Enable **HTTPS**.
+- Set up **Origin Access Control (OAC)**.
+- Implement **caching**.
+
+**Layer 3 — WAF rules**
+
+- Configure **geo-matching** for granular **path** restrictions.
+- Implement **adaptive rate limiting**.
+- Deploy **client fingerprinting** detections.
+- Enable **XSS** and **SQL injection** protections.
+- Implement **custom rule sets** for application-specific threats.
+
+**Layer 4 — Token authentication**
+
+- Deploy **signed URLs** for temporary access.
+- Implement **signed cookies** for authenticated sessions.
+- Configure **token expiration and rotation**.
+- Set up a **token revocation** mechanism.
+- Monitor **token usage patterns**.
 
 
 
