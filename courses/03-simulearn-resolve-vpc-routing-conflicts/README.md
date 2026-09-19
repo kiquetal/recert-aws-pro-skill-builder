@@ -146,6 +146,34 @@ data VPC route table (you are 172.16.0.0/16)
   **data VPC** table — RDS uses it to reach the app servers for replies.
 - You never add a route to your own CIDR; the `local` route already handles it.
 
+**Topology — the APP VPC is the hub (routes to BOTH neighbors).** The ALB VPC and
+data VPC each talk to only the APP VPC; they never talk to each other (peering is
+not transitive), so neither needs a route to the other:
+
+```text
+   ALB VPC                    APP VPC  (hub)                 data VPC
+ 192.168.0.0/16             10.0.0.0/16                    172.16.0.0/16
+ [ALB]                      [App server 1/2]               [RDS]
+     |                          |      |                       |
+     |◄===== pcx(ALB-APP) =====►|      |◄==== pcx(APP-data) ==►|
+     |                          |      |                       |
+ routes: 1                  routes: 2 (one to EACH side)   routes: 1
+ 10.0.0.0/16 -> pcx         192.168.0.0/16 -> pcx          10.0.0.0/16 -> pcx
+                            172.16.0.0/16  -> pcx
+
+        \________________ NO direct ALB<->data link ________________/
+                  (peering is NOT transitive — none needed)
+
+ Traffic path:  user -> ALB -> app servers -> RDS
+                (ALB never talks to RDS directly)
+```
+
+- **APP VPC = 2 routes** (one toward the ALB VPC, one toward the data VPC) — it's
+  the middle tier that talks to both.
+- **ALB VPC = 1 route**, **data VPC = 1 route** — each only reaches the APP VPC.
+- **No ALB↔data route** — there's no peering between them and the traffic never
+  needs it.
+
 ## Screenshots
 
 **Lab problem architecture** — three VPCs. The **ALB VPC** (`192.168.0.0/16`)
