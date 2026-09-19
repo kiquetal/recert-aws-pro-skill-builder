@@ -306,6 +306,13 @@ Grant or deny access based on **who the user is *and* the state of their device*
 - Because each request is evaluated, it limits **lateral movement** between apps
   (unlike a VPN that grants broad network access once connected).
 
+> Don't confuse the two "Verified" services:
+> - **AWS Verified Access** — gates **access to applications** (identity + device
+>   posture). This is the device-based access control service. *(front door)*
+> - **AWS Verified Permissions** — **fine-grained authorization inside your app**
+>   (what a user can do), using the **Cedar** policy language. Not device-based.
+>   *(what you can touch once inside)*
+
 #### Integrating multiple edge access controls
 
 A layered implementation strategy across four levels:
