@@ -52,6 +52,15 @@ VPC boundaries.
 
 ![Network controls operate within the AWS VPC — internal barriers (security groups, NACLs, Network Firewall, Transit Gateway) for traffic that has already entered the cloud environment.](./assets/network-controls.png)
 
+**Edge controls** operate at the *perimeter*, where the public internet meets
+your AWS environment — the first line of defense, inspecting and filtering
+traffic before it reaches your VPC. Edge services like **CloudFront**, **AWS
+WAF**, and **AWS Shield** protect applications from internet-based threats at
+global scale via AWS's points of presence (think "border security"), while
+network controls act as internal checkpoints between resources.
+
+![Edge controls operate at the perimeter (Internet Gateway boundary) — CloudFront, AWS WAF, and Shield inspect and filter traffic before it reaches the VPC.](./assets/edge-controls.png)
+
 ## Notes / Scratchpad
 
 - <Anything else: gotchas, follow-up reading, questions.>
