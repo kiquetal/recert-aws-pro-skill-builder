@@ -69,9 +69,15 @@ flowchart LR
 
 ## Screenshots
 
-_No screenshots yet._ When you capture one (e.g., a healthy target group or the
-ALB DNS response), save it under this folder's `./assets/` directory and embed
-it here.
+**Lab problem architecture** — three VPCs. The **ALB VPC** (`192.168.0.0/16`)
+runs the Application Load Balancer (round-robin to targets); the **APP VPC**
+(`10.0.0.0/16`) holds App server 1 & 2 in private subnets; the **data VPC**
+(`172.16.0.0/16`) holds Amazon RDS. VPC peering links ALB VPC ↔ APP VPC and
+APP VPC ↔ data VPC. The **red-highlighted route tables** are the problem: the
+ALB VPC route table needs the peering routes, and the data VPC route table is
+**empty** (missing the routes back), so traffic can't cross the peering.
+
+![Three-VPC lab: ALB VPC (192.168.0.0/16) with an ALB, APP VPC (10.0.0.0/16) with two app servers, and data VPC (172.16.0.0/16) with RDS; VPC peering connects ALB↔APP and APP↔data; the highlighted route tables (ALB VPC routes to peering, data VPC route table empty) are what must be fixed.](./assets/problem-architecture.png)
 
 ## Notes / Scratchpad
 
