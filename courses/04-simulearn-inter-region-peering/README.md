@@ -166,15 +166,24 @@ cross-Region routes (plus any blackhole routes).
     the TGW peering attachment.
   - Create **blackhole routes** for subnets in the selected VPCs (explicitly drop
     traffic to those destinations).
-- **Steps taken:**
-  1. Create a **TGW peering attachment** between the two Regions' transit
-     gateways; **accept** it in the peer Region.
-  2. In each TGW route table, add a route: the **other Region's CIDR → the TGW
-     peering attachment**.
-  3. Add **blackhole routes** for the selected subnets/CIDRs so that traffic to
-     them is **dropped** (deny path).
-  4. Validate connectivity across Regions (and confirm blackholed subnets are
-     unreachable).
+- **Steps taken (progress):**
+  1. **Created the TGW peering attachment** from the **primary Region
+     (us-east-1)** — the primary TGW already existed — targeting the **remote
+     Region TGW in Oregon (us-west-2)**.
+  2. **In Oregon (peer Region): accepted** the peering attachment (it moved to
+     `available`).
+  3. **In Oregon: associated** the peering attachment with Oregon's TGW route
+     table (which already had the local VPC E attachment associated).
+  4. **In Oregon: added static routes** on that route table pointing the other
+     Region's CIDRs → the **TGW peering attachment** (TGW peering doesn't
+     propagate routes, so routes are added statically).
+  - ✅ Everything on the **Oregon** side is done up to here.
+  - ⏳ **Remaining:**
+    - **us-east-1 side:** associate its peering attachment with the us-east-1 TGW
+      route table and add the mirror static route (`Oregon CIDRs → peering`).
+    - **Blackhole routes** for the selected subnets to deny.
+    - **Validate** cross-Region connectivity and confirm blackholed subnets are
+      unreachable.
 - **Gotchas:**
   - TGW peering requires a **peering attachment + accept** in the peer Region,
     *then* route table entries — the attachment alone doesn't route traffic.
