@@ -155,3 +155,29 @@ The AWS edge security landscape:
   A global **content delivery network (CDN)** that securely delivers content with
   low latency, while providing robust security features including **HTTPS**,
   **field-level encryption**, and **geographic (geo) access controls**.
+
+### Implementing a multi-layered edge defense strategy
+
+Beyond device-level (e.g., IoT) controls, protect **all entry points** — IoT
+connections, public web apps, and API endpoints — with ordered layers:
+
+- **Layer 1 — DDoS protection:** deploy **AWS Shield Advanced** on public-facing
+  resources; enable **automatic application-layer (L7) DDoS mitigation**; helps
+  protect against volumetric attacks.
+- **Layer 2 — Content delivery & edge functions:** use **CloudFront** with
+  **Origin Access Control (OAC)**; add **custom headers** between CloudFront and
+  origins; consider **Lambda@Edge** for custom authentication or request
+  inspection.
+- **Layer 3 — Traffic filtering (AWS WAF):** combine rule types — **managed
+  rules** (common threats), **rate-based rules** (abnormal traffic),
+  **geo-restriction rules** (location-based access), and **custom rules**
+  (app-specific vulnerabilities).
+- **Layer 4 — API protection:** configure **API Gateway** with **throttling and
+  usage plans**, **request validation** and **API keys**, and attach **WAF to
+  API Gateway** for extra protection.
+
+**Monitoring & response:**
+
+- **CloudWatch alarms** for suspicious activity.
+- **AWS Shield Advanced DDoS Response Team (DRT/SRT)** access.
+- **EventBridge** for automated remediation workflows.
