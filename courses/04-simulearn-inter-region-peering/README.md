@@ -195,6 +195,14 @@ cross-Region routes (plus any blackhole routes).
   > local goes to the other Region"). It works and pairs well with blackhole
   > deny-holes; a tighter alternative is routing only the **specific remote
   > CIDR** → peering.
+  5. **On the us-east-1 side (`primary-rt`):** associated the **peering
+     attachment** with the route table (it already had vpc-a/b/c/d associated),
+     and added a **static route** `10.4.0.0/16` (Oregon VPC E) → the **peering
+     attachment** — the precise mirror of the Oregon side.
+  - ✅ Both Regions now have the peering attachment associated + a static route
+     over the peering (Oregon `0.0.0.0/0 → peering`; us-east-1
+     `10.4.0.0/16 → peering`).
+  - ⏳ **Remaining:** blackhole routes for the subnets to deny, then validate.
 - **Gotchas:**
   - TGW peering requires a **peering attachment + accept** in the peer Region,
     *then* route table entries — the attachment alone doesn't route traffic.
