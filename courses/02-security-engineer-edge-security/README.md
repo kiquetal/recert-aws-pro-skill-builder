@@ -52,6 +52,8 @@
   validation, API keys, and WAF integration.
 - **AWS IoT Core (IoT policies)** — scope device actions (MQTT publish/subscribe,
   client IDs, thing type) for least-privilege fleets.
+- **AWS Verified Access** — zero-trust, VPN-less application access; evaluates
+  each request against identity + device posture rules (trust providers).
 - **Amazon Route 53 / AWS Global Accelerator** — edge-facing services protected
   by Shield.
 - **Amazon CloudWatch & Amazon EventBridge** — monitoring (alarms) and automated
@@ -288,6 +290,21 @@ Grant time-bound, revocable access to content/endpoints. Examples:
   individual files/temporary access).
 - **Signed cookies** — signed credentials in a cookie for **authenticated
   sessions** across multiple objects/paths.
+
+**Device-based access controls**
+
+Grant or deny access based on **who the user is *and* the state of their device**
+(zero-trust). The main service:
+
+- **AWS Verified Access** — provides secure, **VPN-less** access to applications;
+  evaluates **each request in real time** against **identity** signals *and*
+  **device posture/security signals** from **trust providers** (e.g., device is
+  managed/compliant, OS patched, disk encrypted).
+- Access decisions are expressed as **access policies (rules)** — e.g., *allow
+  only if the user is in the Admins group AND the device is compliant*. Failing
+  the device rule blocks access even with valid credentials.
+- Because each request is evaluated, it limits **lateral movement** between apps
+  (unlike a VPN that grants broad network access once connected).
 
 #### Integrating multiple edge access controls
 
