@@ -383,6 +383,32 @@ A layered implementation strategy across four levels:
 > path-level answer; the exam treats the **CloudFront Function** as the
 > path-specific, most-efficient tool.)_
 
+#### Answer-selection heuristics (scope matching & trap words)
+
+The exam often lists options that *technically work* but are **over-scoped**
+(block more than asked) or **wrong-layer**. The right answer matches the tool's
+**blast radius** to the requirement's **scope**.
+
+| Requirement says… | Pick a tool that is… | Reject options that are… |
+| --- | --- | --- |
+| "specific / sensitive / particular **path**" | **path-scoped** — CloudFront Function / Lambda@Edge | site/distribution-wide (WAF geo-match, CloudFront geo-restriction) → **overly broad** |
+| "**entire** site / whole app" | distribution-wide — CloudFront geo-restriction | path-only functions → unnecessarily complex |
+| "**most efficient** / least overhead / precise" | the **narrowest** native/edge feature that still meets the need | anything needing extra distributions/infra → **inefficient** |
+| "route to **nearest region** / by location" | DNS-level — Route 53 geolocation | request-filtering tools (WAF) → **wrong layer** |
+| "**before it reaches** the VPC" | edge control — CloudFront / WAF / Shield | network controls (SG/NACL) → **wrong layer** |
+| "already **inside** the VPC / between resources" | network control — SG / NACL / Network Firewall | edge controls → **wrong layer** |
+
+**Trap-word cheat sheet:**
+
+- **"overly restrictive / blocks more than asked"** → your tool's scope is *too
+  broad* (the WAF-for-one-path trap).
+- **"most efficient / precise / minimal"** → choose the **narrowest** tool that
+  meets the need; reject anything needing extra infrastructure.
+- **"specific / sensitive / particular path"** → path-scoped (CloudFront Function).
+- **"global / entire / all users"** → distribution- or account-wide tool.
+- **"perimeter / internet-facing / before the VPC"** → edge control; **"internal
+  / east-west / between resources"** → network control.
+
 #### Implementation approach (rollout best practices)
 
 When implementing edge access controls, roll out incrementally:
