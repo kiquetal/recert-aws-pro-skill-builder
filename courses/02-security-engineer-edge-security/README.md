@@ -355,3 +355,15 @@ A layered implementation strategy across four levels:
 > precise" → AWS WAF geo-match** (path-level). "Route users to the nearest
 > regional site" → Route 53 geolocation. "Block a whole site by country" →
 > CloudFront distribution-level geo-restriction.
+
+#### Implementation approach (rollout best practices)
+
+When implementing edge access controls, roll out incrementally:
+
+1. **Begin with broad protections** — geographic restrictions, basic rate
+   limiting.
+2. **Gradually implement more sophisticated controls** — fingerprinting,
+   adaptive rate limiting, device-based/token controls.
+3. **Test thoroughly** before deployment.
+4. **Monitor closely** after implementation.
+5. **Adjust based on real-world data.**
