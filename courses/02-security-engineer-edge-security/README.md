@@ -37,6 +37,18 @@
 - **CloudFront is both CDN and edge security** — low-latency delivery plus HTTPS,
   field-level encryption, and geo access controls at AWS's points of presence.
 
+**Best practices — third-party integration & OCSF:**
+
+- **OCSF** provides a standardized schema for **normalizing security events**
+  across multiple tools.
+- AWS edge services can be **enhanced with third-party solutions** for
+  specialized security needs.
+- **Third-party WAF rules** extend AWS WAF with specialized protection.
+- Integration options: **AWS Marketplace**, **direct API connections**, and
+  **custom implementations**.
+- **Testing and monitoring are essential** when rolling out third-party security
+  rules (start in Count mode, watch metrics, have rollback).
+
 ## Services Covered
 
 - **AWS Shield (Standard & Advanced)** — managed DDoS protection at the edge
