@@ -25,13 +25,28 @@
 
 ## Key Takeaways
 
-- <Bullet the most important concepts you learned.>
-- <What surprised you / what to remember for real work.>
+- **Edge vs. network controls** — edge controls (CloudFront, WAF, Shield) sit at
+  the *perimeter* and filter internet traffic before it reaches the VPC; network
+  controls (security groups, NACLs, Network Firewall, Transit Gateway) are
+  *internal* checkpoints between resources.
+- **Shield Standard vs. Advanced** — Standard is free/automatic and covers
+  **L3/L4** DDoS; Advanced is a paid subscription adding **L7** protection, the
+  DDoS Response Team, cost protection, and WAF integration.
+- **WAF = L7 request filtering** — inspects HTTP/HTTPS requests and blocks OWASP
+  Top 10 patterns (SQL injection, XSS) and malicious bots.
+- **CloudFront is both CDN and edge security** — low-latency delivery plus HTTPS,
+  field-level encryption, and geo access controls at AWS's points of presence.
 
 ## Services Covered
 
-- <AWS service> — <one-line note on how it was used>
-- <AWS service> — <...>
+- **AWS Shield (Standard & Advanced)** — managed DDoS protection at the edge
+  (L3/L4 always-on; L7 + DRT/cost protection with Advanced).
+- **AWS WAF** — L7 web application firewall filtering HTTP/HTTPS requests
+  (SQLi, XSS, bots, OWASP Top 10).
+- **Amazon CloudFront** — global CDN with edge security (HTTPS, field-level
+  encryption, geo restrictions).
+- **Amazon Route 53 / AWS Global Accelerator** — edge-facing services protected
+  by Shield.
 
 ## Diagrams
 
