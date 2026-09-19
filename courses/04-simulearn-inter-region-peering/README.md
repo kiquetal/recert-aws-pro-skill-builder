@@ -106,6 +106,38 @@ Rule: accept in the Region that did NOT create the request.
 Here the request came from us-east-1, so Oregon (remote) accepts.
 ```
 
+**Association vs. routes (TGW route table).** Two separate things:
+
+- **Association** = "traffic arriving *on this attachment* is evaluated against
+  *this* TGW route table." Each attachment associates with **exactly one** route
+  table; a route table can have **many** attachments associated with it.
+- **Routes** = the actual entries in that table (`destination → attachment`, or
+  `blackhole`). Association wires the attachment in; routes do the forwarding.
+
+In **Oregon** there was **already an association** — the local **VPC E**
+attachment was associated with Oregon's TGW route table. You then associated the
+**peering attachment** with that **same** route table, so one Oregon route table
+now handles **both** the local VPC and the cross-Region peering traffic:
+
+```text
+Oregon TGW route table (ONE table, MANY attachments)
+  Associations:
+    - VPC E attachment        (was already there)
+    - peering attachment      (you added this)
+  Routes:
+    - <VPC E CIDR>      -> VPC E attachment     (reach Host E locally)
+    - <us-east-1 CIDRs> -> peering attachment   (reach the primary Region)
+    - <deny subnets>    -> blackhole            (explicit deny)
+```
+
+- The pre-existing VPC E association didn't block anything — a route table holds
+  **many** attachments; you just added the peering attachment as another one.
+- Association alone forwards nothing — the **route entries** above still must be
+  present, and the **us-east-1 side must mirror** them (its peering attachment
+  associated with its TGW route table + the reverse routes).
+- Use **separate** TGW route tables only if you want **segmentation** (some
+  attachments must not reach others); one shared table = full connectivity.
+
 ## Screenshots
 
 **Lab architecture** — two AWS Regions. The **Primary Region** has a Transit
