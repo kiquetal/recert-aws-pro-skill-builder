@@ -474,15 +474,28 @@ Example setup (AWS WAF v2 rule group):
 - Configure **security groups** that restrict the third-party rule-processing
   infrastructure to only the **required services and ports**.
 
-### Amazon cloudfront integration with third-party rules
+### Amazon CloudFront integration with third-party rules
 
-- Rule isolation and control
+**Rule isolation and control**
 
-- Distributiona architecture
+- Use **AWS WAF rule groups** to isolate third-party rules within your web ACL.
+- Monitor rule-group / web ACL **metrics**.
+- Configure third-party rules initially in **Count mode** before enforcing blocks
+  (test impact before switching to Block).
 
-- Operational safety mechanism
+**Distribution architecture**
 
-- Integration requirements
+- Associate web ACLs at the **distribution level**.
+- Create **separate CloudFront distributions** if different WAF configurations are
+  needed for different content.
+- Implement **origin request policies** that preserve the **headers required for
+  WAF evaluation**.
+
+**Operational safety mechanisms**
+
+- Create an **automated rollback process** using **CloudFormation stack policies**.
+- Establish **CloudWatch alarms** for third-party rule **match metrics**.
+
 
 **PlantUML — creating/associating a WAF web ACL for a CloudFront distribution:**
 
@@ -563,3 +576,21 @@ end note
 > render it with a PlantUML tool; the repo's other diagrams use Mermaid, which
 > renders natively on GitHub.
 
+### Key components of a scalable security architecture include
+
+Key components of a scalable security architecture include:
+
+•
+Auto-scaling integration infrastructure with security group templates that enforce consistent access controls across all instances
+
+•
+Load-balanced integration endpoints with comprehensive health checks that verify both availability and security posture
+
+•
+Application Load Balancer with WAF integration to protect third-party connection points from malicious requests
+
+•
+Cost-optimized scaling patterns that maintain security while efficiently handling varying workloads
+
+•
+Multi-AZ intelligent routing that distributes third-party processing while preserving security boundaries
