@@ -42,11 +42,20 @@
 - **AWS Shield (Standard & Advanced)** — managed DDoS protection at the edge
   (L3/L4 always-on; L7 + DRT/cost protection with Advanced).
 - **AWS WAF** — L7 web application firewall filtering HTTP/HTTPS requests
-  (SQLi, XSS, bots, OWASP Top 10).
+  (SQLi, XSS, bots, OWASP Top 10); managed, rate-based, geo, and custom rules.
 - **Amazon CloudFront** — global CDN with edge security (HTTPS, field-level
-  encryption, geo restrictions).
+  encryption, geo restrictions); Origin Access Control (OAC) and custom origin
+  headers.
+- **AWS Lambda@Edge** — run custom authentication / request inspection at
+  CloudFront edge locations.
+- **Amazon API Gateway** — API protection: throttling, usage plans, request
+  validation, API keys, and WAF integration.
+- **AWS IoT Core (IoT policies)** — scope device actions (MQTT publish/subscribe,
+  client IDs, thing type) for least-privilege fleets.
 - **Amazon Route 53 / AWS Global Accelerator** — edge-facing services protected
   by Shield.
+- **Amazon CloudWatch & Amazon EventBridge** — monitoring (alarms) and automated
+  remediation workflows for edge threats.
 
 ## Diagrams
 
