@@ -451,6 +451,41 @@ Why this helps:
   Athena/Glue prune partitions and lets S3 Lifecycle rules transition/expire old
   data by prefix.
 
+### Processing OCSF data with AWS Lambda
+
+Combining **Lambda + OCSF** lets you build event-driven security workflows —
+teams focus on problems instead of wrangling data formats. Because input is
+already normalized to OCSF, the same function logic works regardless of the
+original source.
+
+- **Real-time event processing** — Lambda processes OCSF events on receipt:
+  validate structure, enrich with context, trigger security responses. Parse the
+  standardized OCSF fields and apply consistent logic across sources.
+  - Size memory/timeout to the work: simple validation ~**128 MB**; enrichment
+    that queries external databases may need **1 GB+**.
+- **Batch processing** — for high-volume data, use **Lambda with SQS triggers**
+  to process events in batches (better efficiency/cost); aggregate similar events
+  and generate summary reports for analysts.
+- **Data transformation** — Lambda transforms OCSF into downstream formats (e.g.,
+  **SIEM-specific** formats or security-DB inserts). The standardized OCSF input
+  makes these transformations much simpler.
+
+### Storing and triggering on OCSF logs in Amazon S3
+
+- **Intelligent-Tiering** — keep recent events in a fast tier; older logs move to
+  cheaper classes automatically based on access patterns (cost optimization).
+- **S3 event notifications** — trigger processing when new OCSF data arrives:
+  invoke **Lambda** for immediate processing, or enqueue to **SQS** for batched
+  analysis.
+- **Prefix-scoped triggers** — configure notifications to fire only on specific
+  **object-key patterns/prefixes** to avoid unnecessary processing (pairs with
+  the `vendor=/category=/...` prefix layout above).
+
+### Importing specialized rule sets from third-party security vendors
+
+Security vendors publish **specialized rule sets** built from their expertise in
+detecting specific threats; importing them adds protection on top of AWS-native
+controls. (The course walks through a four-step import flow.)
 
 ### Implementing third-party WAF rule integration
 
