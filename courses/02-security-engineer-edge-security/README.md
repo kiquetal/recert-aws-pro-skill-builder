@@ -576,21 +576,15 @@ end note
 > render it with a PlantUML tool; the repo's other diagrams use Mermaid, which
 > renders natively on GitHub.
 
-### Key components of a scalable security architecture include
+### Key components of a scalable security architecture
 
-Key components of a scalable security architecture include:
-
-•
-Auto-scaling integration infrastructure with security group templates that enforce consistent access controls across all instances
-
-•
-Load-balanced integration endpoints with comprehensive health checks that verify both availability and security posture
-
-•
-Application Load Balancer with WAF integration to protect third-party connection points from malicious requests
-
-•
-Cost-optimized scaling patterns that maintain security while efficiently handling varying workloads
-
-•
-Multi-AZ intelligent routing that distributes third-party processing while preserving security boundaries
+- **Auto-scaling integration infrastructure** — security group templates that
+  enforce consistent access controls across all instances.
+- **Load-balanced integration endpoints** — comprehensive health checks that
+  verify both availability and security posture.
+- **Application Load Balancer with WAF integration** — protect third-party
+  connection points from malicious requests.
+- **Cost-optimized scaling patterns** — maintain security while efficiently
+  handling varying workloads.
+- **Multi-AZ intelligent routing** — distribute third-party processing while
+  preserving security boundaries.
