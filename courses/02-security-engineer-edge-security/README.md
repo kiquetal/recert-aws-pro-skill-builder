@@ -484,3 +484,39 @@ Example setup (AWS WAF v2 rule group):
 
 - Integration requirements
 
+**PlantUML — creating/associating a WAF web ACL for a CloudFront distribution:**
+
+```plantuml
+@startuml
+title Attach AWS WAF (WebACL) to a CloudFront distribution
+
+actor Admin
+
+Admin -> WAF : 1. CreateWebACL (scope = CLOUDFRONT, us-east-1)
+note right of WAF
+  WebACL for CloudFront MUST be
+  created in region us-east-1 (Global)
+end note
+
+Admin -> WAF : 2. Add rule groups / rules\n(managed + rate-based + geo + third-party)
+WAF -> WAF : 3. Set rule priorities\n(internal rules > third-party rules)
+
+Admin -> CloudFront : 4. UpdateDistribution\n(WebACLId = arn of the WebACL)
+CloudFront -> Edge : 5. Deploy WebACL to all edge locations
+
+Client -> Edge : 6. HTTPS request
+Edge -> WAF : 7. Evaluate request against WebACL
+alt request allowed
+  Edge -> Origin : forward to origin
+else blocked
+  Edge -> Client : 403 (WAF block / CAPTCHA / challenge)
+end
+@enduml
+```
+
+> Note: for CloudFront, the WebACL scope is **CLOUDFRONT** and it must be created
+> in **us-east-1**. (For regional resources like ALB/API Gateway the scope is
+> **REGIONAL** in that resource's region.) This diagram uses PlantUML syntax —
+> render it with a PlantUML tool; the repo's other diagrams use Mermaid, which
+> renders natively on GitHub.
+
