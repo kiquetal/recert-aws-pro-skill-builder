@@ -50,12 +50,26 @@
 
 ## Diagrams
 
-Prefer inline Mermaid for architecture/flow (version-control friendly). Example:
+**Edge controls vs. network controls (defense in depth)**
 
 ```mermaid
 flowchart LR
-    User -->|request| Service
-    Service --> Store[(Data store)]
+    U[Internet user] --> S["AWS Shield<br/>(L3/L4 DDoS)"]
+    S --> W["AWS WAF<br/>(L7 filtering)"]
+    W --> CF["Amazon CloudFront<br/>(CDN + HTTPS)"]
+    CF --> IGW[Internet Gateway]
+    subgraph VPC["VPC (network controls)"]
+        SG["Security groups / NACLs<br/>Network Firewall / TGW"] --> App[Application]
+    end
+    IGW --> SG
+```
+
+**Shield Standard vs. Advanced**
+
+```mermaid
+flowchart TD
+    D{DDoS protection} -->|"free, automatic"| Std["Shield Standard<br/>L3/L4 · always-on"]
+    D -->|"paid subscription"| Adv["Shield Advanced<br/>+ L7 · DRT/SRT 24x7<br/>+ cost protection · WAF integration"]
 ```
 
 ## Screenshots
