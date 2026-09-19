@@ -16,8 +16,8 @@
 | Name            | AWS Security Engineer: Edge Security                         |
 | Type            | Course                                                       |
 | Points          | 100 (≈1h15m)                                                 |
-| Status          | In progress                                                  |
-| Date completed  | —                                                            |
+| Status          | Done                                                         |
+| Date completed  | 2026-09-19                                                   |
 | Skill Builder   | https://skillbuilder.aws/learn/Q8QC4V4BMF/aws-security-engineer-edge-security/M3ZVNJGPX7 |
 
 > Reminder: Professional recert needs **700 points total** including **at least
