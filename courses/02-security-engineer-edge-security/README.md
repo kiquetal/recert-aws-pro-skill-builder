@@ -272,6 +272,58 @@ connections, public web apps, and API endpoints — with ordered layers:
   identification; lets WAF distinguish clients by their TLS handshake
   characteristics (useful against bots that rotate IPs).
 
+
+**Browser-based challenge integration**
+
+Serve a challenge (e.g., CAPTCHA / silent challenge) that **legitimate users can
+solve while automated tools typically fail**, adding a layer of verification
+**beyond fingerprinting alone**. (AWS WAF offers **CAPTCHA** and **Challenge**
+actions for this.)
+
+**Token-based access controls**
+
+Grant time-bound, revocable access to content/endpoints. Examples:
+
+- **Signed URLs** — a single URL with an embedded, expiring signature (good for
+  individual files/temporary access).
+- **Signed cookies** — signed credentials in a cookie for **authenticated
+  sessions** across multiple objects/paths.
+
+#### Integrating multiples edge access controls 
+
+First layer
+DNS LEVEL (route53 geolocation routing)
+direct users to appropiate regional endpoints
+configure health checks and failover routing
+implement dnssec for dns security
+monitor dns query patterns for anomaly detection
+
+Second Layer
+CDN Level
+implement broad geographic restrictions
+enable https
+set up origin access controls
+implement caghinc
+
+Third layer
+WAF rules
+configure geo-matching for granular path restrictions
+implement adaptive rate limiting
+deploy client fingerprinting detections
+set up xsss
+enable sql injection
+implement custome rules set for application-specific threasts
+
+Fourth layer
+Token authentication
+deploy signed url for temp access
+implement signed cookies for authenticated sessions
+configure token expriration and rotation
+set up token revocation mechanism
+monitor taken usage patterns
+
+
+
 **Geo control granularity — which tool for which scope:**
 
 | Tool | Granularity | Use when |
