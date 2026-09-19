@@ -271,3 +271,17 @@ connections, public web apps, and API endpoints — with ordered layers:
 - **JA4 fingerprinting** — a **TLS client fingerprint** used for advanced client
   identification; lets WAF distinguish clients by their TLS handshake
   characteristics (useful against bots that rotate IPs).
+
+**Geo control granularity — which tool for which scope:**
+
+| Tool | Granularity | Use when |
+| --- | --- | --- |
+| **AWS WAF geo-match + URL-path condition** | **Most precise** — per **URL path** | Restrict only *part* of a site (e.g., `/admin`) by country while the rest stays global |
+| **CloudFront geo-restriction (distribution level)** | Whole distribution | Block/allow countries for the **entire** site |
+| **Amazon Route 53 geolocation routing** | DNS / endpoint level | Route users to a **regional endpoint** by location (routing, not a path-level security control) |
+| **Security groups (IP ranges)** | IP/port at the ENI | Not geo- or path-aware — wrong tool for country/path rules |
+
+> Exam rule of thumb: **"specific URL paths / administrative functions" + "most
+> precise" → AWS WAF geo-match** (path-level). "Route users to the nearest
+> regional site" → Route 53 geolocation. "Block a whole site by country" →
+> CloudFront distribution-level geo-restriction.
