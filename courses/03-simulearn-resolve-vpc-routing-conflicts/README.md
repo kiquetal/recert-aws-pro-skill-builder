@@ -16,8 +16,8 @@
 | Name            | AWS SimuLearn: Resolve VPC Routing Conflicts                 |
 | Type            | Lab (practical activity)                                     |
 | Points          | 100 (≈1h)                                                    |
-| Status          | In progress                                                  |
-| Date completed  | —                                                            |
+| Status          | Done                                                         |
+| Date completed  | 2026-09-19                                                   |
 | Skill Builder   | <paste the course/lab URL>                                   |
 
 > Reminder: Professional recert needs **700 points total** including **at least
@@ -170,7 +170,11 @@ ALB VPC route table needs the peering routes, and the data VPC route table is
   - **Security groups** must allow ALB → app-server traffic (health checks
     included), or targets stay unhealthy even with routing correct.
   - The **data VPC route table was empty** — the key missing piece for app↔RDS.
-- **Outcome:** <fill in once completed — targets healthy, ALB DNS returns the app>
+- **Outcome:** ✅ Resolved. Registered the app servers in the ALB target group and
+  added the missing peering routes (notably `10.0.0.0/16 → pcx(APP-data)` on the
+  empty data VPC route table, plus the ALB↔APP return route). Targets became
+  healthy and the **ALB DNS name** successfully returned the application — traffic
+  flows ALB → app servers → RDS across both peering connections.
 
-_Update the Outcome and paste the Skill Builder URL when done; I can also add a
-screenshot of the healthy target group if you capture one._
+_Paste the Skill Builder URL when handy; I can also add a screenshot of the
+healthy target group if you capture one._
