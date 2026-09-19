@@ -16,8 +16,8 @@
 | Name            | AWS SimuLearn: Inter-Region Peering                          |
 | Type            | Lab (practical activity)                                     |
 | Points          | 100 (≈1h)                                                    |
-| Status          | In progress                                                  |
-| Date completed  | —                                                            |
+| Status          | Done                                                         |
+| Date completed  | 2026-09-19                                                   |
 | Skill Builder   | <paste the course/lab URL>                                   |
 
 > Reminder: Professional recert needs **700 points total** including **at least
@@ -148,6 +148,13 @@ cross-Region routes (plus any blackhole routes).
 
 ![Inter-Region peering lab: Primary Region TGW (ASN 65001) with VPC A/B/C/D, Remote Region TGW (ASN 65002) with VPC E, connected by a Transit Gateway inter-Region peering attachment.](./assets/lab-architecture.png)
 
+**Completion** — "You did it!" solution recap: peer the two Regions' Transit
+Gateways, control/customize routing, and add the blackhole route for VPC C
+(`10.2.0.0/24`) in the primary TGW route table. Red ✗ marks show the
+blackholed/denied paths.
+
+![Inter-Region Peering lab completion screen — peer TGWs across two Regions, customize routing, and create a blackhole route for VPC C in the primary TGW route table.](./assets/Inter-RegionPeering.png)
+
 ## Notes / Scratchpad
 
 **Lab log**
@@ -202,7 +209,18 @@ cross-Region routes (plus any blackhole routes).
   - ✅ Both Regions now have the peering attachment associated + a static route
      over the peering (Oregon `0.0.0.0/0 → peering`; us-east-1
      `10.4.0.0/16 → peering`).
-  - ⏳ **Remaining:** blackhole routes for the subnets to deny, then validate.
+  6. **Blackhole route (graded requirement):** created `10.2.0.0/24 → blackhole`
+     in the **primary** (`primary-rt`) route table to deny **VPC C**'s subnet
+     (instance `10.2.0.10`). The more-specific `/24` overrides VPC C's
+     `10.2.0.0/16`, so `10.2.0.x` is dropped while the rest of VPC C routes
+     normally.
+  7. **Validated:** pinging `10.2.0.10` (VPC C) from a VPC A instance is
+     **blocked** by the blackhole; other cross-Region connectivity works.
+- **Outcome:** ✅ Completed ("You did it!"). Peered the two Regions' Transit
+  Gateways (attachment created from us-east-1, accepted in Oregon), associated the
+  peering attachment on both TGW route tables, added the static routes over the
+  peering, and created the **VPC C blackhole** (`10.2.0.0/24`) in the primary
+  route table. Validation confirmed `10.2.0.10` is unreachable from VPC A.
 - **Gotchas:**
   - TGW peering requires a **peering attachment + accept** in the peer Region,
     *then* route table entries — the attachment alone doesn't route traffic.
