@@ -374,3 +374,21 @@ When implementing edge access controls, roll out incrementally:
 3. **Test thoroughly** before deployment.
 4. **Monitor closely** after implementation.
 5. **Adjust based on real-world data.**
+
+### Using the OCSF
+
+**OCSF (Open Cybersecurity Schema Framework)** is an open standard that
+**normalizes security data into a common schema** so tools/sources can be
+analyzed together (e.g., **Amazon Security Lake** stores findings in OCSF). Its
+schema requirements affect how you design AWS infrastructure for **third-party
+data processing**. There are **three implementation approaches**:
+
+- **Ingestion-time transformation** — convert *all* third-party security data to
+  OCSF **as it is ingested**. Normalized and query-ready immediately, but
+  requires more **upfront compute/processing power**.
+- **Storage-time transformation** — store the **raw** third-party data and
+  transform it to OCSF **later**, during analysis or export. Cheaper/simpler on
+  ingest; defers the processing cost to query/export time.
+- **Dual-format storage** — store **both** the raw data *and* the OCSF-normalized
+  version. Most flexible (raw fidelity + normalized queries) at the cost of
+  **extra storage**.
