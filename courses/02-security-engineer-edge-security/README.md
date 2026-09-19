@@ -72,6 +72,38 @@ flowchart TD
     D -->|"paid subscription"| Adv["Shield Advanced<br/>+ L7 · DRT/SRT 24x7<br/>+ cost protection · WAF integration"]
 ```
 
+**Multi-layered edge defense strategy** — ordered layers protecting every entry
+point (IoT, web apps, APIs) before traffic reaches the origin, with a
+monitoring/response loop:
+
+```mermaid
+flowchart TB
+    U[Internet / IoT clients] --> L1
+
+    subgraph L1["Layer 1 — DDoS protection"]
+        SH["AWS Shield Advanced<br/>automatic L7 mitigation · volumetric protection"]
+    end
+    subgraph L2["Layer 2 — Content delivery & edge functions"]
+        CF["CloudFront + Origin Access Control<br/>custom origin headers · Lambda@Edge auth/inspection"]
+    end
+    subgraph L3["Layer 3 — Traffic filtering (AWS WAF)"]
+        WAF["Managed rules · rate-based rules<br/>geo-restriction · custom rules"]
+    end
+    subgraph L4["Layer 4 — API protection"]
+        API["API Gateway<br/>throttling · usage plans · request validation<br/>API keys · WAF on API GW"]
+    end
+
+    L1 --> L2 --> L3 --> L4 --> ORIG["Origin (app / VPC)"]
+
+    subgraph MON["Monitoring & response"]
+        CW["CloudWatch alarms"] --> EB["EventBridge automated remediation"]
+        SRT["Shield Advanced DDoS Response Team"]
+    end
+    L1 -.-> CW
+    L3 -.-> CW
+    API -.-> CW
+```
+
 ## Screenshots
 
 **Network controls vs. edge controls** — network controls operate *inside* the
