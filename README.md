@@ -82,8 +82,9 @@ the key metadata from those folders.
 | 01 | [AWS Security Engineer: Protecting and Encrypting Data](./courses/01-security-engineer-protecting-and-encrypting-data/) | Course | 80     | Done        | 2026-09-14   | 2026-09-18     |
 | 02 | [AWS Security Engineer: Edge Security](./courses/02-security-engineer-edge-security/) | Course | 100    | Done        | 2026-09-18   | 2026-09-19     |
 | 03 | [AWS SimuLearn: Resolve VPC Routing Conflicts](./courses/03-simulearn-resolve-vpc-routing-conflicts/) | Lab | 100 | Done | 2026-09-19   | 2026-09-19     |
+| 04 | [AWS SimuLearn: Inter-Region Peering](./courses/04-simulearn-inter-region-peering/) | Lab | 100 | In progress | 2026-09-19   | —              |
 
-**Running totals:** 280 / 700 points confirmed · 1 / 2 labs.
+**Running totals:** 280 / 700 points confirmed (100 pending on completion of lab 04) · 1 / 2 labs.
 
 ### Adding a new course
 
