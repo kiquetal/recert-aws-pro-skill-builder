@@ -83,6 +83,29 @@ Result: all of 10.1.0.0/16 is reachable across the peering EXCEPT 10.1.5.0/24,
 whose packets are silently discarded (the /24 blackhole beats the /16 allow).
 ```
 
+**Requester vs. accepter (who accepts the peering attachment).** The **primary
+TGW in us-east-1 already existed**; from it you **created** a peering attachment
+targeting the **remote TGW in Oregon (us-west-2)**. The peer Region (Oregon)
+must **accept** it — you accept in whichever Region did *not* create the request:
+
+```text
+   PRIMARY (us-east-1)                         REMOTE (Oregon / us-west-2)
+   TGW (ASN 65001) [already existed]           TGW (ASN 65002)
+        |                                            |
+        |  1. CREATE peering attachment ───────────► |  2. request arrives
+        |     (requester = us-east-1)                |     state: pendingAcceptance
+        |                                            |
+        |                                            |  3. ACCEPT here  ◄── accept
+        |                                            |     in the PEER region (Oregon)
+        |◄════════ peering attachment: available ═══►|
+        |                                            |
+   4. route: Oregon CIDRs -> attachment        4. route: us-east-1 CIDRs -> attachment
+        (both TGW route tables need routes; add blackhole routes to deny subnets)
+
+Rule: accept in the Region that did NOT create the request.
+Here the request came from us-east-1, so Oregon (remote) accepts.
+```
+
 ## Screenshots
 
 **Lab architecture** — two AWS Regions. The **Primary Region** has a Transit
