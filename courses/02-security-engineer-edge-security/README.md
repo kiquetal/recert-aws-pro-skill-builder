@@ -156,6 +156,58 @@ The AWS edge security landscape:
   low latency, while providing robust security features including **HTTPS**,
   **field-level encryption**, and **geographic (geo) access controls**.
 
+### Edge security for IoT devices
+
+IoT devices are a distinct edge-security challenge (huge fleets, weak endpoints).
+**AWS IoT policies** scope what each device may do:
+
+- Define which **MQTT topics** a device can **publish/subscribe** to.
+- Control which **HTTP APIs** devices can access.
+- Limit device actions based on **client IDs** and other attributes.
+- Enforce **least-privilege** across the IoT fleet.
+
+**Example policy (explained):**
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "iot:Connect",
+      "Resource": "arn:aws:iot:us-east-1:555555555555:client/${iot:ClientId}",
+      "Condition": {
+        "Bool": { "iot:Connection.Thing.IsAttached": "true" }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "iot:Publish",
+      "Resource": "arn:aws:iot:us-east-1:555555555555:topic/device/${iot:ClientId}/data",
+      "Condition": {
+        "StringEquals": { "iot:Connection.Thing.ThingTypeName": "AuthorizedDeviceType" }
+      }
+    }
+  ]
+}
+```
+
+- **Statement 1 — `iot:Connect`:** lets a device open an MQTT connection, but the
+  resource is scoped with the **`${iot:ClientId}`** policy variable so a device
+  can only connect **as its own client ID** (not impersonate another). The
+  condition **`iot:Connection.Thing.IsAttached = true`** requires the connecting
+  client to be an **IoT thing that is attached** in the registry — blocking
+  unregistered/rogue clients.
+- **Statement 2 — `iot:Publish`:** allows publishing only to that device's **own
+  topic** `device/${iot:ClientId}/data` (again keyed to its client ID, so it
+  can't publish to other devices' topics). The condition
+  **`iot:Connection.Thing.ThingTypeName = AuthorizedDeviceType`** further
+  restricts it to devices of an **approved thing type**.
+- Net effect: **least privilege** — each device can connect only as itself and
+  publish only to its own data topic, and only if it's a registered thing of an
+  authorized type. Policy variables (`${iot:ClientId}`) make one policy safely
+  reusable across the whole fleet.
+
 ### Implementing a multi-layered edge defense strategy
 
 Beyond device-level (e.g., IoT) controls, protect **all entry points** — IoT
