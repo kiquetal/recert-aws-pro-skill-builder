@@ -365,15 +365,23 @@ A layered implementation strategy across four levels:
 
 | Tool | Granularity | Use when |
 | --- | --- | --- |
-| **AWS WAF geo-match + URL-path condition** | **Most precise** — per **URL path** | Restrict only *part* of a site (e.g., `/admin`) by country while the rest stays global |
+| **CloudFront Function / Lambda@Edge** (path + `CloudFront-Viewer-Country`) | **Most precise** — per **URL path** | Restrict only a *specific path* (e.g., `/sensitive`, `/admin`) by country while the rest stays global — the **most efficient** path-level geo control |
+| **AWS WAF geo-match** | Country match at the WebACL (tends to be **site-wide** as usually applied) | Block/allow countries at the request-filtering layer; **not** the precise choice when only *one path* must be restricted (blocks all app access from those countries) |
 | **CloudFront geo-restriction (distribution level)** | Whole distribution | Block/allow countries for the **entire** site |
 | **Amazon Route 53 geolocation routing** | DNS / endpoint level | Route users to a **regional endpoint** by location (routing, not a path-level security control) |
 | **Security groups (IP ranges)** | IP/port at the ENI | Not geo- or path-aware — wrong tool for country/path rules |
 
-> Exam rule of thumb: **"specific URL paths / administrative functions" + "most
-> precise" → AWS WAF geo-match** (path-level). "Route users to the nearest
-> regional site" → Route 53 geolocation. "Block a whole site by country" →
-> CloudFront distribution-level geo-restriction.
+> Exam rule of thumb: **"specific path / sensitive path" + "most efficient /
+> precise" → CloudFront Function (or Lambda@Edge)** — it can match path *and*
+> viewer country, blocking only that path. **WAF geo-match** blocks by country
+> but (as framed) applies **app-wide**, so it's *overly restrictive* for a
+> single path. "Route users to the nearest regional site" → Route 53
+> geolocation. "Block a **whole site** by country" → CloudFront
+> distribution-level geo-restriction.
+>
+> _(Correction: an earlier version of this table listed WAF geo-match as the
+> path-level answer; the exam treats the **CloudFront Function** as the
+> path-specific, most-efficient tool.)_
 
 #### Implementation approach (rollout best practices)
 
