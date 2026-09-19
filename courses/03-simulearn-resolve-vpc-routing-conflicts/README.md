@@ -125,6 +125,27 @@ Empty data VPC table => request arrives at RDS but the reply is dropped
   **both AZs** if they use separate route tables. Also ensure the **RDS security
   group** allows the app servers on the DB port.
 
+**Reading a route table (destination = the *other* side).** A route's
+**destination is where you want to reach**, never your own VPC. Your own CIDR is
+covered automatically by the **`local`** route. So each VPC's table lists the
+*other* VPC's CIDR as the destination:
+
+```text
+APP VPC route table (you are 10.0.0.0/16)
+  Destination      Target          "to reach..."
+  10.0.0.0/16      local           myself (auto — never added by hand)
+  172.16.0.0/16    pcx(APP-data)   the DATA VPC (RDS)   <- destination = OTHER side
+
+data VPC route table (you are 172.16.0.0/16)
+  Destination      Target          "to reach..."
+  172.16.0.0/16    local           myself (auto)
+  10.0.0.0/16      pcx(APP-data)   the APP VPC (servers) <- destination = OTHER side
+```
+
+- That's why `10.0.0.0/16` (the **app servers**) is the destination you add in the
+  **data VPC** table — RDS uses it to reach the app servers for replies.
+- You never add a route to your own CIDR; the `local` route already handles it.
+
 ## Screenshots
 
 **Lab problem architecture** — three VPCs. The **ALB VPC** (`192.168.0.0/16`)
