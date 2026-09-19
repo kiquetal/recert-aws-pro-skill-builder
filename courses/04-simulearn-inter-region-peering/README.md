@@ -70,6 +70,19 @@ flowchart LR
 > peering attachment**. Add **blackhole routes** for any subnets/CIDRs that must
 > be explicitly **denied**.
 
+**Blackhole route example** — a more-specific blackhole carves a "deny hole" out
+of a broader allow (longest-prefix match wins):
+
+```text
+Primary Region TGW route table
+  Destination      Target                     Effect
+  10.1.0.0/16      tgw-peering-attachment     ALLOW — reach the remote Region
+  10.1.5.0/24      blackhole                  DENY  — traffic to this subnet is dropped
+
+Result: all of 10.1.0.0/16 is reachable across the peering EXCEPT 10.1.5.0/24,
+whose packets are silently discarded (the /24 blackhole beats the /16 allow).
+```
+
 ## Screenshots
 
 **Lab architecture** — two AWS Regions. The **Primary Region** has a Transit
