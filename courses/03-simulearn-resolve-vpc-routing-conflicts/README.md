@@ -92,6 +92,39 @@ flowchart LR
 | app servers → RDS | `172.16.0.0/16 → pcx(APP-data)` | APP VPC |
 | RDS → app servers (replies) | `10.0.0.0/16 → pcx(APP-data)` | data VPC ← **empty in the lab, add this** |
 
+**Direction of flow (a route table is an *outbound* forwarding rule).** Each VPC's
+route table decides where **packets leaving its own subnets** go. A request and
+its reply are two separate outbound decisions made by two different VPCs — so
+both sides need a route:
+
+```text
+APP VPC (10.0.0.0/16)                          data VPC (172.16.0.0/16)
+[App server]                                   [RDS]
+     |                                              |
+     |  (1) REQUEST  app -> RDS                     |
+     |      dest = 172.16.x.x                       |
+     |      APP route table:                        |
+     |      "172.16.0.0/16 -> pcx(APP-data)" ──────►|  arrives at RDS
+     |                                              |
+     |                                              |  (2) REPLY  RDS -> app
+     |                                              |      dest = 10.0.0.x
+     |◄──── data VPC route table:                   |  <-- THIS is the route you
+     |      "10.0.0.0/16 -> pcx(APP-data)"          |      added to the DB subnet's
+     |      (was EMPTY - the fix)                    |      route table
+[App server] gets reply                        [RDS]
+
+Both arrows are each VPC sending OUTBOUND. There is no "inbound route table" —
+arriving packets don't need a route (they're already here); the REPLY does.
+Empty data VPC table => request arrives at RDS but the reply is dropped
+(classic one-way / hanging-connection symptom).
+```
+
+- **Arriving traffic needs no route** — that's why RDS *receives* the request even
+  with an empty table. The missing route breaks the **reply** leaving the data VPC.
+- Add the route to the route table **associated with the RDS (DB) subnets**, in
+  **both AZs** if they use separate route tables. Also ensure the **RDS security
+  group** allows the app servers on the DB port.
+
 ## Screenshots
 
 **Lab problem architecture** — three VPCs. The **ALB VPC** (`192.168.0.0/16`)
