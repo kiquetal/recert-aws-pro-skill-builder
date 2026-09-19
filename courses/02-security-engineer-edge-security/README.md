@@ -392,3 +392,58 @@ data processing**. There are **three implementation approaches**:
 - **Dual-format storage** — store **both** the raw data *and* the OCSF-normalized
   version. Most flexible (raw fidelity + normalized queries) at the cost of
   **extra storage**.
+
+### Managing third-party OCSF data in S3
+
+- **Isolate buckets** — separate internal vs. external (third-party) data into
+  different buckets.
+- **Access control** — scope bucket policies/IAM to reduce exposure of sensitive
+  buckets.
+- **Dedicated encryption keys** — use separate KMS keys for OCSF data.
+- **Automated processing** — event-driven pipeline:
+  `S3 event → filter notification by prefix → SQS → compute`.
+
+**Logical structure & lifecycle management** — organize third-party OCSF data
+using object-key **prefixes** that reflect:
+
+- vendor / source identity
+- OCSF event categories
+- time-based partitioning
+- data classification level
+
+
+### Implementing third-party WAF rule integration
+
+Initializes the AWS WAF v2 client
+Creates the rule group named "ThirdPartyRules" in a regional scope
+Allocates 100 capacity units to the rule group
+Adds a placeholder for a third-party rule
+Enables visibility features including request sampling and CloudWatch metrics
+
+For the integration of WAF with third-party THE AWS support the following
+
+- AWS Marketplace integrations
+- Partner API connections
+- Custom rule imports
+
+Third paprty rule security
+iam-role design for third-party integration
+rule group isolation architecture
+design war rule group architecture that isolates third-party rules from internal rules
+create separate rule groups for each third-party provide to enable granular control and quick isolation if a provider deliers problematic rules
+configure rule group priorities to ensure your internal security rules take precedence over third-party content
+
+netwrok security for rule updates
+implement vpc endpoints for s3 to keep traffice within your AWS network
+configure security groups that restrict third-party rule processing infraestrcuture access t only required services and port.
+
+### Amazon cloudfront integration with third-party rules
+
+- Rule isolation and control
+
+- Distributiona architecture
+
+- Operational safety mechanism
+
+- Integration requirements
+
