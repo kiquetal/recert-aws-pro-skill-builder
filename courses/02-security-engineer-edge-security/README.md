@@ -411,6 +411,34 @@ using object-key **prefixes** that reflect:
 - time-based partitioning
 - data classification level
 
+**Example prefix layout:**
+
+```text
+s3://acme-thirdparty-ocsf/
+  vendor=crowdstrike/                      <- vendor / source identity
+    category=network_activity/             <- OCSF event category (class/category)
+      classification=confidential/         <- data classification level
+        year=2026/month=09/day=19/         <- time-based partitioning
+          hour=11/
+            part-0001.parquet
+  vendor=okta/
+    category=authentication/
+      classification=restricted/
+        year=2026/month=09/day=19/
+          part-0001.parquet
+```
+
+Why this helps:
+
+- **Selective access control** — bucket policies/IAM can grant access per
+  `vendor=` or `classification=` prefix (e.g., only security team reads
+  `classification=restricted/`).
+- **Cheap event filtering** — S3 event notifications filter by prefix, so a
+  pipeline can trigger only for a specific vendor/category.
+- **Efficient queries & lifecycle** — the `year=/month=/day=` partitioning lets
+  Athena/Glue prune partitions and lets S3 Lifecycle rules transition/expire old
+  data by prefix.
+
 
 ### Implementing third-party WAF rule integration
 
