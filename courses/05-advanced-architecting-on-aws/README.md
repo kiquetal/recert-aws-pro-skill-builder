@@ -56,5 +56,22 @@ primary DB instance + Aurora replica.
 ![Advanced Architecting starting point — multi-AZ 3-tier web app: Route 53 + CloudFront + S3 static assets at the edge, ALB and NAT gateways in public subnets, Auto Scaling app servers with EFS and Memcached in app subnets, and Aurora primary + replica in database subnets across two Availability Zones.](./assets/starting-architecture.png)
 
 ## Notes / Scratchpad
+**Module 2-Single to Multiple Accounts**
 
-- <Anything else: gotchas, follow-up reading, questions.>
+Cross-Account access
+
+
+
+
+
+
+Organizations
+
+
+
+
+AWS Iam Identity Center
+
+
+
+AWS Control Tower
