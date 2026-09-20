@@ -347,10 +347,12 @@ regions and immediately instantiates the resources.
 
 - AWS Control Tower
 
-Set up a best-practices AWS environemnt in a few clicks
-Standardiz account provisioning
-Centralize policy management
-Enforce governance and compliance proactively
-Enable enduser self-service
+Set up a best-practices AWS environment in a few clicks
+- Standardize account provisioning
+- Centralize policy management
+- Enforce governance and compliance proactively
+- Enable end-user self-service
+
+![AWS Control Tower features — set up best-practices AWS environment, standardize account provisioning, centralize policy management, enforce proactive governance/compliance, and enable end-user self-service.](./assets/control-tower-features.png)
 
 
