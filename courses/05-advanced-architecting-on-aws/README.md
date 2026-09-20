@@ -30,8 +30,9 @@
 
 ## Services Covered
 
-- <AWS service> — <one-line note on how it was used>
-- <AWS service> — <...>
+- AWS Cloudformation
+- Service Catalog 
+- AWD Deployment Framework
 
 ## Diagrams
 
@@ -58,20 +59,20 @@ primary DB instance + Aurora replica.
 ## Notes / Scratchpad
 **Module 2-Single to Multiple Accounts**
 
-Cross-Account access
+- Cross-Account access
+
+  
 
 
 
 
-
-
-Organizations
+- Organizations
 
 
 
 
-AWS Iam Identity Center
+- AWS Iam Identity Center
 
 
 
-AWS Control Tower
+- AWS Control Tower
