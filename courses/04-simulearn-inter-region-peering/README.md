@@ -18,7 +18,7 @@
 | Points          | 100 (≈1h)                                                    |
 | Status          | Done                                                         |
 | Date completed  | 2026-09-19                                                   |
-| Skill Builder   | <paste the course/lab URL>                                   |
+| Skill Builder   | https://skillbuilder.aws/learn/Q2ZUU6W33N/aws-simulearn-inter-region-peering/85BJP5ERPA |
 
 > Reminder: Professional recert needs **700 points total** including **at least
 > 2 practical activities (labs)**. "Type = Lab" counts toward the 2-lab minimum.
