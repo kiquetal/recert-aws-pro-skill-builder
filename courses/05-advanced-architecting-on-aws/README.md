@@ -18,7 +18,7 @@
 | Points          | 160 (≈2h)                                                    |
 | Status          | In progress                                                  |
 | Date completed  | —                                                            |
-| Skill Builder   | <paste the course/lab URL>                                   |
+| Skill Builder   | https://skillbuilder.aws/learn/DCVNQSAWWN/advanced-architecting-on-aws-online-course-supplement/64TDHJKPZY |
 
 > Reminder: Professional recert needs **700 points total** including **at least
 > 2 practical activities (labs)**. "Type = Lab" counts toward the 2-lab minimum.
