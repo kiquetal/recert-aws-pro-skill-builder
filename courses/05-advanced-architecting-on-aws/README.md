@@ -91,19 +91,22 @@ regions and immediately instantiates the resources.
   > **Service Catalog** = governed, self-service product distribution;
   > **ADF** = CI/CD orchestration/pipelines across the org.
 
-- Organizations
+- **AWS Organizations** — five features to securely launch and run multi-account
+  environments:
 
-Five features to securely launch multi-account environments
-
-- Create security organizational units (OU) and accounts
-- Enable security services and delegate adminsitrators
-- Deploy resources across multiple accouns
-- Enforce controls with Organizations policies
-- Manage access
-
-
-
-
+  - **Create security OUs and accounts** — organize accounts into
+    **organizational units (OUs)** (e.g., a security OU) for structured
+    management.
+  - **Enable security services & delegate administrators** — turn on org-wide
+    security services (GuardDuty, Security Hub, etc.) and **delegate admin** to a
+    dedicated account instead of the management account.
+  - **Deploy resources across multiple accounts** — e.g., via CloudFormation
+    StackSets (the cross-account deployment primitive above).
+  - **Enforce controls with Organizations policies** — **Service Control
+    Policies (SCPs)** and other org policies set guardrails on what accounts/OUs
+    can do.
+  - **Manage access** — centralized access management (pairs with IAM Identity
+    Center below).
 
 
 - AWS Iam Identity Center
