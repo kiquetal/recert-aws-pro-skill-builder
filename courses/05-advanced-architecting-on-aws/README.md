@@ -45,11 +45,15 @@ flowchart LR
 
 ## Screenshots
 
-Store images in this folder's `./assets/` directory and embed them here:
+**Starting-point architecture** — a multi-AZ, 3-tier web application to review and
+evolve throughout the course. Edge: User → **Route 53** → **CloudFront** (with S3
+**static assets**) and **Internet Gateway**. **Public subnets** (per AZ): **NAT
+gateways** and an **Application Load Balancer**. **App subnets** (per AZ): app
+servers in an **Auto Scaling group**, **Amazon EFS** (mount target per AZ), and a
+**Memcached (ElastiCache)** cluster. **Database subnets** (per AZ): **Aurora**
+primary DB instance + Aurora replica.
 
-```md
-![Description of screenshot](./assets/example-screenshot.png)
-```
+![Advanced Architecting starting point — multi-AZ 3-tier web app: Route 53 + CloudFront + S3 static assets at the edge, ALB and NAT gateways in public subnets, Auto Scaling app servers with EFS and Memcached in app subnets, and Aurora primary + replica in database subnets across two Availability Zones.](./assets/starting-architecture.png)
 
 ## Notes / Scratchpad
 
