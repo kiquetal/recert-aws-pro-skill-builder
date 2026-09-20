@@ -121,6 +121,51 @@ regions and immediately instantiates the resources.
   - **Enforce controls with Organizations policies** — **Service Control
     Policies (SCPs)** and other org policies set guardrails on what accounts/OUs
     can do.
+
+    **SCP — what/why/when:** an SCP is a **guardrail** that sets the **maximum
+    permissions** (permission *boundary*) for accounts in an OU/org. It does
+    **not grant** access — it only **limits** what IAM identities in those
+    accounts can do. An action is allowed only if **both** the SCP *and* the
+    IAM policy allow it (intersection). Applies to member accounts; the
+    management account is **not** restricted by SCPs.
+
+    - **Why:** enforce org-wide guardrails that individual account admins
+      **cannot override** (e.g., prevent disabling security controls, block
+      certain regions/services).
+    - **When:** use SCPs (over per-account IAM) when you need a control that must
+      hold across many accounts regardless of local IAM — compliance/security
+      boundaries.
+
+    **Example — deny disabling CloudTrail and restrict to allowed regions:**
+
+    ```json
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "DenyStoppingCloudTrail",
+          "Effect": "Deny",
+          "Action": ["cloudtrail:StopLogging", "cloudtrail:DeleteTrail"],
+          "Resource": "*"
+        },
+        {
+          "Sid": "DenyOutsideAllowedRegions",
+          "Effect": "Deny",
+          "NotAction": ["iam:*", "organizations:*", "cloudfront:*", "route53:*"],
+          "Resource": "*",
+          "Condition": {
+            "StringNotEquals": { "aws:RequestedRegion": ["us-east-1", "us-west-2"] }
+          }
+        }
+      ]
+    }
+    ```
+
+    - Statement 1: no one in the affected accounts can **stop/delete CloudTrail**
+      (protects the audit trail) — even account admins.
+    - Statement 2: **region restriction** — denies actions outside `us-east-1` /
+      `us-west-2`, while excluding **global services** (IAM, Organizations,
+      CloudFront, Route 53) that operate in `us-east-1`.
   - **Manage access** — centralized access management (pairs with IAM Identity
     Center below).
 
