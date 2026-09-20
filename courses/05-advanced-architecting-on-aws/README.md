@@ -93,6 +93,16 @@ regions and immediately instantiates the resources.
 
 - Organizations
 
+Five features to securely launch multi-account environments
+
+- Create security organizational units (OU) and accounts
+- Enable security services and delegate adminsitrators
+- Deploy resources across multiple accouns
+- Enforce controls with Organizations policies
+- Manage access
+
+
+
 
 
 
