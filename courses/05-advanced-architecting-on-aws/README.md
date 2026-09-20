@@ -183,6 +183,21 @@ regions and immediately instantiates the resources.
       teams. Requires disciplined, enforced tagging (can be mandated via SCPs /
       tag policies).
 
+  - **AWS Backup + Organizations (cross-account/central backup)** — when AWS
+    Backup is integrated with Organizations, a delegated **backup admin** account
+    can centrally govern backups across the whole org:
+    - **Backup policies** (an Organizations policy type) are authored centrally
+      and **applied to OUs/accounts** — member accounts automatically get the
+      backup plans/rules (schedules, retention, lifecycle) without per-account
+      setup.
+    - **Cross-account backup** — copy backups into a separate, locked-down
+      **backup account/vault** for isolation (ransomware/insider resilience);
+      combine with **Vault Lock** (WORM) for immutability.
+    - **Central monitoring** of backup/restore across accounts.
+    - Why: enforce **org-wide backup compliance** and keep recovery data outside
+      the accounts that could be compromised — the same "central governance,
+      delegated admin" pattern as the security services above.
+
 
 - AWS Iam Identity Center
 
