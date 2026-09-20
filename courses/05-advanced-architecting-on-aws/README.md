@@ -157,26 +157,37 @@ regions and immediately instantiates the resources.
 
     **Setup/enablement process (self-managed) — the sequence to allow a member:**
 
-    ```mermaid
-    sequenceDiagram
-        participant Admin as You (Management acct)
-        participant AR as AdministrationRole<br/>(mgmt acct)
-        participant Member as Member account
-        participant ER as ExecutionRole<br/>(member acct)
-        participant CFN as CloudFormation
+    ```plantuml
+    @startuml
+    title StackSets: enable a member, then deploy (self-managed)
+    actor "You (Mgmt acct)" as Admin
+    participant "AdministrationRole\n(mgmt acct)" as AR
+    participant "Member account" as Member
+    participant "ExecutionRole\n(member acct)" as ER
+    participant "CloudFormation" as CFN
 
-        Note over Admin,ER: ONE-TIME SETUP (to allow a member)
-        Admin->>AR: 1. Create AdministrationRole in mgmt acct
-        Member->>ER: 2. Create ExecutionRole in the member acct
-        Member->>ER: 3. Trust policy: Principal = mgmt account<br/>(allows admin to assume it)
-        Member->>ER: 4. Permissions policy: rights to create the stack's resources
+    == One-time setup (to ALLOW a member) ==
+    Admin -> AR : 1. Create AdministrationRole in mgmt acct
+    Member -> ER : 2. Create ExecutionRole in the member acct
+    Member -> ER : 3. Trust policy: Principal = mgmt account\n(allows admin to assume it)
+    Member -> ER : 4. Permissions policy: create the stack's resources
 
-        Note over Admin,CFN: DEPLOY
-        Admin->>CFN: 5. Create StackSet + create stack instances<br/>(target = member acct/region)
-        CFN->>AR: 6. Assume AdministrationRole
-        AR->>ER: 7. sts:AssumeRole across boundary into member's ExecutionRole
-        ER->>Member: 8. Create resources in the member account
+    == Deploy ==
+    Admin -> CFN : 5. Create StackSet + stack instances (target = member)
+    CFN -> AR : 6. Assume AdministrationRole
+    AR -> ER : 7. sts:AssumeRole across boundary into member's ExecutionRole
+    ER -> Member : 8. Create resources in the member account
+    @enduml
     ```
+
+    ![StackSets member enablement + deploy sequence — one-time setup (create Administration role in mgmt; create Execution role in member with trust to mgmt + resource permissions), then deploy (CloudFormation assumes Administration role, which assumes the member's Execution role across the boundary to create resources).](./assets/stacksets-enablement.png)
+
+    - Steps 1–4 are the **one-time enablement** that "allows the member": the
+      member must have an **ExecutionRole that trusts the management account**.
+    - Steps 5–8 are the **deploy** — repeatable for any target account/region.
+    - **Shortcut:** with the **service-managed** model (Organizations trusted
+      access enabled), steps 1–4 are handled automatically and StackSets can even
+      **auto-enroll new accounts** in a target OU.
 
     - Steps 1–4 are the **one-time enablement** that "allows the member": the
       member must have an **ExecutionRole that trusts the management account**.
