@@ -100,6 +100,22 @@ regions and immediately instantiates the resources.
   - **Enable security services & delegate administrators** — turn on org-wide
     security services (GuardDuty, Security Hub, etc.) and **delegate admin** to a
     dedicated account instead of the management account.
+
+    **Enable security services for the organization** — activating a security
+    service **for the organization** activates it **across all accounts**
+    automatically. Examples: **Amazon GuardDuty**, **Amazon Macie**, **IAM Access
+    Analyzer**, **AWS Firewall Manager**, **AWS Config**, and more.
+
+    ![Enable security services for the organization — activating a service org-wide activates it across all member accounts (GuardDuty, Macie, IAM Access Analyzer, Firewall Manager, Config, and more).](./assets/enable-security-services.png)
+
+    **Delegate administration for security services** — use a **delegated
+    administrator** to assign security-tooling ownership to a dedicated account
+    (e.g., **SecurityToolingProd**). The **management account** delegates admin to
+    that account, so the **security team manages the services on behalf of the
+    whole organization** — and the management account isn't used for day-to-day
+    security operations (best practice).
+
+    ![Delegate administration for security services — the management account delegates security-tooling ownership to a SecurityToolingProd account, which manages org-wide security services across member accounts.](./assets/delegated-admin-security.png)
   - **Deploy resources across multiple accounts** — e.g., via CloudFormation
     StackSets (the cross-account deployment primitive above).
   - **Enforce controls with Organizations policies** — **Service Control
