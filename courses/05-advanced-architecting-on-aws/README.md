@@ -56,8 +56,20 @@ primary DB instance + Aurora replica.
 
 ![Advanced Architecting starting point — multi-AZ 3-tier web app: Route 53 + CloudFront + S3 static assets at the edge, ALB and NAT gateways in public subnets, Auto Scaling app servers with EFS and Memcached in app subnets, and Aurora primary + replica in database subnets across two Availability Zones.](./assets/starting-architecture.png)
 
+**AWS CloudFormation StackSets** — a centralized account pushes a CloudFormation
+template out to associated accounts and regions and **immediately instantiates**
+the resources. Lets a **platform team push guardrails and infrastructure into
+child accounts from one central account** (multi-account, multi-region).
+
+![AWS CloudFormation StackSets — a centralized account with a StackSet/template deploys resources (e.g., IAM roles, Lambdas) into multiple child accounts across multiple regions from one place.](./assets/cloudformation-stacksets.png)
+
 ## Notes / Scratchpad
+
+
 **Module 2-Single to Multiple Accounts**
+AWS CloudFormation StackSets pushed your template out to associated accounts and region immediately instantiates the resources.
+
+
 
 - Cross-Account access
 
