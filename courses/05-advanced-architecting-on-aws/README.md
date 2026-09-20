@@ -118,6 +118,24 @@ regions and immediately instantiates the resources.
       access with Organizations, StackSets uses **service-linked/managed roles
       automatically** and can **auto-deploy to new accounts** in an OU — you don't
       create these two roles by hand.
+
+    > **CRITICAL — these are TWO separate roles in two accounts; the member does
+    > NOT "use" the management account's role.** An account can only grant
+    > permissions inside itself, so:
+    >
+    > 1. In the **management account**, CloudFormation assumes the
+    >    **AdministrationRole** (that role only lets it *reach out*).
+    > 2. The AdministrationRole then does **`sts:AssumeRole` across the account
+    >    boundary** into the **member's OWN ExecutionRole**.
+    > 3. Now operating **as the ExecutionRole *inside* the member account**,
+    >    CloudFormation creates the resources there.
+    >
+    > The bridge is the **trust policy on the member's ExecutionRole**, whose
+    > `Principal` is the **management account** ("I allow the admin account to
+    > assume me"). So the admin never acts directly in the member — it
+    > **crosses over by assuming a different role that lives in the member**, and
+    > that member-owned role does the work. The member always controls what the
+    > admin can do (via its ExecutionRole trust + permissions).
   - **AWS Service Catalog** — a central/platform team publishes **approved,
     pre-configured products** (CloudFormation templates) as a catalog teams can
     self-service deploy — with **governance/guardrails** (who can launch what,
