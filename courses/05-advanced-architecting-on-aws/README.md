@@ -189,6 +189,18 @@ regions and immediately instantiates the resources.
       access enabled), steps 1–4 are handled automatically and StackSets can even
       **auto-enroll new accounts** in a target OU.
 
+    **What "target" means (accounts × regions):** a stack set in the
+    **administrator account** fans out to **target accounts** in each selected
+    **region**, creating one **stack instance** per account×region. You choose the
+    targets at the *create stack instances* step (self-managed = account IDs;
+    service-managed = OUs).
+
+    ![AWS StackSets conceptual diagram — an administrator account's stack set deploys stacks into Target account A and B across two regions.](./assets/aws-stacksets-conceptual.png)
+
+    > Image source: AWS documentation — *StackSets concepts*
+    > (<https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/what-is-cfnstacksets.html>).
+    > © Amazon Web Services; included here for study/reference with attribution.
+
     - Steps 1–4 are the **one-time enablement** that "allows the member": the
       member must have an **ExecutionRole that trusts the management account**.
     - Steps 5–8 are the **deploy** — repeatable for any target account/region.
