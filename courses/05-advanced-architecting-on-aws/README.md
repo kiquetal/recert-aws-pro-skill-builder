@@ -154,6 +154,36 @@ regions and immediately instantiates the resources.
     > **crosses over by assuming a different role that lives in the member**, and
     > that member-owned role does the work. The member always controls what the
     > admin can do (via its ExecutionRole trust + permissions).
+
+    **Setup/enablement process (self-managed) — the sequence to allow a member:**
+
+    ```mermaid
+    sequenceDiagram
+        participant Admin as You (Management acct)
+        participant AR as AdministrationRole<br/>(mgmt acct)
+        participant Member as Member account
+        participant ER as ExecutionRole<br/>(member acct)
+        participant CFN as CloudFormation
+
+        Note over Admin,ER: ONE-TIME SETUP (to allow a member)
+        Admin->>AR: 1. Create AdministrationRole in mgmt acct
+        Member->>ER: 2. Create ExecutionRole in the member acct
+        Member->>ER: 3. Trust policy: Principal = mgmt account<br/>(allows admin to assume it)
+        Member->>ER: 4. Permissions policy: rights to create the stack's resources
+
+        Note over Admin,CFN: DEPLOY
+        Admin->>CFN: 5. Create StackSet + create stack instances<br/>(target = member acct/region)
+        CFN->>AR: 6. Assume AdministrationRole
+        AR->>ER: 7. sts:AssumeRole across boundary into member's ExecutionRole
+        ER->>Member: 8. Create resources in the member account
+    ```
+
+    - Steps 1–4 are the **one-time enablement** that "allows the member": the
+      member must have an **ExecutionRole that trusts the management account**.
+    - Steps 5–8 are the **deploy** — repeatable for any target account/region.
+    - **Shortcut:** with the **service-managed** model (Organizations trusted
+      access enabled), steps 1–4 are handled automatically and StackSets can even
+      **auto-enroll new accounts** in a target OU.
   - **AWS Service Catalog** — a central/platform team publishes **approved,
     pre-configured products** (CloudFormation templates) as a catalog teams can
     self-service deploy — with **governance/guardrails** (who can launch what,
