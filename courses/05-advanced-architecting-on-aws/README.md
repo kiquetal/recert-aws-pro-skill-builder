@@ -169,6 +169,20 @@ regions and immediately instantiates the resources.
   - **Manage access** — centralized access management (pairs with IAM Identity
     Center below).
 
+    **ABAC (attribute-based access control) — supported:** grant access based on
+    **tags/attributes** rather than static per-resource policies. You write one
+    policy that says "allow if the principal's tag matches the resource's tag"
+    (e.g., `aws:PrincipalTag/Project == aws:ResourceTag/Project`).
+
+    - **With Organizations/IAM Identity Center:** identity attributes (from the
+      IdP / Identity Center) flow through as **session tags**, so ABAC scales
+      across accounts — new resources/teams need **no new policies**, just the
+      right tags.
+    - **Why ABAC vs RBAC:** RBAC needs a new role/policy per team/project; ABAC
+      scales by tagging, which is ideal for large multi-account orgs with many
+      teams. Requires disciplined, enforced tagging (can be mandated via SCPs /
+      tag policies).
+
 
 - AWS Iam Identity Center
 
