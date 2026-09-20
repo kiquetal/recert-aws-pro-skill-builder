@@ -69,6 +69,25 @@ child accounts from one central account** (multi-account, multi-region).
 **Module 2-Single to Multiple Accounts**
 AWS CloudFormation StackSets pushed your template out to associated accounts and region immediately instantiates the resources.
 
+**Cross-account deployment & governance tools:**
+
+- **AWS CloudFormation StackSets** — deploy a stack (template) across **multiple
+  accounts and regions** from a central account in one operation; immediately
+  instantiates the resources. The core primitive for fan-out deployment.
+- **AWS Service Catalog** — lets a central/platform team publish **approved,
+  pre-configured products** (CloudFormation templates) as a catalog that teams
+  can self-service deploy — with **governance/guardrails** (who can launch what,
+  with which parameters/constraints). Standardizes *what* gets deployed.
+- **AWS Deployment Framework (ADF)** — an **open-source AWS-samples** solution
+  (not a managed service) that layers **CI/CD pipelines** on top of AWS
+  Organizations + CloudFormation (StackSets) to orchestrate **multi-account,
+  multi-region deployments** with staged rollouts and approvals. Adds *pipeline
+  automation* on top of the StackSets primitive.
+
+  > How they relate: **StackSets** = the deployment mechanism (fan-out);
+  > **Service Catalog** = governed, self-service product distribution;
+  > **ADF** = CI/CD orchestration/pipelines across the org.
+
 
 
 - Cross-Account access
