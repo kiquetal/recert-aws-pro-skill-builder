@@ -30,9 +30,27 @@
 
 ## Services Covered
 
-- AWS Cloudformation
-- Service Catalog 
-- AWD Deployment Framework
+- **AWS CloudFormation / StackSets** — infrastructure as code; StackSets fans a
+  template out across accounts and regions.
+- **AWS Service Catalog** — governed, self-service distribution of approved
+  products (templates).
+- **AWS Deployment Framework (ADF)** — open-source CI/CD orchestration for
+  multi-account/multi-region deployments.
+- **AWS Organizations** — multi-account structure (OUs), SCPs, delegated admin,
+  org-wide policies.
+- **AWS IAM Identity Center** *(formerly **AWS Single Sign-On / AWS SSO**)* —
+  centralized workforce sign-in and permission sets across all org accounts;
+  federates to external IdPs and supplies identity attributes (session tags) for
+  ABAC.
+- **AWS Resource Access Manager (AWS RAM)** — **share resources across accounts**
+  (e.g., VPC subnets/Transit Gateways, Route 53 Resolver rules, License Manager)
+  without duplicating them; works with Organizations for org-wide sharing.
+- **AWS Control Tower** — landing zone / guardrails to set up and govern a
+  secure multi-account environment.
+- **AWS Backup** — centralized, policy-driven backup across accounts (with
+  Organizations); cross-account backup vaults.
+- Security services (org-wide): **GuardDuty, Macie, IAM Access Analyzer, Firewall
+  Manager, Config**.
 
 ## Diagrams
 
@@ -257,8 +275,21 @@ regions and immediately instantiates the resources.
       the accounts that could be compromised — the same "central governance,
       delegated admin" pattern as the security services above.
 
+  - **AWS Resource Access Manager (AWS RAM)** — **share resources across
+    accounts** instead of duplicating them. Share things like **VPC subnets**
+    (VPC sharing), **Transit Gateways**, **Route 53 Resolver rules**, and
+    **License Manager** configs with other accounts/OUs.
+    - Works with **Organizations** to share org-wide (or to specific OUs) without
+      per-resource invitations.
+    - Why: reduces duplication and central-izes shared networking/infra (e.g., a
+      networking account owns the TGW/subnets and shares them to app accounts).
 
-- AWS Iam Identity Center
+
+- **AWS IAM Identity Center** *(formerly **AWS Single Sign-On / AWS SSO**)* —
+  centralized **workforce sign-in** across all org accounts using **permission
+  sets**; federates to an external IdP (Okta, Entra ID, etc.). Supplies identity
+  **attributes as session tags**, enabling **ABAC** across accounts. The modern
+  replacement for per-account IAM users for human access.
 
 
 
