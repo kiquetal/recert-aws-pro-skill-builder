@@ -77,6 +77,47 @@ regions and immediately instantiates the resources.
     **multiple accounts and regions** from a central account in one operation;
     immediately instantiates the resources. The core primitive for fan-out
     deployment.
+
+    **How the deployment works (self-managed permissions) — two roles, in two
+    places:**
+
+    ```text
+    MANAGEMENT / ADMIN ACCOUNT                 TARGET / MEMBER ACCOUNT
+    (where you create the StackSet)            (where resources are created)
+
+    [You] create StackSet
+         |
+         v
+    +----------------------------------+       +----------------------------------+
+    | AWSCloudFormationStackSet        |       | AWSCloudFormationStackSet        |
+    | AdministrationRole               | ====> | ExecutionRole                    |
+    | (MUST exist in admin account)    |assumes| (MUST exist in EACH member acct) |
+    |  - assumed by CloudFormation     |       |  - trusts the admin account's    |
+    |  - sts:AssumeRole into members   |       |    AdministrationRole            |
+    +----------------------------------+       |  - has permissions to CREATE the |
+                                               |    stack's resources here        |
+                                               +----------------------------------+
+                                                        |
+                                                        v
+                                               [Stack instance + resources created]
+
+    Trust chain:  CloudFormation -> AdministrationRole (admin acct)
+                  AdministrationRole --assumes--> ExecutionRole (member acct)
+                  ExecutionRole --creates--> resources in the member account
+    ```
+
+    - **`AWSCloudFormationStackSetAdministrationRole`** — lives in the **admin
+      (management) account**. CloudFormation assumes it; it can `sts:AssumeRole`
+      into the members.
+    - **`AWSCloudFormationStackSetExecutionRole`** — lives in **every target
+      member account**, **trusts** the admin account's AdministrationRole, and
+      holds the permissions to actually create the stack's resources.
+    - Miss the ExecutionRole in a member (or its trust to the admin role) → that
+      account's deployment **fails**.
+    - **Service-managed model (with Organizations):** if you enable trusted
+      access with Organizations, StackSets uses **service-linked/managed roles
+      automatically** and can **auto-deploy to new accounts** in an OU — you don't
+      create these two roles by hand.
   - **AWS Service Catalog** — a central/platform team publishes **approved,
     pre-configured products** (CloudFormation templates) as a catalog teams can
     self-service deploy — with **governance/guardrails** (who can launch what,
