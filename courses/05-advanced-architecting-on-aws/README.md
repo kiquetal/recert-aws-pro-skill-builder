@@ -345,5 +345,12 @@ regions and immediately instantiates the resources.
   replacement for per-account IAM users for human access.
 
 
-
 - AWS Control Tower
+
+Set up a best-practices AWS environemnt in a few clicks
+Standardiz account provisioning
+Centralize policy management
+Enforce governance and compliance proactively
+Enable enduser self-service
+
+
