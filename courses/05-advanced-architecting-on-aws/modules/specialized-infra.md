@@ -1,6 +1,12 @@
-# Specialized Infrastructure
+## Gateway Decision Matrix
 
-- **AWS Storage Gateway** — A hybrid cloud storage service that gives you on-premises access to virtually unlimited cloud storage.
+| Gateway Type | Decision Point | Professional Architect Insight |
+| :--- | :--- | :--- |
+| **Volume Gateway** | Cached vs. Stored | Choose **Stored** for 100% local residency/performance. Choose **Cached** for cloud-based scalability. |
+| **S3 File Gateway** | Local Cache Size | Performance is directly tied to the cache size. Size cache to cover the "working set" of files. |
+| **Tape Gateway** | Archival Class | Choose **Glacier Deep Archive** for lowest cost, but account for longer retrieval times (hours). |
+
+---
     - **Benefits:**
         - **Low-Latency Access:** Provides local cached access to data stored in the cloud.
         - **Seamless Integration:** Works with existing on-premises applications/file systems using standard storage protocols (NFS, SMB, iSCSI).
