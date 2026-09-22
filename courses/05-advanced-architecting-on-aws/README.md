@@ -409,8 +409,13 @@ Set up a best-practices AWS environment in a few clicks
     - **Geolocation:** Routes based on the user's location (country, state, continent).
     - **Failover:** Active/Passive routing. Uses health checks to route traffic to the standby resource if the active one fails.
     - **Health Checks & Traffic Flow:**
-    - **Health Checks:** Monitor the health of endpoints (IP addresses or domains). Can be used to trigger automated DNS failover.
+    - **Health Checks:** Monitor the health of endpoints (IP addresses or domains).
+        - **Config:** Configure request interval, failure threshold, and endpoint type (HTTP, HTTPS, TCP).
+        - **Failover:** Route 53 can automatically update DNS records to point to a standby resource if the primary fails.
     - **Traffic Flow:** A visual editor for complex routing configurations, allowing you to chain routing policies (e.g., Latency-based policy as the primary, Failover policy to a backup S3 bucket).
+
+![Route 53 Health Check configuration — showing health check settings for endpoint monitoring and automated failover.](./assets/route53-health-check.png)
+
 
 
 
