@@ -25,20 +25,19 @@
 ## Key Takeaways
 
 ### Hybrid Networking
-- **Mental Model: Managed vs. DIY:** Always prefer managed AWS services (VGW/TGW) for HA and scale over DIY EC2 VPN appliances.
-- **Mental Model: TGW Segmentation:** **Association = Isolation.** Use separate route tables for environments that must not communicate (e.g., Prod vs. Dev).
-- **Mental Model: Routing Plane:** **Most specific route always wins** (Longest Prefix Match). BGP is the "steering wheel" (AS-Path/Local Pref) for hybrid traffic.
-- **Direct Connect:** It is not encrypted by default; layer a VPN or use MACsec if required.
+- **Managed > DIY:** Always use AWS managed services (TGW, DX, VGW) over DIY EC2 appliances for HA and operational ease.
+- **TGW Segmentation:** **Association = Isolation.** Use separate Route Tables to isolate environments (e.g., Prod/Dev).
+- **Most Specific Wins:** Routing follows the "Longest Prefix Match" principle. BGP attributes (AS-Path/Local Pref) are used to steer hybrid traffic.
+- **Direct Connect:** Not encrypted by default; must use VPN or MACsec.
 
 ### DNS & Hybrid Resolution
-- **Mental Model: DNS is just Traffic:** Route 53 Resolver Endpoints are just ENIs with private IPs. They obey the same routing rules (VPN/DX paths) as application traffic.
-- **Resolver Rule Precedence:** When evaluating DNS queries, **the most specific rule wins**.
-- **System Rules:** AWS-managed rules (System rules) take precedence over custom rules. It is a **best practice to allow the System rule** to resolve `amazonaws.com`.
-- **Reverse DNS (PTR Records):** Essential for services like **Kerberos/AD** to resolve IP addresses back to hostnames.
+- **DNS = Traffic:** Resolver Endpoints (Inbound/Outbound) are ENIs with private IPs. They follow the same private network paths (VPN/DX) as application traffic.
+- **Rule Precedence:** **Most specific rule wins**. System rules (e.g., `amazonaws.com`) always take precedence for AWS native service endpoints.
+- **Resolver Endpoints:** Inbound allows on-prem to resolve PHZs; Outbound + Resolver Rules allow VPC resources to resolve on-premises domains via forwarding.
 
 ### Governance & Security
-- **Cross-Account Governance:** Use Organizations, SCPs, and Delegated Administrators to enforce security guardrails centrally without using the management account.
-- **ABAC vs. RBAC:** Attribute-Based Access Control (ABAC) scales better in large multi-account orgs via session tags; RBAC requires a new role/policy per team.
+- **Delegation:** Use Organizations and Delegated Administrators to manage security services (GuardDuty, Config, etc.) centrally, avoiding the use of the Management account for day-to-day tasks.
+- **ABAC Scaling:** ABAC using session tags (from IAM Identity Center) is superior to RBAC for large-scale multi-account environments as it removes the need to update per-project policies.
 
 
 ### Mental Model: TGW Network Segmentation
