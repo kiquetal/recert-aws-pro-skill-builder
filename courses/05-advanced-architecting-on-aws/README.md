@@ -405,6 +405,8 @@ Set up a best-practices AWS environment in a few clicks
     - **vs. CloudFront:** Use CloudFront for caching HTTP content; use Global Accelerator for network-level acceleration of any TCP/UDP traffic.
     - **Components:** Static Anycast IPs, endpoint groups, health checks, and traffic dials for easy traffic shifting.
 
+![AWS Global Accelerator — showing the flow of user traffic to the nearest AWS edge location via Anycast IP addresses, then over the AWS global network to regional endpoints.](./assets/global-accelerator.png)
+
 ### Site-to-Site VPN Architecture
 
 ![Site-to-Site VPN architecture — On-premises Customer Gateway connected via two tunnels over the Internet to an AWS Virtual Private Gateway.](./assets/site-to-site-vpn.png)
