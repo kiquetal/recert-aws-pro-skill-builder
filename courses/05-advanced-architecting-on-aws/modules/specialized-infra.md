@@ -25,4 +25,6 @@
             - **Use Case:** Providing block storage volumes (backed by EBS snapshots) to on-premises applications.
         - **Tape Gateway:**
             - **Protocols:** iSCSI-VTL (Virtual Tape Library).
-            - **Use Case:** Replacing physical tape infrastructure for archival backups.
+            - **Use Case:** Replacing physical tape infrastructure for archival backups, integrated with S3 Glacier.
+
+![AWS Tape Gateway — illustrating the setup of a virtual tape library for on-premises archival backups.](../assets/tape-gateway.png)
