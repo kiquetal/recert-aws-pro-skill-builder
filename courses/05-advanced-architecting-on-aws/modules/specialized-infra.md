@@ -11,15 +11,16 @@
         - **Access Control:** Use **Least Privilege IAM Roles** for the gateway's access to S3/EBS; ensure S3 buckets have **Block Public Access** enabled.
         - **Simplified Management:** Replaces expensive, complex on-premises backup and storage infrastructure with a simple virtual appliance.
         - **Cost-Effective:** Reduces on-premises storage footprint by tiered caching, keeping active data local and cold data in S3.
-    - **Types:** File Gateway (S3), Volume Gateway (EBS snapshots), Tape Gateway (Archival).
-
-![Specialized Infrastructure Overview — showing architectural context for Storage Gateway and related edge services.](../assets/specialized-infra.png)
-
-- File Gateway
-nfs, smb
-store and access object in S3.
-- Tape Gateway
-drop-in replacemente for phsucial tape infraestructure backed by cloud storage with local caching
-
-- Volume Gateway
-block storage on premsised by cloud storage with lcoal caching, amazon ebs, snapt shot, integrated with aws backup
+    - **Types & Supported Protocols:**
+        - **S3 File Gateway:** 
+            - **Protocols:** NFS (Linux/Unix), SMB (Windows).
+            - **Use Case:** Storing files in S3 while maintaining a local cache for low-latency access.
+        - **FSx File Gateway:**
+            - **Protocols:** SMB.
+            - **Use Case:** Low-latency, on-premises access to Amazon FSx for Windows File Server.
+        - **Volume Gateway:**
+            - **Protocols:** iSCSI.
+            - **Use Case:** Providing block storage volumes (backed by EBS snapshots) to on-premises applications.
+        - **Tape Gateway:**
+            - **Protocols:** iSCSI-VTL (Virtual Tape Library).
+            - **Use Case:** Replacing physical tape infrastructure for archival backups.
