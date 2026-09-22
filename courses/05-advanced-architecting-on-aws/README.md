@@ -371,8 +371,14 @@ Set up a best-practices AWS environment in a few clicks
     - **NAT Traversal (NAT-T):** Essential if the CGW is behind a NAT device; encapsulates ESP in UDP/4500.
 
 - **AWS Client VPN** — A managed, client-based remote-access VPN service.
-    - Uses an encrypted TLS tunnel (OpenVPN-based) for secure remote access by individual users.
-    - Supports certificate-based or AD/SAML authentication.
+    - **Use Case:** Individual remote access for employees/contractors to access private VPC resources from any location.
+    - **How it works:**
+        - User installs an OpenVPN-compatible client.
+        - Establishes a secure TLS tunnel to the AWS Client VPN endpoint.
+        - Authenticates via AD, SAML (Okta/Entra ID), or certificates.
+    - **Comparison:**
+        - Site-to-Site = Network-to-Network (permanent, gateway-to-gateway).
+        - Client VPN = User-to-Network (on-demand, client-to-gateway).
 
 - **AWS Direct Connect (DX)** — A dedicated private network link from on-premises to AWS.
     - **Physical Endpoint:** A cross-connect at an AWS Direct Connect location.
