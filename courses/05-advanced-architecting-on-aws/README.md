@@ -37,6 +37,10 @@
         - Domain: `1.0.10.in-addr.arpa` (for `10.0.1.0/24`)
         - Rule Type: Forward (to an internal Resolver if needed) or System (to use AWS internal resolution).
 - **DNS Hierarchy:** Always prioritize `System` rules for AWS-native services, then use `Forward` rules for hybrid-specific domains, and finally `PHZs` for internal-only private domain names.
+- **Mental Model: Managed vs. DIY:** Always prefer managed AWS services (VGW/TGW) for HA and scale over DIY EC2 VPN appliances.
+- **Mental Model: TGW Segmentation:** **Association = Isolation.** Use separate route tables for environments that must not communicate (e.g., Prod vs. Dev).
+- **Mental Model: Routing Plane:** **Most specific route always wins** (Longest Prefix Match). BGP is the "steering wheel" (AS-Path/Local Pref) for hybrid traffic.
+- **Mental Model: DNS is just Traffic:** Route 53 Resolver Endpoints are just ENIs with private IPs. They obey the same routing rules (VPN/DX paths) as application traffic.
 
 
 ## Services Covered
