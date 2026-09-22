@@ -1,7 +1,3 @@
-<!--
-  PER-COURSE NOTES TEMPLATE
--->
-
 # Advanced Architecting on AWS – Online Course Supplement
 
 ## Metadata
@@ -38,14 +34,3 @@
 ### Governance & Security
 - **Delegation:** Use Organizations and Delegated Administrators to manage security services (GuardDuty, Config, etc.) centrally, avoiding the use of the Management account for day-to-day tasks.
 - **ABAC Scaling:** ABAC using session tags (from IAM Identity Center) is superior to RBAC for large-scale multi-account environments as it removes the need to update per-project policies.
-
-## Services Covered
-
-- **AWS Organizations / Control Tower** — Multi-account structure and landing zone governance.
-- **AWS IAM Identity Center** — Centralized workforce access management using ABAC.
-- **AWS CloudFormation / StackSets** — Multi-account/region infrastructure deployment.
-- **AWS Transit Gateway** — Regional network hub for segmentation and connectivity.
-- **AWS Route 53 Resolver** — Hybrid DNS resolution infrastructure.
-- **AWS Direct Connect** — Dedicated private networking.
-- **AWS Backup** — Centralized, cross-account data protection.
-- Security services (org-wide): **GuardDuty, Macie, IAM Access Analyzer, Firewall Manager, Config**.
