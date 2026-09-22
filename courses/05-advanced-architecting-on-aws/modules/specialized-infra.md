@@ -78,6 +78,11 @@
         - **Improved Network Performance:** Provides low-latency access to on-premises systems and data, critical for real-time applications.
 
 
-### AWS LocalZone
+### AWS Local Zones
+
+- **AWS Local Zones:** An extension of an AWS Region that places AWS compute, storage, database, and other select services closer to large population, industry, and IT centers.
+    - **Core Value:** Provides **single-digit millisecond latency** for latency-sensitive applications (e.g., real-time gaming, live video streaming, augmented/virtual reality).
+    - **Operational Model:** Unlike Outposts (which is hardware on-premises), Local Zones are **AWS-managed data centers** located in major metro areas, allowing you to use AWS infrastructure without building your own data centers.
+    - **Supported Services:** Includes Amazon EC2, Amazon EBS, Amazon VPC, Amazon ECS, Amazon EKS, and Application Load Balancer.
 
 
