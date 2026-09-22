@@ -1,0 +1,25 @@
+@startuml
+skinparam componentStyle uml2
+
+node "VPC-A (10.0.0.0/16)" as VPCA
+node "VPC-B (10.1.0.0/16)" as VPCB
+
+node "Transit Gateway" {
+    node "Attachment A" as AttA
+    node "Attachment B" as AttB
+
+    node "Route Table 1" as RT1 {
+        component "Local: 10.0.0.0/16 -> Att A"
+        component "Propagated: 10.1.0.0/16 -> Att B" as Prop
+    }
+}
+
+VPCA -right-> AttA
+VPCB -right-> AttB
+
+' Association:
+AttA -down-> RT1 : <<Association>>\n(Traffic uses this table)
+
+' Propagation:
+AttB -.-> Prop : <<Propagation>>\n(Automatically fills this route)
+@enduml
