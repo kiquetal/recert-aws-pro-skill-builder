@@ -1,0 +1,16 @@
+@startuml
+skinparam componentStyle uml2
+
+node "Route 53 Private Hosted Zone (PHZ)" {
+  [example.internal] as PHZ
+}
+
+node "VPC-1 (ID: vpc-0a1b2c3d)" as VPC1
+node "VPC-2 (ID: vpc-9z8y7x6w)" as VPC2
+
+PHZ -right-( "Add VPC ID" : Association
+PHZ -left-( "Add VPC ID" : Association
+
+VPC1 -down-> PHZ
+VPC2 -down-> PHZ
+@enduml
