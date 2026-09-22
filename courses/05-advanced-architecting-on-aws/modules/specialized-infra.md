@@ -23,9 +23,6 @@
             - **Use Case:** Storing files in S3 while maintaining a local cache for low-latency access.
 
 ![AWS S3 File Gateway — showing the integration of on-premises file storage with S3 via NFS/SMB protocols.](../assets/storage-file-gateway.png)
-        - **FSx File Gateway:**
-            - **Protocols:** SMB.
-            - **Use Case:** Low-latency, on-premises access to Amazon FSx for Windows File Server.
         - **Volume Gateway:**
             - **Protocols:** iSCSI.
             - **Modes:**
