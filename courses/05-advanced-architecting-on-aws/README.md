@@ -377,9 +377,10 @@ Set up a best-practices AWS environment in a few clicks
 - **AWS Direct Connect (DX)** — A dedicated private network link from on-premises to AWS.
     - **Physical Endpoint:** A cross-connect at an AWS Direct Connect location.
     - **Logical Endpoints (Virtual Interfaces - VIFs):**
-        - **Private VIF:** Connects to a VGW (single VPC) or Direct Connect Gateway.
-        - **Public VIF:** Connects to public AWS services (e.g., S3).
-        - **Transit VIF:** Connects to a Transit Gateway (TGW) via a Direct Connect Gateway.
+        - **Private VIF:** Access an Amazon VPC using private IP addresses. Connect to a Virtual Private Gateway (VGW) or a Direct Connect Gateway (DXGW).
+        - **Public VIF:** Access AWS services from your on-premises data center. Allow AWS services or AWS customers access to your public networks over the interface instead of traversing the internet.
+        - **Transit VIF:** Access one or more VPC Transit Gateways (TGW) associated with Direct Connect gateways. Used with 1/2/5/10/100 Gbps Direct Connect connections.
+        - *Source:* [AWS Direct Connect Documentation](https://docs.aws.amazon.com/directconnect/latest/UserGuide/WorkingWithVirtualInterfaces.html)
     - **Direct Connect Gateway (DXGW):** A global construct that allows connecting a DX to VPCs across *different* regions. Essential for scaling DX in multi-region environments.
     - **Invalid Termination Points:** You cannot terminate a Direct Connect VIF directly on an **EC2 Instance**, **Load Balancer (ALB/NLB)**, **Internet Gateway**, or **NAT Gateway**. DX VIFs require a BGP session and must terminate on specialized routing constructs (VGW/DXGW).
     - **Note:** It is *not encrypted* by default. Layer a VPN or use MACsec for encryption.
