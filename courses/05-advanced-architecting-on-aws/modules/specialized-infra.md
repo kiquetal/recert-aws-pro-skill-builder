@@ -71,4 +71,8 @@
         - **Low Latency:** Processing real-time data on-premises (e.g., manufacturing automation, high-frequency financial trading).
         - **Data Residency:** Keeping data on-premises to meet strict regulatory, compliance, or privacy requirements.
         - **Legacy Modernization:** Modernizing on-premises applications by using AWS native services (EKS, RDS, EC2) while keeping the data/compute physically local.
-    - **Operational Model:** AWS delivers, installs, and manages the physical hardware (maintenance, updates, capacity monitoring). You manage the workloads (EC2, EKS, RDS) using the same AWS tools and APIs as you do in a Region.
+    - **Supported AWS Services:** You can run a subset of AWS services locally on Outposts, including: **Amazon EC2, Amazon EBS, Amazon S3 (on Outposts), Amazon EKS, Amazon ECS, Amazon RDS, Amazon ElastiCache, and Elastic Load Balancing (ALB)**.
+    - **Key Benefits:**
+        - **Local Monitoring:** Leverage the same Amazon CloudWatch capabilities to monitor your Outpost workloads as you do in an AWS Region.
+        - **Compliance Certifications:** Outposts inherits the standard AWS compliance certifications (PCI, HIPAA, SOC, etc.), helping you maintain a consistent security posture.
+        - **Improved Network Performance:** Provides low-latency access to on-premises systems and data, critical for real-time applications.
