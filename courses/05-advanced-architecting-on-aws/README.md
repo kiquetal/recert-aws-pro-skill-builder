@@ -381,6 +381,7 @@ Set up a best-practices AWS environment in a few clicks
         - **Public VIF:** Connects to public AWS services (e.g., S3).
         - **Transit VIF:** Connects to a Transit Gateway (TGW) via a Direct Connect Gateway.
     - **Direct Connect Gateway (DXGW):** A global construct that allows connecting a DX to VPCs across *different* regions. Essential for scaling DX in multi-region environments.
+    - **Invalid Termination Points:** You cannot terminate a Direct Connect VIF directly on an **EC2 Instance**, **Load Balancer (ALB/NLB)**, **Internet Gateway**, or **NAT Gateway**. DX VIFs require a BGP session and must terminate on specialized routing constructs (VGW/DXGW).
     - **Note:** It is *not encrypted* by default. Layer a VPN or use MACsec for encryption.
 
 - **AWS Global Accelerator** — Improves availability/performance by routing user traffic over the AWS global network via Anycast IP addresses.
