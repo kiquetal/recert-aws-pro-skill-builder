@@ -432,7 +432,9 @@ Set up a best-practices AWS environment in a few clicks
         - **Hybrid Interaction:** PHZs work with Route 53 Resolver endpoints to bridge on-premises DNS.
     - **Route 53 Resolver Endpoints:**
     - **Inbound Endpoints:** Allow on-premises DNS servers to forward queries to AWS Resolver. This is the mechanism that allows on-premises systems to resolve domains within your VPCs, including those in **Private Hosted Zones (PHZs)**.
-        - *Logic:* By creating an Inbound Endpoint, AWS provides an IP address (listener) within your VPC. Your on-premises DNS server is configured with a **Conditional Forwarder** for your AWS domain (e.g., `internal.example.com`), pointing traffic to this Inbound Endpoint IP.
+        - *Creation:* Provisioned via Route 53 Resolver console. Requires selecting at least two subnets (for HA/AZ redundancy) in your VPC. AWS automatically creates an **Elastic Network Interface (ENI)** in each selected subnet.
+        - *Security:* You must attach a **Security Group** to these ENIs that explicitly allows inbound UDP/TCP traffic on port 53 from your on-premises DNS server's IP range.
+        - *Logic:* By creating an Inbound Endpoint, AWS provides listener IP addresses within your VPC. Your on-premises DNS server is configured with a **Conditional Forwarder** for your AWS domain (e.g., `internal.example.com`), pointing traffic to these listener IPs.
     - **Outbound Endpoints:** Allow AWS resources to resolve on-premises DNS domains via forwarding rules.
         - *Setup:* Create an **AWS Route 53 Resolver Rule** (type: **Forward**) for the target domain (e.g., `local.corp`) pointing to your on-premises DNS server IPs, and associate this rule with your VPC(s).
 
