@@ -418,6 +418,8 @@ Set up a best-practices AWS environment in a few clicks
 
 ![Route 53 Resolver and DNS configuration — showing Private Hosted Zone VPC associations and Route 53 Resolver endpoints for hybrid DNS resolution.](./assets/route53-resolver-dns.png)
 
+![Private Hosted Zone Hybrid DNS Architecture — showing Inbound/Outbound endpoints enabling resolution between AWS PHZ and On-Premises DNS servers.](./assets/phz-hybrid-dns.png)
+
 
 ### Site-to-Site VPN Architecture
 

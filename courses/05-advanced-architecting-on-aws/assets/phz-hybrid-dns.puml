@@ -1,0 +1,24 @@
+@startuml
+skinparam componentStyle uml2
+
+node "On-Premises Network" {
+    [On-Prem DNS Server] as OnPremDNS
+}
+
+node "AWS Cloud" {
+    [Route 53 Inbound Endpoint] as Inbound
+    [Route 53 Resolver] as Resolver
+    [Private Hosted Zone (PHZ)] as PHZ
+    [VPC] as VPC
+    [Route 53 Outbound Endpoint] as Outbound
+}
+
+OnPremDNS -down-> Inbound: Query (example.internal)
+Inbound -down-> Resolver
+Resolver -down-> PHZ: Resolve (example.internal)
+
+VPC -right-> Resolver: Query (onprem.domain)
+Resolver -down-> Outbound: Forward (onprem.domain)
+Outbound -down-> OnPremDNS: Forwarded Query
+
+@enduml
