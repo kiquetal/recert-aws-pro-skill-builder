@@ -36,3 +36,19 @@
 - **Cross-Account Governance:** Use Organizations, SCPs, and Delegated Administrators to enforce security guardrails centrally without using the management account.
 - **ABAC vs. RBAC:** Attribute-Based Access Control (ABAC) scales better in large multi-account orgs via session tags; RBAC requires a new role/policy per team.
 
+### Mental Model: TGW Network Segmentation
+
+```text
+       [VPC-Prod]    [VPC-Dev]
+           |             |
+       [Att-Prod]    [Att-Dev]
+           |             |
+    +------v-------------v--------+
+    |      Transit Gateway        |
+    |                             |
+    | [RTB-Prod]    [RTB-Dev]     |
+    |  (No route     (No route    |
+    |   to Dev)       to Prod)    |
+    +-----------------------------+
+```
+
