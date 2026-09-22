@@ -411,10 +411,15 @@ Set up a best-practices AWS environment in a few clicks
     - **Private Hosted Zones (PHZs):** DNS domains configured *only* for specific VPCs. Not resolvable from the internet.
         - **VPC Association:** Allows cross-VPC DNS resolution. Any VPC associated with the PHZ can resolve the private records (regardless of peering or TGW, *provided* the VPCs have DNS hostnames enabled).
         - **Split-Horizon DNS:** Use the same domain name (e.g., `example.com`) for public internet queries (in a Public Hosted Zone) and internal VPC queries (in a PHZ). The Resolver intelligently picks the PHZ record if the VPC is associated with it.
-        - **Hybrid Interaction:** PHZs work with Route 53 Resolver *outbound* endpoints to allow on-premises DNS servers to query PHZs, and *inbound* endpoints to allow AWS resources to query on-premises DNS domains.
+        - **Hybrid Interaction:** PHZs work with Route 53 Resolver endpoints to bridge on-premises DNS.
     - **Inbound Endpoints:** Allow on-premises DNS servers to forward queries to AWS Resolver.
+        - *Setup:* Configure a **Conditional Forwarder** on your on-premises DNS server to point requests for your AWS domain (e.g., `internal.example.com`) to the IP address of the AWS Inbound Endpoint.
     - **Outbound Endpoints:** Allow AWS resources to resolve on-premises DNS domains via forwarding rules.
-    - **Resolution Flow:** Route 53 Resolver automatically resolves public DNS and private hosted zones. Use resolver rules to bridge to on-premises DNS (and vice-versa).
+        - *Setup:* Create an **AWS Route 53 Resolver Rule** (type: **Forward**) for the target domain (e.g., `local.corp`) pointing to your on-premises DNS server IPs, and associate this rule with your VPC(s).
+    - **Resolution Flow Summary:**
+        - **On-Prem to AWS:** On-Prem DNS → Conditional Forwarder → AWS Inbound Endpoint → AWS Resolver → PHZ.
+        - **AWS to On-Prem:** EC2 Query → VPC Resolver → Resolver Rule → Outbound Endpoint → On-Prem DNS Server.
+    - **Prerequisites:** VPCs must have `enableDnsHostnames` and `enableDnsSupport` set to `true`.
 
 ![Route 53 Resolver and DNS configuration — showing Private Hosted Zone VPC associations and Route 53 Resolver endpoints for hybrid DNS resolution.](./assets/route53-resolver-dns.png)
 
