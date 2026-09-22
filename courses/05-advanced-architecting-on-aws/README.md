@@ -455,4 +455,6 @@ VPC Router 53 Resolver
 Health check 
 Hybrid integration using forwarding rules and endpoints.
 
+DNS Resolution enable the Amazon R53 Resolver (10.0.0.2) from a vpc (10.0.0.0/16)
+DNS Hostnames = provides a host name automatically.
 
