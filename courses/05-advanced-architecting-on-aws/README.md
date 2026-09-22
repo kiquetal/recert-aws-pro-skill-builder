@@ -430,10 +430,14 @@ Set up a best-practices AWS environment in a few clicks
         - **VPC Association:** Allows cross-VPC DNS resolution. Any VPC associated with the PHZ can resolve the private records (regardless of peering or TGW, *provided* the VPCs have DNS hostnames enabled).
         - **Split-Horizon DNS:** Use the same domain name (e.g., `example.com`) for public internet queries (in a Public Hosted Zone) and internal VPC queries (in a PHZ). The Resolver intelligently picks the PHZ record if the VPC is associated with it.
         - **Hybrid Interaction:** PHZs work with Route 53 Resolver endpoints to bridge on-premises DNS.
-    - **Inbound Endpoints:** Allow on-premises DNS servers to forward queries to AWS Resolver.
-        - *Setup:* Configure a **Conditional Forwarder** on your on-premises DNS server to point requests for your AWS domain (e.g., `internal.example.com`) to the IP address of the AWS Inbound Endpoint.
+    - **Route 53 Resolver Endpoints:**
+    - **Inbound Endpoints:** Allow on-premises DNS servers to forward queries to AWS Resolver. This is the mechanism that allows on-premises systems to resolve domains within your VPCs, including those in **Private Hosted Zones (PHZs)**.
+        - *Logic:* By creating an Inbound Endpoint, AWS provides an IP address (listener) within your VPC. Your on-premises DNS server is configured with a **Conditional Forwarder** for your AWS domain (e.g., `internal.example.com`), pointing traffic to this Inbound Endpoint IP.
     - **Outbound Endpoints:** Allow AWS resources to resolve on-premises DNS domains via forwarding rules.
         - *Setup:* Create an **AWS Route 53 Resolver Rule** (type: **Forward**) for the target domain (e.g., `local.corp`) pointing to your on-premises DNS server IPs, and associate this rule with your VPC(s).
+
+![On-Premises to AWS Private Hosted Zone DNS Flow — illustrating how a Conditional Forwarder on an on-premises DNS server forwards queries to an AWS Inbound Endpoint to resolve records in a Private Hosted Zone.](./assets/onprem-to-aws-dns.png)
+
     - **Implementation & Traffic Matrix:**
 
 | Scenario | Objective | AWS Component | On-Premises Config |
