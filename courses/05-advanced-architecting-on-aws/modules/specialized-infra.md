@@ -60,3 +60,15 @@
     - **Best For:** Massive, one-time data migrations ("Data migration" vs. DataSync's "Data transfer").
 
 ![AWS Data Transfer Options — illustrating choices between DataSync (online) and Snow Family (offline) for various migration scenarios.](../assets/data-transfer-options.png)
+
+
+
+### AWS Outposts
+
+- **AWS Outposts** — A fully managed service that extends AWS infrastructure, services, APIs, and tools to virtually any on-premises or edge location.
+    - **Core Value:** Provides a consistent hybrid experience, enabling you to use the same AWS APIs, control plane, and tooling on-premises as you do in the cloud.
+    - **Use Cases:**
+        - **Low Latency:** Processing real-time data on-premises (e.g., manufacturing automation, high-frequency financial trading).
+        - **Data Residency:** Keeping data on-premises to meet strict regulatory, compliance, or privacy requirements.
+        - **Legacy Modernization:** Modernizing on-premises applications by using AWS native services (EKS, RDS, EC2) while keeping the data/compute physically local.
+    - **Operational Model:** AWS delivers, installs, and manages the physical hardware (maintenance, updates, capacity monitoring). You manage the workloads (EC2, EKS, RDS) using the same AWS tools and APIs as you do in a Region.
