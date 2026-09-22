@@ -467,6 +467,7 @@ Set up a best-practices AWS environment in a few clicks
 
 - **DNS Resolution & Settings:**
     - **Amazon R53 Resolver:** The DNS server at `VPC Network Range + 2` (e.g., `10.0.0.2` for `10.0.0.0/16`). All VPCs must use this for DNS resolution to work.
+    - **DNS Support:** When enabled (`enableDnsSupport = true`), the AWS DNS server is enabled for the VPC, allowing instances to resolve DNS queries.
     - **DNS Hostnames:** When enabled (`enableDnsHostnames = true`), AWS automatically assigns a public/private DNS hostname to instances with public/private IP addresses.
     - **VPC DHCP Option Sets:** Allows you to configure custom domain names and DNS servers for your VPC. By default, VPCs use the Amazon-provided DNS server, which works out of the box.
 
