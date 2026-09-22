@@ -408,7 +408,10 @@ Set up a best-practices AWS environment in a few clicks
     - **Latency:** Routes to the region with the lowest network latency for the user. Best for global performance.
     - **Geolocation:** Routes based on the user's location (country, state, continent).
     - **Failover:** Active/Passive routing. Uses health checks to route traffic to the standby resource if the active one fails.
-    - **Multivalue Answer:** Returns multiple IP addresses for a single query. Paired with Route 53 health checks to only return healthy endpoints.
+    - **Health Checks & Traffic Flow:**
+    - **Health Checks:** Monitor the health of endpoints (IP addresses or domains). Can be used to trigger automated DNS failover.
+    - **Traffic Flow:** A visual editor for complex routing configurations, allowing you to chain routing policies (e.g., Latency-based policy as the primary, Failover policy to a backup S3 bucket).
+
 
 
 - **Route 53 Resolver (Hybrid DNS)** — Bridges DNS resolution across hybrid environments and multi-VPC setups.
