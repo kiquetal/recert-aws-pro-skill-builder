@@ -25,8 +25,19 @@
 
 ## Key Takeaways
 
-- <Bullet the most important concepts you learned.>
-- <What surprised you / what to remember for real work.>
+- **Resolver Rule Precedence:** When evaluating DNS queries, **the most specific rule wins**. For example, a rule for `sub.example.com` takes precedence over a rule for `example.com`.
+- **System Rules:** AWS-managed rules (System rules) take precedence over custom rules. It is a **best practice to allow the System rule** to resolve `amazonaws.com` so that AWS service endpoints (e.g., S3, DynamoDB) resolve correctly to their internal AWS IP addresses.
+- **Overriding Defaults:** You can override default DNS resolution behavior by creating forwarding rules that match specific domains.
+- **Reverse DNS (PTR Records):** Essential for services like **Kerberos/AD** to resolve IP addresses back to hostnames.
+    - *Example (Kerberos):* To allow clients to resolve an AD server IP back to its hostname, you must create a Resolver rule for the reverse lookup zone:
+        - Domain: `1.168.192.in-addr.arpa` (for `192.168.1.0/24`)
+        - Rule Type: Forward
+        - Target: [On-Prem DNS Server IP]
+    - *Example (VPC CIDR Reverse):* To enable reverse lookup for EC2 instances within a VPC:
+        - Domain: `1.0.10.in-addr.arpa` (for `10.0.1.0/24`)
+        - Rule Type: Forward (to an internal Resolver if needed) or System (to use AWS internal resolution).
+- **DNS Hierarchy:** Always prioritize `System` rules for AWS-native services, then use `Forward` rules for hybrid-specific domains, and finally `PHZs` for internal-only private domain names.
+
 
 ## Services Covered
 
