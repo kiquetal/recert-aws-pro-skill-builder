@@ -458,6 +458,9 @@ Set up a best-practices AWS environment in a few clicks
 - **Private Hosted Zones (PHZ):** DNS domains configured *only* for specific VPCs. Not resolvable from the internet.
     - **Cross-VPC DNS Resolution:** A single PHZ can be associated with multiple VPCs. Even if VPCs are in different AWS accounts, you can associate them to a single PHZ to allow all associated VPCs to resolve the same private records.
         - *Explicit Association:* You must explicitly associate each VPC with the PHZ by adding the **VPC ID** (and specifying the Region if it differs from the PHZ region) in the Route 53 console or via the `associate-vpc-with-hosted-zone` API call.
+
+![PHZ Association Logic — illustrating the explicit association of VPC IDs (vpc-0a1b2c3d and vpc-9z8y7x6w) to a single Private Hosted Zone.](./assets/phz-association-logic.png)
+
     - **Prerequisites:**
         - `enableDnsSupport` = `true`
         - `enableDnsHostnames` = `true`
