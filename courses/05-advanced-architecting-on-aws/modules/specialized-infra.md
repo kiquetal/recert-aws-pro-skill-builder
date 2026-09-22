@@ -85,4 +85,11 @@
     - **Operational Model:** Unlike Outposts (which is hardware on-premises), Local Zones are **AWS-managed data centers** located in major metro areas, allowing you to use AWS infrastructure without building your own data centers.
     - **Supported Services:** Includes Amazon EC2, Amazon EBS, Amazon VPC, Amazon ECS, Amazon EKS, and Application Load Balancer.
 
+#### AWS Wavelength
+
+- **AWS Wavelength:** Extends AWS compute and storage services to the **5G network edge**, allowing you to deliver applications with ultra-low latency to 5G devices.
+    - **Core Value:** Provides sub-millisecond latency for applications that require the speed and proximity of the 5G carrier network.
+    - **Operational Model:** AWS infrastructure is embedded directly into the 5G service provider's data center.
+    - **Carrier Gateway:** Use a **Carrier Gateway** to enable communication between resources in your Wavelength subnets and the internet or on-premises networks, replacing the standard Internet Gateway.
+    - **Use Cases:** Connected vehicles (V2X), immersive cloud gaming, and real-time streaming/analytics for 5G-connected IoT devices.
 
