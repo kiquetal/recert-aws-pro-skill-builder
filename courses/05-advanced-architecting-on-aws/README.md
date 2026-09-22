@@ -394,4 +394,39 @@ Set up a best-practices AWS environment in a few clicks
 
 ![Site-to-Site VPN architecture — On-premises Customer Gateway connected via two tunnels over the Internet to an AWS Transit Gateway.](./assets/site-to-site-vpn.png)
 
+### Virtual Interface (VIF) Architecture
+
+```mermaid
+graph TD
+    subgraph OnPrem [On-Premises]
+        Router[On-Prem Router]
+    end
+
+    subgraph AWS_DX_Loc [AWS Direct Connect Location]
+        DX_Device[AWS Direct Connect Device]
+    end
+
+    subgraph AWS_Cloud [AWS Cloud]
+        VGW[Virtual Private Gateway]
+        DXGW[Direct Connect Gateway]
+        TGW[Transit Gateway]
+        VPC[VPC]
+        PubSvc[Public AWS Services (S3/DynamoDB)]
+    end
+
+    Router -- "Private VIF" --> DX_Device
+    DX_Device -- "Private VIF" --> VGW
+    DX_Device -- "Private VIF" --> DXGW
+    VGW --> VPC
+    DXGW --> VPC
+
+    Router -- "Public VIF" --> DX_Device
+    DX_Device -- "Public VIF" --> PubSvc
+
+    Router -- "Transit VIF" --> DX_Device
+    DX_Device -- "Transit VIF" --> DXGW
+    DXGW -- "DXGW association" --> TGW
+    TGW --> VPC
+```
+
 
