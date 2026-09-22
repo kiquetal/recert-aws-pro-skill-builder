@@ -33,6 +33,7 @@
 ![AWS Volume Gateway — showing the provisioning of iSCSI block storage volumes for on-premises applications.](../assets/volume-gateway.png)
         - **Tape Gateway:**
             - **Protocols:** iSCSI-VTL (Virtual Tape Library).
+            - **Functionality:** Presents an iSCSI-based virtual tape library to on-premises backup applications. Backup data is written to virtual tapes, which are then asynchronously archived to S3 Glacier (Flexible Retrieval or Deep Archive).
             - **Use Case:** Replacing physical tape infrastructure for archival backups, integrated with S3 Glacier.
 
 ![AWS Tape Gateway — illustrating the setup of a virtual tape library for on-premises archival backups.](../assets/tape-gateway.png)
