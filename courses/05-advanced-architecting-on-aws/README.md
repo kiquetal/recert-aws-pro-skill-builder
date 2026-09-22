@@ -434,7 +434,9 @@ Set up a best-practices AWS environment in a few clicks
 ![Private Hosted Zone Hybrid DNS Architecture — showing Inbound/Outbound endpoints enabling resolution between AWS PHZ and On-Premises DNS servers.](./assets/phz-hybrid-dns.png)
 
 
-### Site-to-Site VPN Architecture
+### Transit Gateway Logical Components
+
+![Transit Gateway Logic — illustrating the separation between Attachments (pipes), Associations (mapping traffic to a route table), and Propagations (dynamic route population).](./assets/tgw-logic.png)
 
 ![Site-to-Site VPN architecture — On-premises Customer Gateway connected via two tunnels over the Internet to an AWS Virtual Private Gateway.](./assets/site-to-site-vpn.png)
 
@@ -457,4 +459,6 @@ Hybrid integration using forwarding rules and endpoints.
 
 DNS Resolution enable the Amazon R53 Resolver (10.0.0.2) from a vpc (10.0.0.0/16)
 DNS Hostnames = provides a host name automatically.
+
+vpc dhcp option sets = works out of the box
 
