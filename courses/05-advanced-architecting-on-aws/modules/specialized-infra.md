@@ -37,3 +37,17 @@
             - **Use Case:** Replacing physical tape infrastructure for archival backups, integrated with S3 Glacier.
 
 ![AWS Tape Gateway — illustrating the setup of a virtual tape library for on-premises archival backups.](../assets/tape-gateway.png)
+
+### Data Transfer Options
+
+- **AWS DataSync:**
+    - **Use Case:** Online data transfer service for moving large amounts of data between on-premises storage and AWS (S3, EFS, FSx) or between AWS storage services.
+    - **Mechanism:** Uses a specialized software agent (deployed on-premises) to optimize network bandwidth and ensure data integrity via automatic verification.
+    - **Best For:** Frequent, ongoing data transfers and migrations.
+
+- **AWS Snow Family (Snowcone, Snowball, Snowmobile):**
+    - **Use Case:** Offline data transfer for large-scale data migrations where network bandwidth is a bottleneck or unavailable.
+    - **Mechanism:** AWS ships physical, ruggedized devices to your location. You load data onto them, ship them back, and AWS imports the data directly into S3.
+    - **Best For:** Massive, one-time data migrations ("Data migration" vs. DataSync's "Data transfer").
+
+![AWS Data Transfer Options — illustrating choices between DataSync (online) and Snow Family (offline) for various migration scenarios.](../assets/data-transfer-options.png)
