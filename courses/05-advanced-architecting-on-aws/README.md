@@ -407,6 +407,12 @@ Set up a best-practices AWS environment in a few clicks
 
 ![AWS Global Accelerator — showing the flow of user traffic to the nearest AWS edge location via Anycast IP addresses, then over the AWS global network to regional endpoints.](./assets/global-accelerator.png)
 
+- **Route 53 Resolver (Hybrid DNS)** — Bridges DNS resolution across hybrid environments and multi-VPC setups.
+    - **Private Hosted Zones (PHZs):** Associate multiple VPCs with a single PHZ to allow cross-VPC DNS resolution within AWS.
+    - **Inbound Endpoints:** Allow on-premises DNS servers to forward queries to AWS Resolver.
+    - **Outbound Endpoints:** Allow AWS resources to resolve on-premises DNS domains via forwarding rules.
+    - **Resolution Flow:** Route 53 Resolver automatically resolves public DNS and private hosted zones. Use resolver rules to bridge to on-premises DNS (and vice-versa).
+
 ### Site-to-Site VPN Architecture
 
 ![Site-to-Site VPN architecture — On-premises Customer Gateway connected via two tunnels over the Internet to an AWS Virtual Private Gateway.](./assets/site-to-site-vpn.png)
