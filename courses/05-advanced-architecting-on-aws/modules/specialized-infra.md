@@ -88,8 +88,12 @@
 #### AWS Wavelength
 
 - **AWS Wavelength:** Extends AWS compute and storage services to the **5G network edge**, allowing you to deliver applications with ultra-low latency to 5G devices.
-    - **Core Value:** Provides sub-millisecond latency for applications that require the speed and proximity of the 5G carrier network.
-    - **Operational Model:** AWS infrastructure is embedded directly into the 5G service provider's data center.
-    - **Carrier Gateway:** Use a **Carrier Gateway** to enable communication between resources in your Wavelength subnets and the internet or on-premises networks, replacing the standard Internet Gateway.
+    - **Core Values:**
+        - **Ultra-low latency:** Built for applications requiring single-digit millisecond latency by processing traffic at the 5G edge.
+        - **Consistent Cloud Model:** Uses the same VPC, subnets, and security groups as the AWS Region.
+        - **Consistent Programming Interface:** Use the same APIs and tools you know in the Region.
+        - **Consistent Operations:** Manage, monitor, and scale using standard AWS management tools.
+        - **Access to New Features:** Easily access the latest AWS features and services as they are added to the Wavelength zone.
+    - **Carrier Gateway:** Use a **Carrier Gateway** to enable communication between resources in your Wavelength subnets and the internet or on-premises networks.
     - **Use Cases:** Connected vehicles (V2X), immersive cloud gaming, and real-time streaming/analytics for 5G-connected IoT devices.
 
