@@ -515,7 +515,3 @@ Set up a best-practices AWS environment in a few clicks
     - **DNS Hostnames:** When enabled (`enableDnsHostnames = true`), AWS automatically assigns a public/private DNS hostname to instances with public/private IP addresses.
     - **VPC DHCP Option Sets:** Allows you to configure custom domain names and DNS servers for your VPC. By default, VPCs use the Amazon-provided DNS server, which works out of the box.
     - **CloudWatch Alarms:** Route 53 health checks can be integrated with CloudWatch Alarms. When a health check fails, an alarm is triggered to send notifications (via SNS) or trigger automated remediation actions.
-
-
-
-
