@@ -466,8 +466,6 @@ Set up a best-practices AWS environment in a few clicks
         - `enableDnsHostnames` = `true`
         - VPCs must have network connectivity (or be able to route) to the Route 53 Resolver IP (`169.254.169.253`).
 
-![Cross-VPC Private Hosted Zone Association — illustrating two separate VPCs associated with a single PHZ, allowing an EC2 instance in VPC-2 to resolve records defined in the PHZ.](./assets/cross-vpc-phz.png)
-
 - **DNS Resolution & Settings:**
     - **Amazon R53 Resolver:** The DNS server at `VPC Network Range + 2` (e.g., `10.0.0.2` for `10.0.0.0/16`). All VPCs must use this for DNS resolution to work.
     - **DNS Support:** When enabled (`enableDnsSupport = true`), the AWS DNS server is enabled for the VPC, allowing instances to resolve DNS queries.
