@@ -20,20 +20,23 @@
     - **Types & Supported Protocols:**
         - **S3 File Gateway:** 
             - **Protocols:** NFS (v3, v4.1) and SMB (v2, v3). Referred to as "File Storage Gateway".
-            - **Use Case:** Storing files in S3 while maintaining a local cache for low-latency access.
 
 ![AWS S3 File Gateway — showing the integration of on-premises file storage with S3 via NFS/SMB protocols.](../assets/storage-file-gateway.png)
+
+            - **Use Case:** Storing files in S3 while maintaining a local cache for low-latency access.
+
         - **Volume Gateway:**
             - **Protocols:** iSCSI.
+
+![AWS Volume Gateway — showing the provisioning of iSCSI block storage volumes for on-premises applications.](../assets/volume-gateway.png)
+
             - **Modes:**
                 - **Cached Volumes:** Primary data is stored in S3, while frequently accessed data is cached locally on-premises for low latency. Ideal for offloading on-premises storage costs while maintaining performance.
                 - **Stored Volumes:** Entire dataset is stored on-premises (local disk) for maximum performance, with asynchronous backups to S3 as EBS snapshots. Ideal for legacy applications requiring local data residency.
             - **Use Case:** Providing block storage volumes (backed by EBS snapshots) to on-premises applications, integrated with AWS Backup.
 
-![AWS Volume Gateway — showing the provisioning of iSCSI block storage volumes for on-premises applications.](../assets/volume-gateway.png)
         - **Tape Gateway:**
             - **Protocols:** iSCSI-VTL (Virtual Tape Library).
-            - **Use Case:** Replacing physical tape infrastructure for archival backups, integrated with S3 Glacier.
 
 ![AWS Tape Gateway — illustrating the setup of a virtual tape library for on-premises archival backups.](../assets/tape-gateway.png)
 
@@ -42,6 +45,7 @@
                 - **Tape Creation:** You create virtual tapes in the AWS Management Console, which appear in your on-premises backup software.
                 - **Ejection/Archival:** When a backup is complete, you "eject" the tape. The gateway then automatically moves the tape's data from local storage to S3 Glacier.
                 - **Retrieval:** If you need to restore data, you must "retrieve" the tape from Glacier back to the Tape Gateway, which can take several hours depending on the Glacier storage class.
+            - **Use Case:** Replacing physical tape infrastructure for archival backups, integrated with S3 Glacier.
 
 ### Data Transfer Options
 
