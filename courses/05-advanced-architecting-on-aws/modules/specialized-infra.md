@@ -22,7 +22,9 @@
             - **Use Case:** Low-latency, on-premises access to Amazon FSx for Windows File Server.
         - **Volume Gateway:**
             - **Protocols:** iSCSI.
-            - **Use Case:** Providing block storage volumes (backed by EBS snapshots) to on-premises applications.
+            - **Use Case:** Providing block storage volumes (backed by EBS snapshots) to on-premises applications, integrated with AWS Backup.
+
+![AWS Volume Gateway — showing the provisioning of iSCSI block storage volumes for on-premises applications.](../assets/volume-gateway.png)
         - **Tape Gateway:**
             - **Protocols:** iSCSI-VTL (Virtual Tape Library).
             - **Use Case:** Replacing physical tape infrastructure for archival backups, integrated with S3 Glacier.
