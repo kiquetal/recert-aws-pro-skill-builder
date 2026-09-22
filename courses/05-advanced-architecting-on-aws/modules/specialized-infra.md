@@ -13,7 +13,7 @@
         - **Cost-Effective:** Reduces on-premises storage footprint by tiered caching, keeping active data local and cold data in S3.
     - **Types & Supported Protocols:**
         - **S3 File Gateway:** 
-            - **Protocols:** NFS (Linux/Unix), SMB (Windows).
+            - **Protocols:** NFS (v3, v4.1) and SMB (v2, v3). Both protocols are supported for access.
             - **Use Case:** Storing files in S3 while maintaining a local cache for low-latency access.
 
 ![AWS S3 File Gateway — showing the integration of on-premises file storage with S3 via NFS/SMB protocols.](../assets/storage-file-gateway.png)
