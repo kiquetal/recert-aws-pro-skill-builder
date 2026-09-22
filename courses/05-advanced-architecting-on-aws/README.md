@@ -40,6 +40,24 @@
 - **ABAC Scaling:** ABAC using session tags (from IAM Identity Center) is superior to RBAC for large-scale multi-account environments as it removes the need to update per-project policies.
 
 
+### Mental Model: Governance & Organization
+
+```text
+    +----------------------------------+
+    |      Management Account          |
+    |      (Root / SCP Guardrail)      |
+    +----------------+-----------------+
+                     |
+        +------------+-------------+
+        |   Organizational Units   |
+        +------------+-------------+
+                     |
+        +------------+-------------+
+        |   Member Account(s)      |
+        | (Delegated Security Admin)|
+        +--------------------------+
+```
+
 ### Mental Model: TGW Network Segmentation
 
 ```text
