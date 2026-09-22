@@ -445,6 +445,8 @@ Set up a best-practices AWS environment in a few clicks
 | `dev.internal` | Forward | `10.50.10.5` | Resolves legacy services in a peered data center |
 | `.` (Root) | System | N/A | Default AWS resolution (Internal PHZs/Public) |
 
+![Route 53 Resolver Rule flow — showing the configuration of an outbound resolver rule for domain forwarding.](./assets/resolver-rules-flow.png)
+
 ```text
        [ VPC Instance ]
               | Query (db.corp.local)
@@ -461,8 +463,6 @@ Set up a best-practices AWS environment in a few clicks
               v
        [ Result returned to VPC ]
 ```
-
-![AWS to On-Premises DNS Flow — illustrating how a Resolver Rule (Forward) directs queries through an Outbound Endpoint to an on-premises DNS server.](./assets/outbound-dns-flow.png)
 
 ![On-Premises to AWS Private Hosted Zone DNS Flow — illustrating how a Conditional Forwarder on an on-premises DNS server forwards queries to an AWS Inbound Endpoint to resolve records in a Private Hosted Zone.](./assets/onprem-to-aws-dns.png)
 
