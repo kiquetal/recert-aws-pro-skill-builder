@@ -1,0 +1,15 @@
+@startuml
+skinparam componentStyle uml2
+
+node "VPC Instance" as Client
+node "Route 53 Resolver" as Resolver
+node "Outbound Endpoint (ENI)" as Outbound
+node "On-Prem DNS Server" as OnPremDNS
+
+Client -right-> Resolver: Query (db.corp.local)
+Resolver -right-> Outbound: Rule: "corp.local" -> Forward
+Outbound -right-> OnPremDNS: Forward Query
+OnPremDNS -left-> Outbound: Response
+Outbound -left-> Resolver: Response
+Resolver -left-> Client: Response (IP)
+@enduml
