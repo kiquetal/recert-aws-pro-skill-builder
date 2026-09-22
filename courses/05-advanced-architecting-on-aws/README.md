@@ -374,7 +374,13 @@ Set up a best-practices AWS environment in a few clicks
     - Uses an encrypted TLS tunnel (OpenVPN-based) for secure remote access by individual users.
     - Supports certificate-based or AD/SAML authentication.
 
-- **AWS Direct Connect** — A dedicated private network link from on-premises to AWS.
+- **AWS Direct Connect (DX)** — A dedicated private network link from on-premises to AWS.
+    - **Physical Endpoint:** A cross-connect at an AWS Direct Connect location.
+    - **Logical Endpoints (Virtual Interfaces - VIFs):**
+        - **Private VIF:** Connects to a VGW (single VPC) or Direct Connect Gateway.
+        - **Public VIF:** Connects to public AWS services (e.g., S3).
+        - **Transit VIF:** Connects to a Transit Gateway (TGW) via a Direct Connect Gateway.
+    - **Direct Connect Gateway (DXGW):** A global construct that allows connecting a DX to VPCs across *different* regions. Essential for scaling DX in multi-region environments.
     - **Note:** It is *not encrypted* by default. Layer a VPN or use MACsec for encryption.
 
 - **AWS Global Accelerator** — Improves availability/performance by routing user traffic over the AWS global network via Anycast IP addresses.
