@@ -445,4 +445,14 @@ Set up a best-practices AWS environment in a few clicks
 
 ### DNS Deep Dive
 
+- Public Hosted Zones
+Domain Name Registration
+Health checks
+Advanec request routing
+
+- Private Hosted ZOnes
+VPC Router 53 Resolver
+Health check 
+Hybrid integration using forwarding rules and endpoints.
+
 
