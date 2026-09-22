@@ -42,7 +42,7 @@
 ```
 
 ### Site-to-Site VPN Architecture
-![Site-to-Site VPN architecture — On-premises Customer Gateway connected via two tunnels over the Internet to an AWS Transit Gateway.](./assets/site-to-site-vpn.png)
+![Site-to-Site VPN architecture — On-premises Customer Gateway connected via two tunnels over the Internet to an AWS Transit Gateway.](../assets/site-to-site-vpn.png)
 
 ### Virtual Interface (VIF) Architecture
-![Direct Connect Virtual Interface (VIF) architecture — showing Private VIF (to VGW/DXGW), Public VIF (to Public AWS Services), and Transit VIF (to TGW via DXGW).](./assets/vif-architecture.png)
+![Direct Connect Virtual Interface (VIF) architecture — showing Private VIF (to VGW/DXGW), Public VIF (to Public AWS Services), and Transit VIF (to TGW via DXGW).](../assets/vif-architecture.png)

@@ -27,12 +27,12 @@
        [ Result returned to VPC ]
 ```
 
-![AWS to On-Premises DNS Flow](./assets/outbound-dns-flow.png)
-![On-Premises to AWS PHZ DNS Flow](./assets/onprem-to-aws-dns.png)
-![Route 53 Health Check](./assets/route53-health-check.png)
-![Route 53 Resolver Configuration](./assets/route53-resolver-dns.png)
-![Private Hosted Zone Hybrid DNS Architecture](./assets/phz-hybrid-dns.png)
-![PHZ Association Logic](./assets/phz-association-logic.png)
+![AWS to On-Premises DNS Flow](../assets/outbound-dns-flow.png)
+![On-Premises to AWS PHZ DNS Flow](../assets/onprem-to-aws-dns.png)
+![Route 53 Health Check](../assets/route53-health-check.png)
+![Route 53 Resolver Configuration](../assets/route53-resolver-dns.png)
+![Private Hosted Zone Hybrid DNS Architecture](../assets/phz-hybrid-dns.png)
+![PHZ Association Logic](../assets/phz-association-logic.png)
 
 ## Implementation Matrix
 
