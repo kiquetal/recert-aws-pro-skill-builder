@@ -419,7 +419,13 @@ Set up a best-practices AWS environment in a few clicks
 
 
 
-- **Route 53 Resolver (Hybrid DNS)** — Bridges DNS resolution across hybrid environments and multi-VPC setups.
+- **AWS Route 53 Resolver (Hybrid DNS)** — Bridges DNS resolution across hybrid environments and multi-VPC setups.
+    - **Problem Solved:** Traditionally, DNS resolution was siloed between on-premises DNS and AWS VPC-local DNS. An instance in a VPC could not resolve an on-premises hostname (e.g., `db.corp.local`), and an on-premises server could not resolve a private AWS hostname (e.g., `api.internal.aws`).
+    - **Resolution via Resolver Endpoints:**
+        - **Inbound Endpoints:** Allow on-premises DNS to forward queries for an AWS domain (e.g., `*.internal.aws`) to AWS. The AWS side of the hybrid bridge.
+        - **Outbound Endpoints + Rules:** Allow AWS VPC resources to forward queries for an on-premises domain (e.g., `*.corp.local`) to on-premises DNS servers. The on-premises side of the hybrid bridge.
+    - **Benefits:** Enables seamless naming, eliminates the need for complex, manual host-file management across hybrid boundaries, and centralizes DNS control using native AWS services.
+
     - **Private Hosted Zones (PHZs):** DNS domains configured *only* for specific VPCs. Not resolvable from the internet.
         - **VPC Association:** Allows cross-VPC DNS resolution. Any VPC associated with the PHZ can resolve the private records (regardless of peering or TGW, *provided* the VPCs have DNS hostnames enabled).
         - **Split-Horizon DNS:** Use the same domain name (e.g., `example.com`) for public internet queries (in a Public Hosted Zone) and internal VPC queries (in a PHZ). The Resolver intelligently picks the PHZ record if the VPC is associated with it.
@@ -467,8 +473,8 @@ Set up a best-practices AWS environment in a few clicks
 ![PHZ Association Logic — illustrating the explicit association of VPC IDs (vpc-0a1b2c3d and vpc-9z8y7x6w) to a single Private Hosted Zone.](./assets/phz-association-logic.png)
 
     - **Prerequisites:**
-        - `enableDnsSupport` = `true`
-        - `enableDnsHostnames` = `true`
+        - `enableDnsSupport` = `true` (Must be enabled for the VPC to use the DNS resolver)
+        - `enableDnsHostnames` = `true` (Must be enabled for instances to receive public/private DNS hostnames)
         - VPCs must have network connectivity (or be able to route) to the Route 53 Resolver IP (`169.254.169.253`).
 
 - **DNS Resolution & Settings:**
