@@ -435,8 +435,15 @@ Set up a best-practices AWS environment in a few clicks
         - *Creation:* Provisioned via Route 53 Resolver console. Requires selecting at least two subnets (for HA/AZ redundancy) in your VPC. AWS automatically creates an **Elastic Network Interface (ENI)** in each selected subnet.
         - *Security:* You must attach a **Security Group** to these ENIs that explicitly allows inbound UDP/TCP traffic on port 53 from your on-premises DNS server's IP range.
         - *Logic:* By creating an Inbound Endpoint, AWS creates **Elastic Network Interfaces (ENIs)** in your selected subnets to act as "listeners." Traffic reaching these ENI IPs on port 53 is automatically processed by the AWS Route 53 Resolver. Your on-premises DNS server is configured with a **Conditional Forwarder** for your AWS domain (e.g., `internal.example.com`), pointing traffic to these ENI IPs.
-    - **Outbound Endpoints + Resolver Rules (Forwarding):** Allow AWS resources to resolve on-premises DNS domains (e.g., `local.corp`) via forwarding rules.
-        - *Setup:* Create an **AWS Route 53 Resolver Rule** (type: **Forward**) for the target domain (e.g., `local.corp`) pointing to your on-premises DNS server IPs, and associate this rule with your VPC(s).
+    - **Outbound Endpoints + Resolver Rules (Forwarding):** Allow AWS resources to resolve on-premises DNS domains (e.g., `corp.local`) via forwarding rules.
+        - *Setup:* Create an **AWS Route 53 Resolver Rule** (type: **Forward**) for the target domain pointing to your on-premises DNS server IPs, and associate this rule with your VPC(s).
+        - **Resolver Rule Example Table:**
+
+| Domain Name | Rule Type | Target IP Address(es) | Description |
+| :--- | :--- | :--- | :--- |
+| `corp.local` | Forward | `192.168.1.10`, `192.168.1.11` | Resolves on-prem AD/Database servers |
+| `dev.internal` | Forward | `10.50.10.5` | Resolves legacy services in a peered data center |
+| `.` (Root) | System | N/A | Default AWS resolution (Internal PHZs/Public) |
 
 ```text
        [ VPC Instance ]
