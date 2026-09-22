@@ -408,7 +408,10 @@ Set up a best-practices AWS environment in a few clicks
 ![AWS Global Accelerator — showing the flow of user traffic to the nearest AWS edge location via Anycast IP addresses, then over the AWS global network to regional endpoints.](./assets/global-accelerator.png)
 
 - **Route 53 Resolver (Hybrid DNS)** — Bridges DNS resolution across hybrid environments and multi-VPC setups.
-    - **Private Hosted Zones (PHZs):** Associate multiple VPCs with a single PHZ to allow cross-VPC DNS resolution within AWS.
+    - **Private Hosted Zones (PHZs):** DNS domains configured *only* for specific VPCs. Not resolvable from the internet.
+        - **VPC Association:** Allows cross-VPC DNS resolution. Any VPC associated with the PHZ can resolve the private records (regardless of peering or TGW, *provided* the VPCs have DNS hostnames enabled).
+        - **Split-Horizon DNS:** Use the same domain name (e.g., `example.com`) for public internet queries (in a Public Hosted Zone) and internal VPC queries (in a PHZ). The Resolver intelligently picks the PHZ record if the VPC is associated with it.
+        - **Hybrid Interaction:** PHZs work with Route 53 Resolver *outbound* endpoints to allow on-premises DNS servers to query PHZs, and *inbound* endpoints to allow AWS resources to query on-premises DNS domains.
     - **Inbound Endpoints:** Allow on-premises DNS servers to forward queries to AWS Resolver.
     - **Outbound Endpoints:** Allow AWS resources to resolve on-premises DNS domains via forwarding rules.
     - **Resolution Flow:** Route 53 Resolver automatically resolves public DNS and private hosted zones. Use resolver rules to bridge to on-premises DNS (and vice-versa).
