@@ -376,7 +376,10 @@ Set up a best-practices AWS environment in a few clicks
         - User installs an OpenVPN-compatible client.
         - Establishes a secure TLS tunnel to the AWS Client VPN endpoint.
         - Authenticates via AD, SAML (Okta/Entra ID), or certificates.
-    - **Association:** Client VPN endpoints are associated with one or more subnets in a VPC. When associated, an ENI is created in those subnets, allowing the Client VPN to route traffic to the VPC. **Security Groups** attached to this association control the access from the Client VPN to your VPC resources.
+    - **Association:** Client VPN endpoints are associated with one or more subnets in a VPC. When associated, an ENI is created in those subnets, allowing the Client VPN to route traffic to the VPC.
+    - **Security Groups:** Attached to the Client VPN endpoint association; they control inbound traffic from the Client VPN ENIs *to* the VPC resources.
+    - **Authorization Rules:** You must explicitly add authorization rules to the Client VPN endpoint to grant access to specific network segments (e.g., VPC CIDR, on-premises networks reachable via TGW/VGW).
+    - **Route Table:** The Client VPN endpoint has its own route table. You must configure routes (e.g., 10.0.0.0/16 → VPC network interface) to determine where traffic is sent once it exits the VPN tunnel.
     - **Comparison:**
         - Site-to-Site = Network-to-Network (permanent, gateway-to-gateway).
         - Client VPN = User-to-Network (on-demand, client-to-gateway).
