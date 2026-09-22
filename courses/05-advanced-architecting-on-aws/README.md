@@ -454,18 +454,20 @@ Set up a best-practices AWS environment in a few clicks
 
 ### DNS Deep Dive
 
-- Public Hosted Zones
-Domain Name Registration
-Health checks
-Advanec request routing
+- **Public Hosted Zones:** Manage public domain records for internet-facing resources.
+- **Private Hosted Zones (PHZ):** DNS domains configured *only* for specific VPCs. Not resolvable from the internet.
+    - **Cross-VPC DNS Resolution:** A single PHZ can be associated with multiple VPCs. Even if VPCs are in different AWS accounts, you can associate them to a single PHZ to allow all associated VPCs to resolve the same private records.
+        - *Setup:* In the PHZ settings, simply "Add VPC" and select the VPC ID and Region to associate.
+    - **Prerequisites:**
+        - `enableDnsSupport` = `true`
+        - `enableDnsHostnames` = `true`
+        - VPCs must have network connectivity (or be able to route) to the Route 53 Resolver IP (`169.254.169.253`).
 
-- Private Hosted ZOnes
-VPC Router 53 Resolver
-Health check 
-Hybrid integration using forwarding rules and endpoints.
+![Cross-VPC Private Hosted Zone Association — illustrating two separate VPCs associated with a single PHZ, allowing an EC2 instance in VPC-2 to resolve records defined in the PHZ.](./assets/cross-vpc-phz.png)
 
-DNS Resolution enable the Amazon R53 Resolver (10.0.0.2) from a vpc (10.0.0.0/16)
-DNS Hostnames = provides a host name automatically.
+- **Resolver Rules & Endpoints:** For hybrid integration using forwarding rules and endpoints.
+- **Health Checks:** Monitor endpoint health and enable automated DNS failover.
+- **Route 53 Resolver (Base):** Uses VPC Base IP + 2 (`10.0.0.2` for `10.0.0.0/16`).
+- **VPC DHCP Option Sets:** Configuration for custom domain names and DNS servers in a VPC (works out of the box with defaults).
 
-vpc dhcp option sets = works out of the box
 
