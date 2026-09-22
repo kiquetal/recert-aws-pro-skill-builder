@@ -376,9 +376,12 @@ Set up a best-practices AWS environment in a few clicks
         - User installs an OpenVPN-compatible client.
         - Establishes a secure TLS tunnel to the AWS Client VPN endpoint.
         - Authenticates via AD, SAML (Okta/Entra ID), or certificates.
+    - **Association:** Client VPN endpoints are associated with one or more subnets in a VPC. When associated, an ENI is created in those subnets, allowing the Client VPN to route traffic to the VPC. **Security Groups** attached to this association control the access from the Client VPN to your VPC resources.
     - **Comparison:**
         - Site-to-Site = Network-to-Network (permanent, gateway-to-gateway).
         - Client VPN = User-to-Network (on-demand, client-to-gateway).
+
+![AWS Client VPN association — showing the Client VPN endpoint associated with target subnets in a VPC and governed by security groups.](./assets/client-vpn-association.png)
 
 - **AWS Direct Connect (DX)** — A dedicated private network link from on-premises to AWS.
     - **Physical Endpoint:** A cross-connect at an AWS Direct Connect location.
