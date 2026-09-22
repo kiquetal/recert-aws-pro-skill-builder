@@ -4,7 +4,11 @@
     - **Benefits:**
         - **Low-Latency Access:** Provides local cached access to data stored in the cloud.
         - **Seamless Integration:** Works with existing on-premises applications/file systems using standard storage protocols (NFS, SMB, iSCSI).
-        - **Data Security:** Data is encrypted in transit (TLS) and at rest (AWS-managed keys).
+        - **Security:**
+        - **Data in Transit:** All traffic encrypted via **TLS** between the appliance and AWS.
+        - **Data at Rest:** Encrypted via **KMS** (AWS-managed or Customer Managed Keys).
+        - **Network:** Use **VPC Endpoints (PrivateLink)** to keep traffic off the public internet.
+        - **Access Control:** Use **Least Privilege IAM Roles** for the gateway's access to S3/EBS; ensure S3 buckets have **Block Public Access** enabled.
         - **Simplified Management:** Replaces expensive, complex on-premises backup and storage infrastructure with a simple virtual appliance.
         - **Cost-Effective:** Reduces on-premises storage footprint by tiered caching, keeping active data local and cold data in S3.
     - **Types:** File Gateway (S3), Volume Gateway (EBS snapshots), Tape Gateway (Archival).
