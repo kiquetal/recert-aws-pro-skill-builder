@@ -413,6 +413,9 @@ Set up a best-practices AWS environment in a few clicks
     - **Outbound Endpoints:** Allow AWS resources to resolve on-premises DNS domains via forwarding rules.
     - **Resolution Flow:** Route 53 Resolver automatically resolves public DNS and private hosted zones. Use resolver rules to bridge to on-premises DNS (and vice-versa).
 
+![Route 53 Resolver and DNS configuration — showing Private Hosted Zone VPC associations and Route 53 Resolver endpoints for hybrid DNS resolution.](./assets/route53-resolver-dns.png)
+
+
 ### Site-to-Site VPN Architecture
 
 ![Site-to-Site VPN architecture — On-premises Customer Gateway connected via two tunnels over the Internet to an AWS Virtual Private Gateway.](./assets/site-to-site-vpn.png)
