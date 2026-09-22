@@ -52,3 +52,19 @@
     +-----------------------------+
 ```
 
+### Mental Model: Hybrid DNS Flow
+
+```text
+       [ VPC Instance ]
+              | Query (db.corp.local)
+              v
+       [ Route 53 Resolver ]
+              | Rule: "corp.local" -> Forward
+              v
+       [ Outbound Endpoint (ENI) ]
+              |
+      (Private Link: VPN/DX)
+              |
+       [ On-Prem DNS Server ]
+```
+
