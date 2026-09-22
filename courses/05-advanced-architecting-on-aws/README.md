@@ -400,12 +400,16 @@ Set up a best-practices AWS environment in a few clicks
     - **Invalid Termination Points:** You cannot terminate a Direct Connect VIF directly on an **EC2 Instance**, **Load Balancer (ALB/NLB)**, **Internet Gateway**, or **NAT Gateway**. DX VIFs require a BGP session and must terminate on specialized routing constructs (VGW/DXGW).
     - **Note:** It is *not encrypted* by default. Layer a VPN or use MACsec for encryption.
 
-- **AWS Global Accelerator** — Improves availability/performance by routing user traffic over the AWS global network via Anycast IP addresses.
-    - **Use Case:** Ideal for TCP/UDP applications (non-HTTP) where network performance and fast failover are required.
-    - **vs. CloudFront:** Use CloudFront for caching HTTP content; use Global Accelerator for network-level acceleration of any TCP/UDP traffic.
-    - **Components:** Static Anycast IPs, endpoint groups, health checks, and traffic dials for easy traffic shifting.
+## AWS Route 53
 
-![AWS Global Accelerator — showing the flow of user traffic to the nearest AWS edge location via Anycast IP addresses, then over the AWS global network to regional endpoints.](./assets/global-accelerator.png)
+- **Routing Policies:**
+    - **Simple:** Standard DNS resolution; returns a single value.
+    - **Weighted:** Distribute traffic across multiple resources (e.g., 80% to A, 20% to B). Ideal for A/B testing or canary releases.
+    - **Latency:** Routes to the region with the lowest network latency for the user. Best for global performance.
+    - **Geolocation:** Routes based on the user's location (country, state, continent).
+    - **Failover:** Active/Passive routing. Uses health checks to route traffic to the standby resource if the active one fails.
+    - **Multivalue Answer:** Returns multiple IP addresses for a single query. Paired with Route 53 health checks to only return healthy endpoints.
+
 
 - **Route 53 Resolver (Hybrid DNS)** — Bridges DNS resolution across hybrid environments and multi-VPC setups.
     - **Private Hosted Zones (PHZs):** DNS domains configured *only* for specific VPCs. Not resolvable from the internet.
