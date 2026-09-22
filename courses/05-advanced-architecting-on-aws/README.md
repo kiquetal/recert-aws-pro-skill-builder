@@ -375,28 +375,6 @@ Set up a best-practices AWS environment in a few clicks
 
 ### Site-to-Site VPN Architecture
 
-```mermaid
-graph TD
-    subgraph OnPrem [On-Premise Network]
-        CGW[Customer Gateway / Firewall]
-    end
-    
-    subgraph Internet
-        ISP[ISP / Internet]
-    end
-    
-    subgraph AWS [AWS Cloud]
-        TGW[Transit Gateway]
-    end
-    
-    CGW -- "Tunnel 1 (UDP 4500)" --> ISP
-    ISP -- "Tunnel 1" --> TGW
-    
-    CGW -- "Tunnel 2 (UDP 4500)" --> ISP
-    ISP -- "Tunnel 2" --> TGW
-    
-    style TGW fill:#f9f,stroke:#333
-    style CGW fill:#eee,stroke:#333
-```
+![Site-to-Site VPN architecture — On-premises Customer Gateway connected via two tunnels over the Internet to an AWS Transit Gateway.](./assets/site-to-site-vpn.png)
 
 
