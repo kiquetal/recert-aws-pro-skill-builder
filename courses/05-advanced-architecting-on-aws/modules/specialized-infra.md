@@ -22,6 +22,9 @@
             - **Use Case:** Low-latency, on-premises access to Amazon FSx for Windows File Server.
         - **Volume Gateway:**
             - **Protocols:** iSCSI.
+            - **Modes:**
+                - **Cached Volumes:** Primary data is stored in S3, while frequently accessed data is cached locally on-premises for low latency. Ideal for offloading on-premises storage costs while maintaining performance.
+                - **Stored Volumes:** Entire dataset is stored on-premises (local disk) for maximum performance, with asynchronous backups to S3 as EBS snapshots. Ideal for legacy applications requiring local data residency.
             - **Use Case:** Providing block storage volumes (backed by EBS snapshots) to on-premises applications, integrated with AWS Backup.
 
 ![AWS Volume Gateway — showing the provisioning of iSCSI block storage volumes for on-premises applications.](../assets/volume-gateway.png)
