@@ -355,4 +355,21 @@ Set up a best-practices AWS environment in a few clicks
 
 ![AWS Control Tower features — set up best-practices AWS environment, standardize account provisioning, centralize policy management, enforce proactive governance/compliance, and enable end-user self-service.](./assets/control-tower-features.png)
 
+#### Hybrid Connectivity
+
+- **AWS Site-to-Site VPN** — Establishes encrypted IPsec tunnels between your on-premises network and AWS (VPC or Transit Gateway).
+    - **High Availability:** Always provisions two tunnels; both must be configured on your Customer Gateway (CGW) device.
+    - **Routing:** Supports Static or Dynamic (BGP) routing.
+    - **NAT Traversal (NAT-T):** Essential if the CGW is behind a NAT device; encapsulates ESP in UDP/4500.
+
+- **AWS Client VPN** — A managed, client-based remote-access VPN service.
+    - Uses an encrypted TLS tunnel (OpenVPN-based) for secure remote access by individual users.
+    - Supports certificate-based or AD/SAML authentication.
+
+- **AWS Direct Connect** — A dedicated private network link from on-premises to AWS.
+    - **Note:** It is *not encrypted* by default. Layer a VPN or use MACsec for encryption.
+
+- **Route 53 Resolver (Hybrid DNS)** — Bridges DNS resolution across hybrid environments.
+    - **Inbound Endpoints:** Allow on-premises DNS servers to forward queries to AWS Resolver.
+    - **Outbound Endpoints:** Allow AWS resources to resolve on-premises DNS domains via forwarding rules.
 
