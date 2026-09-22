@@ -416,10 +416,18 @@ Set up a best-practices AWS environment in a few clicks
         - *Setup:* Configure a **Conditional Forwarder** on your on-premises DNS server to point requests for your AWS domain (e.g., `internal.example.com`) to the IP address of the AWS Inbound Endpoint.
     - **Outbound Endpoints:** Allow AWS resources to resolve on-premises DNS domains via forwarding rules.
         - *Setup:* Create an **AWS Route 53 Resolver Rule** (type: **Forward**) for the target domain (e.g., `local.corp`) pointing to your on-premises DNS server IPs, and associate this rule with your VPC(s).
-    - **Resolution Flow Summary:**
-        - **On-Prem to AWS:** On-Prem DNS → Conditional Forwarder → AWS Inbound Endpoint → AWS Resolver → PHZ.
-        - **AWS to On-Prem:** EC2 Query → VPC Resolver → Resolver Rule → Outbound Endpoint → On-Prem DNS Server.
-    - **Prerequisites:** VPCs must have `enableDnsHostnames` and `enableDnsSupport` set to `true`.
+    - **Implementation & Traffic Matrix:**
+
+| Scenario | Objective | AWS Component | On-Premises Config |
+| :--- | :--- | :--- | :--- |
+| **AWS → On-Prem** | VPC instance resolves `corp.local` | **Outbound Endpoint** + **Resolver Rule** (Forward) | None (Server listens on specified IP) |
+| **On-Prem → AWS** | On-Prem server resolves `internal.aws` | **Inbound Endpoint** | **Conditional Forwarder** (points to Inbound IP) |
+| **VPC → VPC** | VPC A resolves PHZ record in VPC B | **PHZ VPC Association** | N/A |
+
+    - **Setup Steps:**
+        1. **PHZ:** Create PHZ, Associate with VPCs. Ensure VPC `enableDnsSupport` & `enableDnsHostnames` are `true`.
+        2. **On-Prem → AWS:** Create Inbound Endpoint. On-Prem DNS server: Add Conditional Forwarder for the AWS domain pointing to Inbound Endpoint IP.
+        3. **AWS → On-Prem:** Create Outbound Endpoint. Create Resolver Rule (type: Forward) for the On-Prem domain pointing to On-Prem DNS server IPs. Associate rule with VPCs.
 
 ![Route 53 Resolver and DNS configuration — showing Private Hosted Zone VPC associations and Route 53 Resolver endpoints for hybrid DNS resolution.](./assets/route53-resolver-dns.png)
 
