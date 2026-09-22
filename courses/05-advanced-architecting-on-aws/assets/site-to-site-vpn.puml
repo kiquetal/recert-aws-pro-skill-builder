@@ -7,9 +7,9 @@ cloud "Internet" {
     [ISP]
 }
 node "AWS" {
-    [Transit Gateway] as TGW
+    [Virtual Private Gateway] as VGW
 }
 CGW -right-> ISP: Tunnel 1 (UDP 4500)
 CGW -right-> ISP: Tunnel 2 (UDP 4500)
-ISP -right-> TGW
+ISP -right-> VGW
 @enduml
