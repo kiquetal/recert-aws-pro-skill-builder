@@ -443,3 +443,6 @@ Set up a best-practices AWS environment in a few clicks
 ![Direct Connect Virtual Interface (VIF) architecture — showing Private VIF (to VGW/DXGW), Public VIF (to Public AWS Services), and Transit VIF (to TGW via DXGW).](./assets/vif-architecture.png)
 
 
+### DNS Deep Dive
+
+
