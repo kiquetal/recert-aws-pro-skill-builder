@@ -373,3 +373,30 @@ Set up a best-practices AWS environment in a few clicks
     - **Inbound Endpoints:** Allow on-premises DNS servers to forward queries to AWS Resolver.
     - **Outbound Endpoints:** Allow AWS resources to resolve on-premises DNS domains via forwarding rules.
 
+### Site-to-Site VPN Architecture
+
+```mermaid
+graph TD
+    subgraph OnPrem [On-Premise Network]
+        CGW[Customer Gateway / Firewall]
+    end
+    
+    subgraph Internet
+        ISP[ISP / Internet]
+    end
+    
+    subgraph AWS [AWS Cloud]
+        TGW[Transit Gateway]
+    end
+    
+    CGW -- "Tunnel 1 (UDP 4500)" --> ISP
+    ISP -- "Tunnel 1" --> TGW
+    
+    CGW -- "Tunnel 2 (UDP 4500)" --> ISP
+    ISP -- "Tunnel 2" --> TGW
+    
+    style TGW fill:#f9f,stroke:#333
+    style CGW fill:#eee,stroke:#333
+```
+
+
