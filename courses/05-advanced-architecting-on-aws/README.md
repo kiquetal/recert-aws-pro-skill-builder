@@ -45,27 +45,19 @@
 
 ## Services Covered
 
-- **AWS CloudFormation / StackSets** — infrastructure as code; StackSets fans a
-  template out across accounts and regions.
-- **AWS Service Catalog** — governed, self-service distribution of approved
-  products (templates).
-- **AWS Deployment Framework (ADF)** — open-source CI/CD orchestration for
-  multi-account/multi-region deployments.
-- **AWS Organizations** — multi-account structure (OUs), SCPs, delegated admin,
-  org-wide policies.
-- **AWS IAM Identity Center** *(formerly **AWS Single Sign-On / AWS SSO**)* —
-  centralized workforce sign-in and permission sets across all org accounts;
-  federates to external IdPs and supplies identity attributes (session tags) for
-  ABAC.
-- **AWS Resource Access Manager (AWS RAM)** — **share resources across accounts**
-  (e.g., VPC subnets/Transit Gateways, Route 53 Resolver rules, License Manager)
-  without duplicating them; works with Organizations for org-wide sharing.
-- **AWS Control Tower** — landing zone / guardrails to set up and govern a
-  secure multi-account environment.
-- **AWS Backup** — centralized, policy-driven backup across accounts (with
-  Organizations); cross-account backup vaults.
-- Security services (org-wide): **GuardDuty, Macie, IAM Access Analyzer, Firewall
-  Manager, Config**.
+- **AWS CloudFormation / StackSets** — infrastructure as code; StackSets fans a template out across accounts and regions.
+- **AWS Service Catalog** — governed, self-service distribution of approved products (templates).
+- **AWS Deployment Framework (ADF)** — open-source CI/CD orchestration for multi-account/multi-region deployments.
+- **AWS Organizations** — multi-account structure (OUs), SCPs, delegated admin, org-wide policies.
+- **AWS IAM Identity Center** — centralized workforce sign-in and permission sets; federates to external IdPs and supplies identity attributes (session tags) for ABAC.
+- **AWS Resource Access Manager (AWS RAM)** — share resources (VPCs, TGWs, Route 53 Resolver rules) across accounts/OUs without duplication.
+- **AWS Control Tower** — landing zone / guardrails to set up and govern a secure multi-account environment.
+- **AWS Backup** — centralized, policy-driven backup across accounts (via Organizations); supports cross-account backup vaults and WORM (Vault Lock).
+- **AWS Transit Gateway (TGW)** — regional hub for connecting VPCs, VPNs, and Direct Connect; supports routing domains (Route Tables) for traffic segmentation (Association/Propagation).
+- **AWS Route 53 Resolver** — hybrid DNS resolution using Inbound/Outbound endpoints and forwarding rules; Private Hosted Zones for VPC-specific DNS.
+- **AWS Global Accelerator** — Anycast-based network acceleration for TCP/UDP traffic, improving availability and reducing latency.
+- **AWS Direct Connect (DX)** — dedicated private network link; requires VIFs (Private, Public, Transit) for logical connectivity.
+- Security services (org-wide): **GuardDuty, Macie, IAM Access Analyzer, Firewall Manager, Config**.
 
 ## Diagrams
 
