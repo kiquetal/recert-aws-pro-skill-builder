@@ -373,9 +373,10 @@ Set up a best-practices AWS environment in a few clicks
 - **AWS Direct Connect** — A dedicated private network link from on-premises to AWS.
     - **Note:** It is *not encrypted* by default. Layer a VPN or use MACsec for encryption.
 
-- **Route 53 Resolver (Hybrid DNS)** — Bridges DNS resolution across hybrid environments.
-    - **Inbound Endpoints:** Allow on-premises DNS servers to forward queries to AWS Resolver.
-    - **Outbound Endpoints:** Allow AWS resources to resolve on-premises DNS domains via forwarding rules.
+- **AWS Global Accelerator** — Improves availability/performance by routing user traffic over the AWS global network via Anycast IP addresses.
+    - **Use Case:** Ideal for TCP/UDP applications (non-HTTP) where network performance and fast failover are required.
+    - **vs. CloudFront:** Use CloudFront for caching HTTP content; use Global Accelerator for network-level acceleration of any TCP/UDP traffic.
+    - **Components:** Static Anycast IPs, endpoint groups, health checks, and traffic dials for easy traffic shifting.
 
 ### Site-to-Site VPN Architecture
 
