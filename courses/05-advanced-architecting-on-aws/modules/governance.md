@@ -14,6 +14,37 @@
     - **Guardrails:** Pre-packaged rules (Detective and Preventive) for compliance (e.g., "Disallow public S3 buckets").
 
 - **AWS CloudFormation / StackSets** — Multi-account/region IaC.
+    - **How the deployment works (self-managed permissions) — two roles, in two places:**
+
+    ```text
+    MANAGEMENT / ADMIN ACCOUNT                 TARGET / MEMBER ACCOUNT
+    (where you create the StackSet)            (where resources are created)
+
+    [You] create StackSet
+         |
+         v
+    +----------------------------------+       +----------------------------------+
+    | AWSCloudFormationStackSet        |       | AWSCloudFormationStackSet        |
+    | AdministrationRole               | ====> | ExecutionRole                    |
+    | (MUST exist in admin account)    |assumes| (MUST exist in EACH member acct) |
+    |  - assumed by CloudFormation     |       |  - trusts the admin account's    |
+    |  - sts:AssumeRole into members   |       |    AdministrationRole            |
+    +----------------------------------+       |  - has permissions to CREATE the |
+                                               |    stack's resources here        |
+                                               +----------------------------------+
+                                                        |
+                                                        v
+                                               [Stack instance + resources created]
+
+    Trust chain:  CloudFormation -> AdministrationRole (admin acct)
+                  AdministrationRole --assumes--> ExecutionRole (member acct)
+                  ExecutionRole --creates--> resources in the member account
+    ```
+
+    - **`AWSCloudFormationStackSetAdministrationRole`** — lives in the **admin (management) account**.
+    - **`AWSCloudFormationStackSetExecutionRole`** — lives in **every target member account**, **trusts** the admin account's AdministrationRole, and holds the permissions to actually create the stack's resources.
+    - Miss the ExecutionRole in a member (or its trust to the admin role) → that account's deployment **fails**.
+
     - **Deployment Models:**
         - **Self-managed:** Requires manual creation of `AdministrationRole` (Admin Acct) and `ExecutionRole` (Member Acct).
         - **Service-managed:** Uses AWS Organizations to automatically create/manage roles and auto-deploy to new accounts in an OU.
