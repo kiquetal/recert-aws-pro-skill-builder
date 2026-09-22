@@ -360,9 +360,12 @@ Set up a best-practices AWS environment in a few clicks
 - **AWS Site-to-Site VPN** — Establishes encrypted IPsec tunnels between your on-premises network and AWS.
     - **Components:**
         - **Customer Gateway (CGW):** The on-premises device/firewall (the VPN endpoint on your side).
-        - **AWS Termination Points:**
+        - **AWS Termination Points (Managed Service):**
             - **Virtual Private Gateway (VGW):** The AWS-side VPN endpoint for connecting to a **single VPC**.
-            - **Transit Gateway (TGW):** The AWS-side hub for connecting to **multiple VPCs** and on-premises networks (hub-and-spoke).
+            - **Transit Gateway (TGW):** The AWS-side hub for connecting to **multiple VPCs** and on-premises networks.
+        - **Note on EC2/ALB:**
+            - **ALBs** cannot terminate Site-to-Site VPNs (they are Layer 7).
+            - **EC2 Instances** can only terminate VPNs if you deploy a **custom software VPN appliance** (DIY). You are responsible for managing/scaling/HA of that instance (as opposed to the managed VGW/TGW service).
     - **High Availability:** Always provisions two tunnels; both must be configured on your CGW.
     - **Routing:** Supports Static or Dynamic (BGP) routing.
     - **NAT Traversal (NAT-T):** Essential if the CGW is behind a NAT device; encapsulates ESP in UDP/4500.
