@@ -72,3 +72,20 @@
        [ On-Prem DNS Server ]
 ```
 
+### Mental Model: Managed Service Failover (VGW)
+
+```text
+    [On-Premises Network]
+              |
+     +--------+--------+
+     |  Dual IPsec     |
+     |   Tunnels       |
+     +--------+--------+
+              |
+    +---------v---------+
+    |   AWS VGW/TGW     |
+    +---------+---------+
+              |
+      [VPC Route Table]
+```
+
