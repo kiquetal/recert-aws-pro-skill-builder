@@ -1,0 +1,33 @@
+@startuml
+skinparam componentStyle uml2
+
+node "On-Premises" {
+    [On-Prem Router] as Router
+}
+
+node "AWS Direct Connect Location" {
+    [AWS Direct Connect Device] as DX_Device
+}
+
+node "AWS Cloud" {
+    [Virtual Private Gateway] as VGW
+    [Direct Connect Gateway] as DXGW
+    [Transit Gateway] as TGW
+    [VPC] as VPC
+    [Public AWS Services] as PubSvc
+}
+
+Router -right-> DX_Device: Private VIF
+DX_Device -right-> VGW
+DX_Device -right-> DXGW
+VGW -right-> VPC
+DXGW -right-> VPC
+
+Router -right-> DX_Device: Public VIF
+DX_Device -right-> PubSvc
+
+Router -right-> DX_Device: Transit VIF
+DX_Device -right-> DXGW
+DXGW -right-> TGW
+TGW -right-> VPC
+@enduml
