@@ -361,8 +361,8 @@ Set up a best-practices AWS environment in a few clicks
     - **Components:**
         - **Customer Gateway (CGW):** The on-premises device/firewall (the VPN endpoint on your side).
         - **AWS Termination Points (Managed Service):**
-            - **Virtual Private Gateway (VGW):** The AWS-side VPN endpoint for connecting to a **single VPC**.
-            - **Transit Gateway (TGW):** The AWS-side hub for connecting to **multiple VPCs** and on-premises networks.
+            - **Virtual Private Gateway (VGW):** The *standard* AWS-side VPN endpoint for connecting to a **single VPC**.
+            - **Transit Gateway (TGW):** An *optional, advanced* hub for connecting **multiple VPCs** and on-premises networks (ideal for hub-and-spoke architectures, but not mandatory).
         - **Note on EC2/ALB:**
             - **ALBs** cannot terminate Site-to-Site VPNs (they are Layer 7).
             - **EC2 Instances** can only terminate VPNs if you deploy a **custom software VPN appliance** (DIY). You are responsible for managing/scaling/HA of that instance (as opposed to the managed VGW/TGW service).
@@ -380,6 +380,9 @@ Set up a best-practices AWS environment in a few clicks
     - **Security Groups:** Attached to the Client VPN endpoint association; they control inbound traffic from the Client VPN ENIs *to* the VPC resources.
     - **Authorization Rules:** You must explicitly add authorization rules to the Client VPN endpoint to grant access to specific network segments (e.g., VPC CIDR, on-premises networks reachable via TGW/VGW).
     - **Route Table:** The Client VPN endpoint has its own route table. You must configure routes (e.g., 10.0.0.0/16 → VPC network interface) to determine where traffic is sent once it exits the VPN tunnel.
+
+![AWS Client VPN route table — showing the routing configuration for the Client VPN endpoint to reach VPC resources.](./assets/client-vpn-route-table.png)
+
     - **Comparison:**
         - Site-to-Site = Network-to-Network (permanent, gateway-to-gateway).
         - Client VPN = User-to-Network (on-demand, client-to-gateway).
@@ -404,7 +407,7 @@ Set up a best-practices AWS environment in a few clicks
 
 ### Site-to-Site VPN Architecture
 
-![Site-to-Site VPN architecture — On-premises Customer Gateway connected via two tunnels over the Internet to an AWS Transit Gateway.](./assets/site-to-site-vpn.png)
+![Site-to-Site VPN architecture — On-premises Customer Gateway connected via two tunnels over the Internet to an AWS Virtual Private Gateway.](./assets/site-to-site-vpn.png)
 
 ### Virtual Interface (VIF) Architecture
 
