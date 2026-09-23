@@ -49,7 +49,8 @@
 ### TGW Logical Components
 ![Transit Gateway Logic — illustrating the separation between Attachments (pipes), Associations (mapping traffic to a route table), and Propagations (dynamic route population).](../assets/tgw-logic.png)
 
-### Managed Service Failover (VGW)
+### Managed Service Failover (VGW/TGW)
+*Note: This failover logic applies equally to both VGW (single-VPC) and TGW (multi-VPC) termination points.*
 ```text
     [On-Premises Network]
               |
