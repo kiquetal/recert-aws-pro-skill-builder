@@ -23,6 +23,8 @@
             - *Use Case:* High-speed, simple packet filtering (e.g., dropping all traffic from a known malicious IP).
         - **Architecture:** It scales automatically and is deployed across Availability Zones, providing high availability for your network traffic inspection.
 
+![AWS Network Firewall — illustrating the configuration of stateless and stateful rules for traffic inspection.](../assets/network-firewall.png)
+
     - **VPC Lattice:** Simplifies service-to-service communication with built-in service discovery, connectivity, and security (mTLS) across VPCs and accounts without TGW or Peering.
     - **IP Address Management (IPAM):** Automates the discovery, planning, and monitoring of IP address space across your AWS organization.
 
