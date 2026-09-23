@@ -15,11 +15,6 @@
     - **Fargate (Serverless):** No need to provision or manage servers. AWS manages the underlying infrastructure.
     - **EC2:** You manage the underlying instances, allowing deep control over OS, networking, and instance sizing.
 
-- **AWS Copilot (Docker Compose integration):** AWS Copilot allows you to easily transition from local development to production on AWS. It supports importing your existing `docker-compose.yml` files to define services, which Copilot then provisions as Amazon ECS services, abstracting the infrastructure complexity.
-    - **Use Case:** Accelerates the journey from local container development to cloud deployment.
-
-![Docker Compose to AWS Flow — illustrating how Copilot maps Docker Compose definitions to ECS service infrastructure.](../assets/docker-compose-aws.png)
-
 - **Advanced Architectural Considerations:**
     - **IAM Task Roles:** Assign permissions to the *container/task* itself (not the underlying host), allowing the application to securely access AWS services (S3, DynamoDB) via IAM.
     - **Networking (`awsvpc` mode):** Every ECS task receives its own Elastic Network Interface (ENI) and private IP within the VPC, allowing security groups to be applied directly to the container/task.
