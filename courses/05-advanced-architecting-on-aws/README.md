@@ -37,8 +37,14 @@
 - **Resolver Endpoints:** Inbound allows on-prem to resolve PHZs; Outbound + Resolver Rules allow VPC resources to resolve on-premises domains via forwarding.
 
 ### Governance & Security
-- **Delegation:** Use Organizations and Delegated Administrators to manage security services (GuardDuty, Config, etc.) centrally, avoiding the use of the Management account for day-to-day tasks.
-- **ABAC Scaling:** ABAC using session tags (from IAM Identity Center) is superior to RBAC for large-scale multi-account environments as it removes the need to update per-project policies.
+- **Delegation:** Use Organizations and Delegated Administrators to manage security services (GuardDuty, Config, etc.) centrally.
+- **ABAC Scaling:** ABAC using session tags (from IAM Identity Center) is superior to RBAC for large-scale multi-account environments.
+
+### Specialized Infrastructure
+- **Storage Gateway:** Choose **Stored** volumes for performance (100% local) and **Cached** for cloud-based scalability (S3).
+- **Network Firewall (Symmetry):** In centralized inspection, traffic must be symmetric; return traffic *must* traverse the firewall.
+- **Outposts vs. Local Zones:** Outposts = on-premises hardware. Local Zones = AWS-managed data centers in metro areas.
+- **Wavelength:** Extends AWS to the 5G edge; requires a **Carrier Gateway** for connectivity.
 
 ## Services Covered
 
@@ -49,4 +55,5 @@
 - **AWS Route 53 Resolver** — Hybrid DNS resolution infrastructure.
 - **AWS Direct Connect** — Dedicated private networking.
 - **AWS Backup** — Centralized, cross-account data protection.
+- **AWS Specialized Infrastructure:** Storage Gateway, Outposts, Local Zones, Wavelength, Network Firewall.
 - Security services (org-wide): **GuardDuty, Macie, IAM Access Analyzer, Firewall Manager, Config**.
