@@ -1,4 +1,18 @@
-# VPC Design & New Capabilities
+# Connecting VPCs (VPC Peering)
+
+- **VPC Peering:** The simplest, most performant way to connect two VPCs directly.
+    - **Logic:** Creates a direct network route between two VPCs using private IP addresses. It is **not transitive** (you cannot route through VPC-1 to reach VPC-3).
+    - **Configuration Requirement:** You **must** manually add a route in the route table of **both** VPCs to point to the Peering Connection ID (`pcx-xxxx`).
+    - **Security:** Requires updating Security Groups in both VPCs to allow traffic from the peered VPC CIDR or Security Group ID.
+
+```text
+    [VPC-1 (10.0.0.0/16)] <--- (Peering Connection) ---> [VPC-2 (10.1.0.0/16)]
+            |                                                    |
+    [Route Table: 10.1.0.0/16]                          [Route Table: 10.0.0.0/16]
+        Target: pcx-xxxx                                     Target: pcx-xxxx
+```
+
+- **VGW/VPN Warning:** **Do not use Virtual Private Gateways (VGWs) for VPC-to-VPC communication.** VGWs are for connecting a VPC to an on-premises network only. Using them for VPC-to-VPC traffic (e.g., routing through an on-premises router) is an anti-pattern that introduces high latency and unnecessary costs.
 
 - **VPC Design Fundamentals:**
     - Subnets, Route Tables, Internet Gateways (IGW), NAT Gateways.
@@ -114,6 +128,8 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
 ### VPC Sharing Logic
 When you share a subnet from the "Networking Account" (VPC-1) to an "App Account" (VPC-2), the App Account can launch EC2 instances directly into that shared subnet.
 
+- **Diagram Breakdown (Understanding the Icons):** 
+    - You may see a **Virtual Private Gateway (VGW)** icon in VPC architecture diagrams. It is a standard VPC component. It enables that VPC to connect to on-premises via VPN/Direct Connect. It is **not** used for RAM sharing or connecting VPCs to each other.
 - **Mental Model: The Landlord/Tenant Pattern:**
     - Think of the VPC as an office building owned by a **Landlord (Account A)**. 
     - Instead of building their own building (VPC) and building a bridge (Peering) to yours, the Landlord gives the **Tenant (Account B)** a key to one of the empty suites (Subnet) inside the Landlord's building.
