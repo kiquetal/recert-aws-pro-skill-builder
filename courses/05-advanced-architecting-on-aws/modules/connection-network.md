@@ -8,6 +8,8 @@
     - **Gateway Load Balancer (GWLB):** Deploys, scales, and manages virtual appliances (firewalls, IDS/IPS).
         - **Protocol:** Uses the **GENEVE** protocol (port 6081) to encapsulate traffic between the GWLB and the virtual appliance. This allows metadata to be passed with the packets to the appliance.
         - **Use Case:** Transparently inspect and filter traffic flowing into/out of your VPC, or between VPCs.
+
+![Gateway Load Balancer Flow — illustrating traffic flow before GWLB implementation.](../assets/gwlb-before.png)
     - **VPC Lattice:** Simplifies service-to-service communication with built-in service discovery, connectivity, and security (mTLS) across VPCs and accounts without TGW or Peering.
     - **IP Address Management (IPAM):** Automates the discovery, planning, and monitoring of IP address space across your AWS organization.
 
