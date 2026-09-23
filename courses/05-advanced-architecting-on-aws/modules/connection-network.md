@@ -58,16 +58,13 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
 
 *Note: Ensure route tables are configured symmetrically to prevent the firewall from dropping return traffic due to state mismatches.*
 
+![AWS Network Firewall — illustrating the configuration of stateless and stateful rules for traffic inspection.](../assets/network-firewall.png)
+
     - **VPC Lattice:** Simplifies service-to-service communication with built-in service discovery, connectivity, and security (mTLS) across VPCs and accounts without TGW or Peering.
     - **IP Address Management (IPAM):** Automates the discovery, planning, and monitoring of IP address space across your AWS organization.
 
 - **AWS Transit Gateway (TGW)** — regional hub for connecting VPCs, VPNs, and Direct Connect; supports routing domains (Route Tables) for traffic segmentation (Association/Propagation).
-    - **Scale & Capacity:** Supports up to **5,000 VPC attachments** per Transit Gateway.
-    - **Pro-level Scaling Considerations:**
-        - **Route Table Limits:** With 5,000 VPCs, avoid a single "flat" route table. Use **Route Table Segmentation** to keep control planes manageable and secure.
-        - **Throughput:** A single VPC attachment supports up to 50 Gbps burstable bandwidth. Aggregate traffic from thousands of VPCs requires careful bandwidth planning at the TGW level.
-        - **Management:** At scale, shift from dynamic propagation to **Static Routes** for predictable network patterns to avoid route table bloat.
-    - **Multi-Account Connectivity:** Transit Gateway is **not limited to a single account**. It can be shared across accounts in an AWS Organization using **AWS Resource Access Manager (RAM)**. This enables centralized hub-and-spoke architectures where a central Networking Account manages TGW attachments for multiple spoke accounts.
+    - **TGW Attachments (What can it connect to?):**
         - **VPC Attachments:** Connects VPCs to the TGW.
         - **VPN Attachments:** Connects Site-to-Site VPNs to the TGW.
         - **Direct Connect Gateway Attachments:** Connects Direct Connect to the TGW via a Direct Connect Gateway.
@@ -87,3 +84,9 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
     - **Use Case:** Accessing services across VPC/Account boundaries (via Interface Endpoints) without traversing the internet.
 
 ![AWS PrivateLink Diagram — showing the ENI-based architecture and routing mechanism for Interface Endpoints.](../assets/privatelink.png)
+
+![VPC Endpoints Types — illustrating the architectural difference between Interface Endpoints (ENI-based) and Gateway Endpoints (Route Table-based).](../assets/vpc-endpoints-types.png)
+
+- **Gateway Endpoints:** Powered by **Route Tables**.
+    - **Routing:** Requires an explicit route table entry (via a prefix list) to direct traffic to the Gateway.
+    - **Scope:** Only supported for Amazon S3 and Amazon DynamoDB.
