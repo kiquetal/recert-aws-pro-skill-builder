@@ -1,16 +1,21 @@
 # Containers on AWS
 
-- **Amazon ECS (Elastic Container Service):** Highly scalable, high-performance container management service that supports Docker containers. It is deeply integrated with other AWS services (IAM, Load Balancers, CloudWatch).
-    - **Launch Types:** 
-        - **Fargate:** Serverless; AWS manages the underlying infrastructure.
-        - **EC2:** You manage the underlying EC2 instances for more control.
+- **Amazon ECS (Elastic Container Service):** Highly scalable, high-performance container management service.
+    - **Control Plane:** AWS managed; you only manage the data plane (compute).
+    - **Integration:** Deeply integrated with AWS native services (IAM, ALB/NLB, CloudWatch, Secrets Manager).
 
-- **Amazon EKS (Elastic Kubernetes Service):** Managed Kubernetes service that makes it easy to deploy, manage, and scale containerized applications using Kubernetes on AWS.
-    - **Fargate support:** EKS also supports Fargate for serverless pod execution.
+- **Amazon EKS (Elastic Kubernetes Service):** Managed Kubernetes service.
+    - **Control Plane:** AWS manages the Kubernetes control plane across multiple AZs.
+    - **Use Case:** When portability (standard Kubernetes APIs) and complex service-to-service orchestration are required.
 
-- **Amazon ECR (Elastic Container Registry):** Fully managed container registry for storing, managing, sharing, and deploying container images.
+- **Launch Types:**
+    - **Fargate (Serverless):** No need to provision or manage servers. AWS manages the underlying infrastructure.
+    - **EC2:** You manage the underlying instances, allowing deep control over OS, networking, and instance sizing.
 
-- **Key Architectural Considerations:**
-    - **Service Auto Scaling:** Automatically adjust the number of tasks/pods based on demand.
-    - **Task/Pod Networking:** Understand VPC networking (awsvpc mode for ECS) to ensure secure, isolated container networking.
-    - **CI/CD:** Integrate with AWS CodePipeline and CodeBuild for automated container deployment workflows.
+- **Advanced Architectural Considerations:**
+    - **IAM Task Roles:** Assign permissions to the *container/task* itself (not the underlying host), allowing the application to securely access AWS services (S3, DynamoDB) via IAM.
+    - **Networking (`awsvpc` mode):** Every ECS task receives its own Elastic Network Interface (ENI) and private IP within the VPC, allowing security groups to be applied directly to the container/task.
+    - **Service Discovery:** Use Route 53 Service Discovery (AWS Cloud Map) to automatically register and discover services within your VPC.
+    - **Scalability:** **Service Auto Scaling** allows scaling tasks based on CPU/Memory utilization or custom metrics (e.g., SQS queue depth).
+
+![Container Architecture — illustrating ECS/EKS with Fargate vs EC2 launch types and IAM Task Role integration.](../assets/container-architecture.png)
