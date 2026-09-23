@@ -109,4 +109,10 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
 ### VPC Sharing Logic
 When you share a subnet from the "Networking Account" (VPC-1) to an "App Account" (VPC-2), the App Account can launch EC2 instances directly into that shared subnet.
 
+- **Mental Model: The Landlord/Tenant Pattern:**
+    - Think of the VPC as an office building owned by a **Landlord (Account A)**. 
+    - Instead of building their own building (VPC) and building a bridge (Peering) to yours, the Landlord gives the **Tenant (Account B)** a key to one of the empty suites (Subnet) inside the Landlord's building.
+    - **Reality:** The EC2 instances owned by Account B technically **reside within Account A's VPC**. They follow the network rules (Route Tables, NACLs) of Account A, not Account B.
+    - **Architectural Advantage:** Offers the lowest possible latency and zero routing hops between accounts, as all resources coexist within the same VPC network boundary.
+
 ![VPC Sharing Logic — illustrating Account B deploying resources into a subnet owned by Account A via AWS RAM.](../assets/vpc-sharing.png)
