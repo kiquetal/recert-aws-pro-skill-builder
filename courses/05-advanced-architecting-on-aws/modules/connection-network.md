@@ -61,8 +61,6 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
     - **VPC Lattice:** Simplifies service-to-service communication with built-in service discovery, connectivity, and security (mTLS) across VPCs and accounts without TGW or Peering.
     - **IP Address Management (IPAM):** Automates the discovery, planning, and monitoring of IP address space across your AWS organization.
 
-# Transit Gateway and VPN Connectivity
-
 - **AWS Transit Gateway (TGW)** — regional hub for connecting VPCs, VPNs, and Direct Connect; supports routing domains (Route Tables) for traffic segmentation (Association/Propagation).
     - **TGW Attachments (What can it connect to?):**
         - **VPC Attachments:** Connects VPCs to the TGW.
@@ -73,23 +71,6 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
     - **Logical Components:** Attachments (pipes), Associations (mapping traffic to a route table), and Propagations (dynamic route population).
     - **Note on Direct Connect:** You **cannot** attach a physical Direct Connect connection directly to a Transit Gateway. You must attach it via a **Direct Connect Gateway** attachment.
     - **Multi-Account Connectivity:** Transit Gateway is **not limited to a single account**. It can be shared across accounts in an AWS Organization using **AWS Resource Access Manager (RAM)**.
-
-### Managed Service Failover (VGW/TGW)
-*Note: This failover logic applies equally to both VGW (single-VPC) and TGW (multi-VPC) termination points.*
-```text
-    [On-Premises Network]
-              |
-     +--------+--------+
-     |  Dual IPsec     |
-     |   Tunnels       |
-     +--------+--------+
-              |
-    +---------v---------+
-    |   AWS VGW/TGW     |
-    +---------+---------+
-              |
-      [VPC Route Table]
-```
 
 ![VPC Design and Networking — showing key components like IPAM, VPC Endpoints, and connectivity architecture.](../assets/vpc-design-network.png)
 
@@ -123,17 +104,6 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
     - **Mechanism:** You create a "Resource Share" and specify the resources, the permissions (if applicable), and the participants (AWS accounts or OUs).
     - **Key Benefit:** Enables centralized hub-and-spoke networking (e.g., sharing a TGW or VPC subnets from a central Network account to Spoke accounts) without needing to duplicate the infrastructure in each account.
 
-    - **Architectural Example: VPC Subnet Sharing**
-        - **Scenario:** A central Networking account owns a VPC with dedicated subnets for different departments.
-        - **The Workflow:**
-            1. **Networking Account:** Creates the VPC and subnets.
-            2. **RAM:** The Networking Account creates a "Resource Share" for specific subnets and adds the Organization/OUs of the App accounts as participants.
-            3. **App Accounts:** The app accounts see the shared subnets in their VPC console.
-            4. **Deployment:** App accounts launch their EC2 instances directly into the shared subnets (the instances reside within the Networking account's VPC).
-        - **Result:** Centralized IP address management and network security (NACLs) controlled by the Networking account, while App accounts manage their own compute workloads.
-
-![AWS RAM Resource Sharing — illustrating the centralized sharing of Transit Gateway and Subnets across multiple VPCs in different accounts.](../assets/ram-sharing.png)
-
 ### VPC Sharing Logic
 When you share a subnet from the "Networking Account" (VPC-1) to an "App Account" (VPC-2), the App Account can launch EC2 instances directly into that shared subnet.
 
@@ -143,6 +113,10 @@ When you share a subnet from the "Networking Account" (VPC-1) to an "App Account
     - **Reality:** The EC2 instances owned by Account B technically **reside within Account A's VPC**. They follow the network rules (Route Tables, NACLs) of Account A, not Account B.
     - **Architectural Advantage:** Offers the lowest possible latency and zero routing hops between accounts, as all resources coexist within the same VPC network boundary.
 
+![VPC Sharing Logic — illustrating Account B deploying resources into a subnet owned by Account A via AWS RAM.](../assets/vpc-sharing.png)
+
 - **NACLs & RAM Segmentation:** When sharing subnets across accounts, Network ACLs (NACLs) are managed by the VPC owner account. This allows the owner to enforce centralized security boundaries on shared subnets, ensuring that all participants comply with the same stateless traffic filtering rules.
 
 ![NACL and RAM Segmentation — illustrating how the VPC owner can use NACLs to enforce centralized network security on shared subnets.](../assets/nacl-ram-segmentation.png)
+
+![AWS RAM Resource Sharing — illustrating the centralized sharing of Transit Gateway and Subnets across multiple VPCs in different accounts.](../assets/ram-sharing.png)
