@@ -13,8 +13,10 @@
 
 ### Fargate (Serverless)
 
-- **Fargate:** No need to provision or manage servers. AWS manages the underlying infrastructure.
-    - *Fargate Construction:* You define task-level CPU and memory requirements in the task definition. Fargate then provisions the compute resources required to run your containers based on these definitions.
+**Fargate**
+Serverless compute engine. ECS and EKS can run on target.
+
+- *Fargate Construction:* You define task-level CPU and memory requirements in the task definition. Fargate then provisions the compute resources required to run your containers based on these definitions.
 
 ![Fargate Construction — illustrating task definition CPU/Memory provisioning.](../assets/fargate-construct.png)
 
