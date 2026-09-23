@@ -15,6 +15,10 @@
     - **Fargate (Serverless):** No need to provision or manage servers. AWS manages the underlying infrastructure.
     - **EC2:** You manage the underlying instances, allowing deep control over OS, networking, and instance sizing.
 
+- **Docker Compose for ECS:** You can use `docker-compose.yml` to define multi-container applications and deploy them to Amazon ECS using the `docker ecs compose` command.
+
+![Docker Compose file configuration — illustrating the structure of a docker-compose.yml file used for deployment to Amazon ECS.](../assets/docker-compose-aws.png)
+
 - **Advanced Architectural Considerations:**
     - **IAM Task Roles:** Assign permissions to the *container/task* itself (not the underlying host), allowing the application to securely access AWS services (S3, DynamoDB) via IAM.
     - **Networking (`awsvpc` mode):** Every ECS task receives its own Elastic Network Interface (ENI) and private IP within the VPC, allowing security groups to be applied directly to the container/task.
