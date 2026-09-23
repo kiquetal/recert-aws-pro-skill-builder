@@ -13,7 +13,10 @@
     - **Components:**
         - **Customer Gateway (CGW):** The on-premises device/firewall (the VPN endpoint on your side).
         - **AWS Termination Points (Managed Service):**
-            - **Virtual Private Gateway (VGW):** The *standard* AWS-side VPN endpoint for connecting to a **single VPC**.
+        - **Virtual Private Gateway (VGW):** The *standard* AWS-side VPN and Direct Connect concentrator. 
+            - *Scope:* It is attached to a **single VPC**.
+            - *Traffic:* Routes traffic between the VPC and the connected VPN or Direct Connect (Private VIF).
+            - *Limitation:* Does not support transitive routing (i.e., it cannot route traffic between two connected networks or multiple VPCs); for those needs, use a Transit Gateway (TGW).
             - **Transit Gateway (TGW):** An *optional, advanced* hub for connecting **multiple VPCs** and on-premises networks.
         - **Note on EC2/ALB:**
             - **ALBs** cannot terminate Site-to-Site VPNs (they are Layer 7).
