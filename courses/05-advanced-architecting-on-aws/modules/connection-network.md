@@ -21,4 +21,10 @@
 
 # AWS PrivateLink
 
-Interface endpoints, we don´t need the routing.
+- **Interface Endpoints:** Secure, private connectivity to AWS services and SaaS applications powered by PrivateLink.
+    - **Mechanism:** Powered by **Elastic Network Interfaces (ENIs)**.
+    - **Routing:** No route table entry is required because the traffic is routed directly to the ENI's private IP address, behaving like any other resource in the VPC.
+    - **Security:** Managed via **Security Groups** attached to the ENI. Traffic is restricted by the attached Security Group (inbound access from the subnet) and the VPC Endpoint Policy.
+    - **Use Case:** Accessing services across VPC/Account boundaries (via Interface Endpoints) without traversing the internet.
+
+![AWS PrivateLink Diagram — showing the ENI-based architecture and routing mechanism for Interface Endpoints.](../assets/privatelink.png)
