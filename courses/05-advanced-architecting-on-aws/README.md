@@ -21,6 +21,7 @@
 - [Hybrid Networking](modules/hybrid-networking.md)
 - [Route 53 & DNS](modules/dns.md)
 - [VPC Design & Networking](modules/connection-network.md)
+- [Containers on AWS](modules/containers.md)
 - [Specialized Infrastructure](modules/specialized-infra.md)
 
 ## Key Takeaways
