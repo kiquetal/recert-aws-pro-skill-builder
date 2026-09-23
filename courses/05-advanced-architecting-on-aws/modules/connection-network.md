@@ -102,4 +102,6 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
     - **Mechanism:** You create a "Resource Share" and specify the resources, the permissions (if applicable), and the participants (AWS accounts or OUs).
     - **Key Benefit:** Enables centralized hub-and-spoke networking without needing to duplicate the infrastructure in each account.
 
+![AWS RAM Resource Sharing — illustrating the centralized sharing of Transit Gateway and Subnets across multiple VPCs in different accounts.](../assets/ram-sharing.png)
+
 <!-- Add your custom notes below this line -->
