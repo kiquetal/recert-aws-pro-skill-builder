@@ -2,6 +2,12 @@
 
 - **AWS Transit Gateway (TGW)** — regional hub for connecting VPCs, VPNs, and Direct Connect; supports routing domains (Route Tables) for traffic segmentation (Association/Propagation).
     - **Logical Components:** Attachments (pipes), Associations (mapping traffic to a route table), and Propagations (dynamic route population).
+    - **TGW Attachments (What can it connect to?):**
+        - **VPC Attachments:** Connects VPCs to the TGW.
+        - **VPN Attachments:** Connects Site-to-Site VPNs to the TGW.
+        - **Direct Connect Gateway Attachments:** Connects Direct Connect to the TGW via a Direct Connect Gateway.
+        - **Transit Gateway Peering Attachments:** Connects two separate TGWs (intra-region or inter-region).
+        - **Connect Attachments (SD-WAN):** Uses GRE tunnels to connect SD-WAN appliances directly to the TGW.
 
 - **AWS Site-to-Site VPN** — Establishes encrypted IPsec tunnels between your on-premises network and AWS.
     - **Components:**
