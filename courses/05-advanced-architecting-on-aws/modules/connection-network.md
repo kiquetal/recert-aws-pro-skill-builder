@@ -61,10 +61,14 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
 ![AWS Network Firewall — illustrating the configuration of stateless and stateful rules for traffic inspection.](../assets/network-firewall.png)
 
     - **VPC Lattice:** Simplifies service-to-service communication with built-in service discovery, connectivity, and security (mTLS) across VPCs and accounts without TGW or Peering.
-    - **AWS Resource Access Manager (RAM):** Share resources across AWS accounts or within an AWS Organization.
+    # AWS Resource Access Manager (RAM)
+
+- **AWS Resource Access Manager (RAM):** Share resources across AWS accounts or within an AWS Organization.
     - **Use Case:** Centrally manage resources like VPC subnets, Transit Gateways, and Route 53 Resolver rules to avoid duplication and simplify management in multi-account environments.
     - **Mechanism:** You create a "Resource Share" and specify the resources, the permissions (if applicable), and the participants (AWS accounts or OUs).
     - **Key Benefit:** Enables centralized hub-and-spoke networking (e.g., sharing a TGW or VPC subnets from a central Network account to Spoke accounts) without needing to duplicate the infrastructure in each account.
+
+<!-- Add your custom notes below this line -->
 
 - **AWS Transit Gateway (TGW)** — regional hub for connecting VPCs, VPNs, and Direct Connect; supports routing domains (Route Tables) for traffic segmentation (Association/Propagation).
     - **TGW Attachments (What can it connect to?):**
