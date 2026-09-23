@@ -92,8 +92,14 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
 # RAM
 
 - **AWS Resource Access Manager (RAM):** Share resources across AWS accounts or within an AWS Organization.
-    - **Use Case:** Centrally manage resources like VPC subnets, Transit Gateways, and Route 53 Resolver rules to avoid duplication and simplify management in multi-account environments.
+    - **Use Case:** Centrally manage resources to avoid duplication and simplify management in multi-account environments.
+    - **Key Shareable Resources:**
+        - **Transit Gateways:** Share with other accounts to attach their VPCs to a central hub.
+        - **VPC Subnets:** Allow multiple accounts to launch resources into a centrally managed VPC.
+        - **Route 53 Resolver Rules:** Share DNS forwarding rules to centralize hybrid DNS resolution.
+        - **License Manager Configurations:** Centralize license compliance.
+        - **AWS Network Firewall Policies:** Share firewall rules across the organization.
     - **Mechanism:** You create a "Resource Share" and specify the resources, the permissions (if applicable), and the participants (AWS accounts or OUs).
-    - **Key Benefit:** Enables centralized hub-and-spoke networking (e.g., sharing a TGW or VPC subnets from a central Network account to Spoke accounts) without needing to duplicate the infrastructure in each account.
+    - **Key Benefit:** Enables centralized hub-and-spoke networking without needing to duplicate the infrastructure in each account.
 
 <!-- Add your custom notes below this line -->
