@@ -67,7 +67,7 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
         - **Route Table Limits:** With 5,000 VPCs, avoid a single "flat" route table. Use **Route Table Segmentation** to keep control planes manageable and secure.
         - **Throughput:** A single VPC attachment supports up to 50 Gbps burstable bandwidth. Aggregate traffic from thousands of VPCs requires careful bandwidth planning at the TGW level.
         - **Management:** At scale, shift from dynamic propagation to **Static Routes** for predictable network patterns to avoid route table bloat.
-    - **TGW Attachments (What can it connect to?):**
+    - **Multi-Account Connectivity:** Transit Gateway is **not limited to a single account**. It can be shared across accounts in an AWS Organization using **AWS Resource Access Manager (RAM)**. This enables centralized hub-and-spoke architectures where a central Networking Account manages TGW attachments for multiple spoke accounts.
         - **VPC Attachments:** Connects VPCs to the TGW.
         - **VPN Attachments:** Connects Site-to-Site VPNs to the TGW.
         - **Direct Connect Gateway Attachments:** Connects Direct Connect to the TGW via a Direct Connect Gateway.
