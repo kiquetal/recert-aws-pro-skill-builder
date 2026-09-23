@@ -20,6 +20,10 @@ Serverless compute engine. ECS and EKS can run on target.
 
 ![Fargate Construction — illustrating task definition CPU/Memory provisioning.](../assets/fargate-construct.png)
 
+- *Fargate Isolation:* Fargate provides strong workload isolation by running each task in its own dedicated kernel/compute environment, ensuring container isolation.
+
+![Fargate Isolation — illustrating the security and isolation boundaries of Fargate tasks.](../assets/fargate-isolation.png)
+
 - **EC2:** You manage the underlying instances, allowing deep control over OS, networking, and instance sizing.
 
 - **Docker Compose for ECS:** You can use `docker-compose.yml` to define multi-container applications and deploy them to Amazon ECS using the `docker ecs compose` command.
