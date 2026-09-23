@@ -54,6 +54,8 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
 4. **Network Firewall:** Inspects traffic (Stateful/Stateless rules).
 5. **Firewall Return Path:** If allowed, route back -> **TGW** -> **App VPC**.
 
+*Note: Ensure route tables are configured symmetrically to prevent the firewall from dropping return traffic due to state mismatches.*
+
 ![AWS Network Firewall — illustrating the configuration of stateless and stateful rules for traffic inspection.](../assets/network-firewall.png)
 
     - **VPC Lattice:** Simplifies service-to-service communication with built-in service discovery, connectivity, and security (mTLS) across VPCs and accounts without TGW or Peering.
@@ -100,8 +102,11 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
         - **License Manager Configurations:** Centralize license compliance.
         - **AWS Network Firewall Policies:** Share firewall rules across the organization.
     - **Mechanism:** You create a "Resource Share" and specify the resources, the permissions (if applicable), and the participants (AWS accounts or OUs).
-    - **Key Benefit:** Enables centralized hub-and-spoke networking without needing to duplicate the infrastructure in each account.
+    - **Key Benefit:** Enables centralized hub-and-spoke networking (e.g., sharing a TGW or VPC subnets from a central Network account to Spoke accounts) without needing to duplicate the infrastructure in each account.
 
 ![AWS RAM Resource Sharing — illustrating the centralized sharing of Transit Gateway and Subnets across multiple VPCs in different accounts.](../assets/ram-sharing.png)
 
-<!-- Add your custom notes below this line -->
+### VPC Sharing Logic
+When you share a subnet from the "Networking Account" (VPC-1) to an "App Account" (VPC-2), the App Account can launch EC2 instances directly into that shared subnet.
+
+![VPC Sharing Logic — illustrating Account B deploying resources into a subnet owned by Account A via AWS RAM.](../assets/vpc-sharing.png)

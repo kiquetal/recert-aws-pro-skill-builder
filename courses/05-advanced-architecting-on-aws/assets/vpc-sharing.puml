@@ -1,0 +1,18 @@
+@startuml
+skinparam componentStyle uml2
+
+package "Account A (Networking)" {
+  node "VPC-1" {
+    [Shared Subnet] as SharedSubnet
+  }
+}
+
+package "Account B (App)" {
+  node "VPC-2 (Consumer)" {
+    [EC2 Instance] as EC2
+  }
+}
+
+[AWS RAM] -right-> SharedSubnet: "Shares Subnet"
+EC2 -down-> SharedSubnet: "Deployed into"
+@enduml
