@@ -61,16 +61,22 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
     - **VPC Lattice:** Simplifies service-to-service communication with built-in service discovery, connectivity, and security (mTLS) across VPCs and accounts without TGW or Peering.
     - **IP Address Management (IPAM):** Automates the discovery, planning, and monitoring of IP address space across your AWS organization.
 
-- **AWS Transit Gateway (TGW)** — regional hub for connecting VPCs, VPNs, and Direct Connect; supports routing domains (Route Tables) for traffic segmentation (Association/Propagation).
-    - **TGW Attachments (What can it connect to?):**
-        - **VPC Attachments:** Connects VPCs to the TGW.
-        - **VPN Attachments:** Connects Site-to-Site VPNs to the TGW.
-        - **Direct Connect Gateway Attachments:** Connects Direct Connect to the TGW via a Direct Connect Gateway.
-        - **Transit Gateway Peering Attachments:** Connects two separate TGWs (intra-region or inter-region).
-        - **Connect Attachments (SD-WAN):** Uses GRE tunnels to connect SD-WAN appliances directly to the TGW.
-    - **Logical Components:** Attachments (pipes), Associations (mapping traffic to a route table), and Propagations (dynamic route population).
-    - **Note on Direct Connect:** You **cannot** attach a physical Direct Connect connection directly to a Transit Gateway. You must attach it via a **Direct Connect Gateway** attachment.
-    - **Multi-Account Connectivity:** Transit Gateway is **not limited to a single account**. It can be shared across accounts in an AWS Organization using **AWS Resource Access Manager (RAM)**.
+# Connecting VPCs
+
+- **The VGW Misconception:** A **Virtual Private Gateway (VGW)** is designed exclusively to connect a VPC to an **on-premises network** (via VPN or Direct Connect). It **cannot** connect two VPCs to each other.
+- **VPC Peering:** The simplest, most performant way to connect two VPCs.
+    - **Logic:** Creates a direct network route between two VPCs using private IP addresses.
+    - **Configuration Requirement:** You must explicitly update the Route Table in **both** VPCs to point to the Peering Connection ID (`pcx-xxxx`).
+    - **Security:** Requires updating Security Groups to allow traffic from the peered VPC CIDR or Security Group ID.
+
+```text
+    [VPC-1 (10.0.0.0/16)] <--- (Peering Connection) ---> [VPC-2 (10.1.0.0/16)]
+            |                                                    |
+    [Route Table: 10.1.0.0/16]                          [Route Table: 10.0.0.0/16]
+        Target: pcx-xxxx                                     Target: pcx-xxxx
+```
+
+- **Transit Gateway (TGW):** Use for multi-VPC hub-and-spoke architectures (scaling beyond 1-to-1 peering).
 
 ![VPC Design and Networking — showing key components like IPAM, VPC Endpoints, and connectivity architecture.](../assets/vpc-design-network.png)
 
