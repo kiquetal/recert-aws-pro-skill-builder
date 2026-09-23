@@ -10,6 +10,8 @@
         - **Use Case:** Transparently inspect and filter traffic flowing into/out of your VPC, or between VPCs.
 
 ![Gateway Load Balancer Flow — illustrating traffic flow before GWLB implementation.](../assets/gwlb-before.png)
+
+![Gateway Load Balancer Flow — illustrating traffic flow after GWLB implementation.](../assets/gwlb-after.png)
     - **VPC Lattice:** Simplifies service-to-service communication with built-in service discovery, connectivity, and security (mTLS) across VPCs and accounts without TGW or Peering.
     - **IP Address Management (IPAM):** Automates the discovery, planning, and monitoring of IP address space across your AWS organization.
 
