@@ -5,6 +5,8 @@
     - **Integration:** Deeply integrated with AWS native services (IAM, ALB/NLB, CloudWatch, Secrets Manager).
 
 ![Amazon ECS Architecture — illustrating ECS cluster, services, task definitions, and Fargate integration.](../assets/ecs-details.png)
+    - **Architecture Description:** The image shows how the ECS Cluster organizes tasks and services. It highlights the use of Task Definitions to declare the container images, CPU/Memory requirements, and IAM Task Roles, and how services maintain the desired number of tasks (pods) across the cluster, optionally using Fargate for serverless compute.
+
 
 - **Amazon EKS (Elastic Kubernetes Service):** Managed Kubernetes service.
     - **Control Plane:** AWS manages the Kubernetes control plane across multiple AZs.
@@ -20,4 +22,3 @@
     - **Service Discovery:** Use Route 53 Service Discovery (AWS Cloud Map) to automatically register and discover services within your VPC.
     - **Scalability:** **Service Auto Scaling** allows scaling tasks based on CPU/Memory utilization or custom metrics (e.g., SQS queue depth).
 
-![Container Architecture — illustrating ECS/EKS with Fargate vs EC2 launch types and IAM Task Role integration.](../assets/container-architecture.png)
