@@ -121,6 +121,9 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
         - **Route 53 Resolver Rules:** Share DNS forwarding rules to centralize hybrid DNS resolution.
         - **License Manager Configurations:** Centralize license compliance.
         - **AWS Network Firewall Policies:** Share firewall rules across the organization.
+        - **Prefix Lists:** Centrally manage and share IP address lists for simplified security group/routing rule management.
+        - **Aurora DB Clusters:** Share databases across accounts for centralized data access.
+        - **AWS Config Rules:** Share organization-level compliance rules to enforce consistent configuration audits.
     - **Mechanism:** You create a "Resource Share" and specify the resources, the permissions (if applicable), and the participants (AWS accounts or OUs).
     - **Key Benefit:** Enables centralized hub-and-spoke networking (e.g., sharing a TGW or VPC subnets from a central Network account to Spoke accounts) without needing to duplicate the infrastructure in each account.
     - **Note on VGW in VPC Sharing:** When sharing a subnet, the **Virtual Private Gateway (VGW)** attached to the VPC owner's VPC allows all instances (even those deployed by tenant accounts into shared subnets) to reach on-premises networks via that same VGW.
