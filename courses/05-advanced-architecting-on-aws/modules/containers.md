@@ -11,12 +11,14 @@
     - **Control Plane:** AWS manages the Kubernetes control plane across multiple AZs.
     - **Use Case:** When portability (standard Kubernetes APIs) and complex service-to-service orchestration are required.
 
-- **Launch Types:**
-    - **Fargate (Serverless):** No need to provision or manage servers. AWS manages the underlying infrastructure.
-        - *Fargate Construction:* You define task-level CPU and memory requirements in the task definition. Fargate then provisions the compute resources required to run your containers based on these definitions.
+### Fargate (Serverless)
+
+- **Fargate:** No need to provision or manage servers. AWS manages the underlying infrastructure.
+    - *Fargate Construction:* You define task-level CPU and memory requirements in the task definition. Fargate then provisions the compute resources required to run your containers based on these definitions.
 
 ![Fargate Construction — illustrating task definition CPU/Memory provisioning.](../assets/fargate-construct.png)
-    - **EC2:** You manage the underlying instances, allowing deep control over OS, networking, and instance sizing.
+
+- **EC2:** You manage the underlying instances, allowing deep control over OS, networking, and instance sizing.
 
 - **Docker Compose for ECS:** You can use `docker-compose.yml` to define multi-container applications and deploy them to Amazon ECS using the `docker ecs compose` command.
 
