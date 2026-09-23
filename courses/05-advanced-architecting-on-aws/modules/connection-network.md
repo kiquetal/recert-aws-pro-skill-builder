@@ -1,18 +1,4 @@
-# Connecting VPCs (VPC Peering)
-
-- **VPC Peering:** The simplest, most performant way to connect two VPCs directly.
-    - **Logic:** Creates a direct network route between two VPCs using private IP addresses. It is **not transitive** (you cannot route through VPC-1 to reach VPC-3).
-    - **Configuration Requirement:** You **must** manually add a route in the route table of **both** VPCs to point to the Peering Connection ID (`pcx-xxxx`).
-    - **Security:** Requires updating Security Groups in both VPCs to allow traffic from the peered VPC CIDR or Security Group ID.
-
-```text
-    [VPC-1 (10.0.0.0/16)] <--- (Peering Connection) ---> [VPC-2 (10.1.0.0/16)]
-            |                                                    |
-    [Route Table: 10.1.0.0/16]                          [Route Table: 10.0.0.0/16]
-        Target: pcx-xxxx                                     Target: pcx-xxxx
-```
-
-- **VGW/VPN Warning:** **Do not use Virtual Private Gateways (VGWs) for VPC-to-VPC communication.** VGWs are for connecting a VPC to an on-premises network only. Using them for VPC-to-VPC traffic (e.g., routing through an on-premises router) is an anti-pattern that introduces high latency and unnecessary costs.
+# VPC Design & New Capabilities
 
 - **VPC Design Fundamentals:**
     - Subnets, Route Tables, Internet Gateways (IGW), NAT Gateways.
@@ -75,22 +61,16 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
     - **VPC Lattice:** Simplifies service-to-service communication with built-in service discovery, connectivity, and security (mTLS) across VPCs and accounts without TGW or Peering.
     - **IP Address Management (IPAM):** Automates the discovery, planning, and monitoring of IP address space across your AWS organization.
 
-# Connecting VPCs
-
-- **The VGW Misconception:** A **Virtual Private Gateway (VGW)** is designed exclusively to connect a VPC to an **on-premises network** (via VPN or Direct Connect). It **cannot** connect two VPCs to each other.
-- **VPC Peering:** The simplest, most performant way to connect two VPCs.
-    - **Logic:** Creates a direct network route between two VPCs using private IP addresses.
-    - **Configuration Requirement:** You must explicitly update the Route Table in **both** VPCs to point to the Peering Connection ID (`pcx-xxxx`).
-    - **Security:** Requires updating Security Groups to allow traffic from the peered VPC CIDR or Security Group ID.
-
-```text
-    [VPC-1 (10.0.0.0/16)] <--- (Peering Connection) ---> [VPC-2 (10.1.0.0/16)]
-            |                                                    |
-    [Route Table: 10.1.0.0/16]                          [Route Table: 10.0.0.0/16]
-        Target: pcx-xxxx                                     Target: pcx-xxxx
-```
-
-- **Transit Gateway (TGW):** Use for multi-VPC hub-and-spoke architectures (scaling beyond 1-to-1 peering).
+- **AWS Transit Gateway (TGW)** — regional hub for connecting VPCs, VPNs, and Direct Connect; supports routing domains (Route Tables) for traffic segmentation (Association/Propagation).
+    - **TGW Attachments (What can it connect to?):**
+        - **VPC Attachments:** Connects VPCs to the TGW.
+        - **VPN Attachments:** Connects Site-to-Site VPNs to the TGW.
+        - **Direct Connect Gateway Attachments:** Connects Direct Connect to the TGW via a Direct Connect Gateway.
+        - **Transit Gateway Peering Attachments:** Connects two separate TGWs (intra-region or inter-region).
+        - **Connect Attachments (SD-WAN):** Uses GRE tunnels to connect SD-WAN appliances directly to the TGW.
+    - **Logical Components:** Attachments (pipes), Associations (mapping traffic to a route table), and Propagations (dynamic route population).
+    - **Note on Direct Connect:** You **cannot** attach a physical Direct Connect connection directly to a Transit Gateway. You must attach it via a **Direct Connect Gateway** attachment.
+    - **Multi-Account Connectivity:** Transit Gateway is **not limited to a single account**. It can be shared across accounts in an AWS Organization using **AWS Resource Access Manager (RAM)**.
 
 ![VPC Design and Networking — showing key components like IPAM, VPC Endpoints, and connectivity architecture.](../assets/vpc-design-network.png)
 
@@ -121,9 +101,9 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
         - **Route 53 Resolver Rules:** Share DNS forwarding rules to centralize hybrid DNS resolution.
         - **License Manager Configurations:** Centralize license compliance.
         - **AWS Network Firewall Policies:** Share firewall rules across the organization.
-        - **Prefix Lists:** Centrally manage and share IP address lists for simplified security group/routing rule management.
-        - **Aurora DB Clusters:** Share databases across accounts for centralized data access.
-        - **AWS Config Rules:** Share organization-level compliance rules to enforce consistent configuration audits.
+    - **Note on RAM vs. Resource-Based Policies:** Not all cross-account resources use RAM.
+        - **RAM (Resource Access Manager):** Primarily for infrastructure and networking (TGW, Subnets, License Manager).
+        - **Resource-Based Policies (IAM):** Used for services like **ECR (Repository Policies)**, **SQS (Queue Access Policies)**, and **Cognito (User Pool policies)** to grant cross-account access.
     - **Mechanism:** You create a "Resource Share" and specify the resources, the permissions (if applicable), and the participants (AWS accounts or OUs).
     - **Key Benefit:** Enables centralized hub-and-spoke networking (e.g., sharing a TGW or VPC subnets from a central Network account to Spoke accounts) without needing to duplicate the infrastructure in each account.
     - **Note on VGW in VPC Sharing:** When sharing a subnet, the **Virtual Private Gateway (VGW)** attached to the VPC owner's VPC allows all instances (even those deployed by tenant accounts into shared subnets) to reach on-premises networks via that same VGW.
@@ -135,11 +115,11 @@ When you share a subnet from the "Networking Account" (VPC-1) to an "App Account
     - You may see a **Virtual Private Gateway (VGW)** icon in VPC architecture diagrams. It is a standard VPC component. It enables that VPC to connect to on-premises via VPN/Direct Connect. It is **not** used for RAM sharing or connecting VPCs to each other.
 - **Mental Model: The Landlord/Tenant Pattern:**
     - Think of the VPC as an office building owned by a **Landlord (Account A)**. 
-    - The Landlord gives the **Tenant (Account B)** a key to one of the empty suites (Subnet) inside the Landlord's building.
+    - Instead of building their own building (VPC) and building a bridge (Peering) to yours, the Landlord gives the **Tenant (Account B)** a key to one of the empty suites (Subnet) inside the Landlord's building.
     - **Residency vs. Management:** 
         - **Management:** The Tenant (Account B) owns and manages the assets inside the suite (EC2, EKS, RDS). It shows up in their Account B dashboard.
         - **Residency:** The suite itself (the Network Interface/IP/Subnet) physically and logically sits inside the Landlord's building (VPC A).
-    - **Reality:** Because the "residency" is in Account A's VPC, the instance follows the network rules (Route Tables, NACLs) of Account A, not Account B.
+    - **Reality:** The EC2 instances owned by Account B technically **reside within Account A's VPC**. They follow the network rules (Route Tables, NACLs) of Account A, not Account B.
     - **Architectural Advantage:** Offers the lowest possible latency and zero routing hops between accounts, as all resources coexist within the same VPC network boundary.
 
 ![VPC Sharing Logic — illustrating Account B deploying resources into a subnet owned by Account A via AWS RAM.](../assets/vpc-sharing.png)
