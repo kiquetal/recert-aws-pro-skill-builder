@@ -61,6 +61,8 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
     - **VPC Lattice:** Simplifies service-to-service communication with built-in service discovery, connectivity, and security (mTLS) across VPCs and accounts without TGW or Peering.
     - **IP Address Management (IPAM):** Automates the discovery, planning, and monitoring of IP address space across your AWS organization.
 
+# Transit Gateway and VPN Connectivity
+
 - **AWS Transit Gateway (TGW)** — regional hub for connecting VPCs, VPNs, and Direct Connect; supports routing domains (Route Tables) for traffic segmentation (Association/Propagation).
     - **TGW Attachments (What can it connect to?):**
         - **VPC Attachments:** Connects VPCs to the TGW.
@@ -71,6 +73,23 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
     - **Logical Components:** Attachments (pipes), Associations (mapping traffic to a route table), and Propagations (dynamic route population).
     - **Note on Direct Connect:** You **cannot** attach a physical Direct Connect connection directly to a Transit Gateway. You must attach it via a **Direct Connect Gateway** attachment.
     - **Multi-Account Connectivity:** Transit Gateway is **not limited to a single account**. It can be shared across accounts in an AWS Organization using **AWS Resource Access Manager (RAM)**.
+
+### Managed Service Failover (VGW/TGW)
+*Note: This failover logic applies equally to both VGW (single-VPC) and TGW (multi-VPC) termination points.*
+```text
+    [On-Premises Network]
+              |
+     +--------+--------+
+     |  Dual IPsec     |
+     |   Tunnels       |
+     +--------+--------+
+              |
+    +---------v---------+
+    |   AWS VGW/TGW     |
+    +---------+---------+
+              |
+      [VPC Route Table]
+```
 
 ![VPC Design and Networking — showing key components like IPAM, VPC Endpoints, and connectivity architecture.](../assets/vpc-design-network.png)
 
