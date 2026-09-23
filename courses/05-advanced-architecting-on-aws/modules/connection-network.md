@@ -4,17 +4,14 @@
     - Subnets, Route Tables, Internet Gateways (IGW), NAT Gateways.
     - Security Groups (stateful) vs Network ACLs (stateless).
 
-- **Advanced VPC Capabilities:**
-    - **Gateway Load Balancer (GWLB):** Deploys, scales, and manages virtual appliances (firewalls, IDS/IPS).
-    - **VPC Lattice:** Simplifies service-to-service communication with built-in service discovery, connectivity, and security (mTLS) across VPCs and accounts without TGW or Peering.
-    - **VPC Endpoints (PrivateLink):** Secure, private connectivity to AWS services and SaaS applications powered by PrivateLink.
-        - **Interface Endpoints (PrivateLink):** Powered by **Elastic Network Interfaces (ENIs)**. 
-            - *Routing:* No route table entry is required because the traffic is routed directly to the ENI's private IP address like any other resource in the VPC.
-            - *Security:* Managed via **Security Groups** attached to the ENI.
-        - **Gateway Endpoints:** Powered by **Route Tables**.
-            - *Routing:* Requires an explicit route table entry (via a prefix list) to direct traffic to the Gateway.
-            - *Scope:* Only supported for Amazon S3 and Amazon DynamoDB.
-    - **IP Address Management (IPAM):** Automates the discovery, planning, and monitoring of IP address space across your AWS organization.
+- **AWS Transit Gateway (TGW)** — regional hub for connecting VPCs, VPNs, and Direct Connect; supports routing domains (Route Tables) for traffic segmentation (Association/Propagation).
+    - **TGW Attachments (What can it connect to?):**
+        - **VPC Attachments:** Connects VPCs to the TGW.
+        - **VPN Attachments:** Connects Site-to-Site VPNs to the TGW.
+        - **Direct Connect Gateway Attachments:** Connects Direct Connect to the TGW via a Direct Connect Gateway.
+        - **Transit Gateway Peering Attachments:** Connects two separate TGWs (intra-region or inter-region).
+        - **Connect Attachments (SD-WAN):** Uses GRE tunnels to connect SD-WAN appliances directly to the TGW.
+    - **Logical Components:** Attachments (pipes), Associations (mapping traffic to a route table), and Propagations (dynamic route population).
 
 ![VPC Design and Networking — showing key components like IPAM, VPC Endpoints, and connectivity architecture.](../assets/vpc-design-network.png)
 
