@@ -132,8 +132,11 @@ When you share a subnet from the "Networking Account" (VPC-1) to an "App Account
     - You may see a **Virtual Private Gateway (VGW)** icon in VPC architecture diagrams. It is a standard VPC component. It enables that VPC to connect to on-premises via VPN/Direct Connect. It is **not** used for RAM sharing or connecting VPCs to each other.
 - **Mental Model: The Landlord/Tenant Pattern:**
     - Think of the VPC as an office building owned by a **Landlord (Account A)**. 
-    - Instead of building their own building (VPC) and building a bridge (Peering) to yours, the Landlord gives the **Tenant (Account B)** a key to one of the empty suites (Subnet) inside the Landlord's building.
-    - **Reality:** The EC2 instances owned by Account B technically **reside within Account A's VPC**. They follow the network rules (Route Tables, NACLs) of Account A, not Account B.
+    - The Landlord gives the **Tenant (Account B)** a key to one of the empty suites (Subnet) inside the Landlord's building.
+    - **Residency vs. Management:** 
+        - **Management:** The Tenant (Account B) owns and manages the assets inside the suite (EC2, EKS, RDS). It shows up in their Account B dashboard.
+        - **Residency:** The suite itself (the Network Interface/IP/Subnet) physically and logically sits inside the Landlord's building (VPC A).
+    - **Reality:** Because the "residency" is in Account A's VPC, the instance follows the network rules (Route Tables, NACLs) of Account A, not Account B.
     - **Architectural Advantage:** Offers the lowest possible latency and zero routing hops between accounts, as all resources coexist within the same VPC network boundary.
 
 ![VPC Sharing Logic — illustrating Account B deploying resources into a subnet owned by Account A via AWS RAM.](../assets/vpc-sharing.png)
