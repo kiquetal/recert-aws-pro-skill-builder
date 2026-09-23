@@ -12,9 +12,17 @@
         - **Protocol:** Uses the **GENEVE** protocol (port 6081) to encapsulate traffic between the GWLB and the virtual appliance. This allows metadata to be passed with the packets to the appliance.
         - **Use Case:** Transparently inspect and filter traffic flowing into/out of your VPC, or between VPCs.
 
-![Gateway Load Balancer Flow — illustrating traffic flow before GWLB implementation.](../assets/gwlb-before.png)
+    - **AWS Network Firewall:** A managed service for deploying essential network protections for all your VPCs.
+        - **Stateful Rules:** 
+            - Inspects packets in the context of traffic flow. 
+            - Filters traffic based on 5-tuple (source/destination IP, port, protocol) **and** domain lists (e.g., allow/deny access to `*.example.com`).
+            - *Use Case:* Advanced filtering, domain-level filtering, and intrusion prevention (IPS).
+        - **Stateless Rules:**
+            - Inspects each packet in isolation, without context of the connection flow.
+            - Filters traffic strictly based on the 5-tuple (IP, Port, Protocol).
+            - *Use Case:* High-speed, simple packet filtering (e.g., dropping all traffic from a known malicious IP).
+        - **Architecture:** It scales automatically and is deployed across Availability Zones, providing high availability for your network traffic inspection.
 
-![Gateway Load Balancer with Transit Gateway — illustrating the integration of GWLB for traffic inspection within a Transit Gateway architecture.](../assets/gwlb-tgw.png)
     - **VPC Lattice:** Simplifies service-to-service communication with built-in service discovery, connectivity, and security (mTLS) across VPCs and accounts without TGW or Peering.
     - **IP Address Management (IPAM):** Automates the discovery, planning, and monitoring of IP address space across your AWS organization.
 
