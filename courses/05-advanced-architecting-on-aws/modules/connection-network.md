@@ -62,6 +62,11 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
     - **IP Address Management (IPAM):** Automates the discovery, planning, and monitoring of IP address space across your AWS organization.
 
 - **AWS Transit Gateway (TGW)** — regional hub for connecting VPCs, VPNs, and Direct Connect; supports routing domains (Route Tables) for traffic segmentation (Association/Propagation).
+    - **Scale & Capacity:** Supports up to **5,000 VPC attachments** per Transit Gateway.
+    - **Pro-level Scaling Considerations:**
+        - **Route Table Limits:** With 5,000 VPCs, avoid a single "flat" route table. Use **Route Table Segmentation** to keep control planes manageable and secure.
+        - **Throughput:** A single VPC attachment supports up to 50 Gbps burstable bandwidth. Aggregate traffic from thousands of VPCs requires careful bandwidth planning at the TGW level.
+        - **Management:** At scale, shift from dynamic propagation to **Static Routes** for predictable network patterns to avoid route table bloat.
     - **TGW Attachments (What can it connect to?):**
         - **VPC Attachments:** Connects VPCs to the TGW.
         - **VPN Attachments:** Connects Site-to-Site VPNs to the TGW.
