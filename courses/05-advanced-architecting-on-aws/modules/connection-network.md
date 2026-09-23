@@ -21,11 +21,13 @@
             - Inspects each packet in isolation, without context of the connection flow.
             - Filters traffic strictly based on the 5-tuple (IP, Port, Protocol).
             - *Use Case:* High-speed, simple packet filtering (e.g., dropping all traffic from a known malicious IP).
-        - **Architecture (Centralized Inspection):**
-        - For production, use the **Inspection VPC** pattern.
-        - All traffic from VPCs is routed to the **Transit Gateway**, which redirects it to the **Inspection VPC**.
-        - Inside the Inspection VPC, a **Gateway Load Balancer** distributes the traffic to the **Network Firewall** nodes for inspection before forwarding it to its final destination.
-    - **Pro Tip (Asymmetric Routing):** When designing this, you **must** ensure traffic symmetry. If the request goes through the firewall, the response must also go through the firewall; otherwise, the connection will be dropped (as the firewall will detect a state mismatch).
+        - **Step-by-Step Configuration:**
+            1. **Inspection VPC Setup:** Deploy Network Firewall in dedicated subnets. Modify the **Internet Gateway (IGW) Route Table** to route traffic destined for App VPCs to the **Firewall Endpoint ENI**.
+            2. **Transit Gateway (TGW) Routing:** 
+               - **App VPCs:** Route tables must point `0.0.0.0/0` to the **TGW**.
+               - **TGW Route Table (App VPCs):** Add a static route `0.0.0.0/0` pointing to the **Inspection VPC Attachment**. This "steers" all outbound traffic through the firewall.
+               - **TGW Route Table (Inspection VPC):** Add routes to each **App VPC CIDR** pointing to the respective **App VPC Attachments** for return traffic.
+            3. **Symmetry:** Ensure all route tables are configured symmetrically to prevent the firewall from dropping return traffic due to state mismatches.
 
 ```text
        [Internet]
