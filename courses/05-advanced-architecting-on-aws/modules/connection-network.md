@@ -13,9 +13,7 @@
         - **Use Case:** Transparently inspect and filter traffic flowing into/out of your VPC, or between VPCs.
 
 ![Gateway Load Balancer Flow — illustrating traffic flow before GWLB implementation.](../assets/gwlb-before.png)
-
 ![Gateway Load Balancer Flow — illustrating traffic flow after GWLB implementation.](../assets/gwlb-after.png)
-
 ![Gateway Load Balancer with Transit Gateway — illustrating the integration of GWLB for traffic inspection within a Transit Gateway architecture.](../assets/gwlb-tgw.png)
 
     - **AWS Network Firewall:** A managed service for deploying essential network protections for all your VPCs.
@@ -56,17 +54,10 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
 4. **Network Firewall:** Inspects traffic (Stateful/Stateless rules).
 5. **Firewall Return Path:** If allowed, route back -> **TGW** -> **App VPC**.
 
-*Note: Ensure route tables are configured symmetrically to prevent the firewall from dropping return traffic due to state mismatches.*
-
 ![AWS Network Firewall — illustrating the configuration of stateless and stateful rules for traffic inspection.](../assets/network-firewall.png)
 
     - **VPC Lattice:** Simplifies service-to-service communication with built-in service discovery, connectivity, and security (mTLS) across VPCs and accounts without TGW or Peering.
-    # RAM
-    - **Use Case:** Centrally manage resources like VPC subnets, Transit Gateways, and Route 53 Resolver rules to avoid duplication and simplify management in multi-account environments.
-    - **Mechanism:** You create a "Resource Share" and specify the resources, the permissions (if applicable), and the participants (AWS accounts or OUs).
-    - **Key Benefit:** Enables centralized hub-and-spoke networking (e.g., sharing a TGW or VPC subnets from a central Network account to Spoke accounts) without needing to duplicate the infrastructure in each account.
-
-<!-- Add your custom notes below this line -->
+    - **IP Address Management (IPAM):** Automates the discovery, planning, and monitoring of IP address space across your AWS organization.
 
 - **AWS Transit Gateway (TGW)** — regional hub for connecting VPCs, VPNs, and Direct Connect; supports routing domains (Route Tables) for traffic segmentation (Association/Propagation).
     - **TGW Attachments (What can it connect to?):**
@@ -77,6 +68,7 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
         - **Connect Attachments (SD-WAN):** Uses GRE tunnels to connect SD-WAN appliances directly to the TGW.
     - **Logical Components:** Attachments (pipes), Associations (mapping traffic to a route table), and Propagations (dynamic route population).
     - **Note on Direct Connect:** You **cannot** attach a physical Direct Connect connection directly to a Transit Gateway. You must attach it via a **Direct Connect Gateway** attachment.
+    - **Multi-Account Connectivity:** Transit Gateway is **not limited to a single account**. It can be shared across accounts in an AWS Organization using **AWS Resource Access Manager (RAM)**.
 
 ![VPC Design and Networking — showing key components like IPAM, VPC Endpoints, and connectivity architecture.](../assets/vpc-design-network.png)
 
@@ -96,3 +88,12 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
 - **Gateway Endpoints:** Powered by **Route Tables**.
     - **Routing:** Requires an explicit route table entry (via a prefix list) to direct traffic to the Gateway.
     - **Scope:** Only supported for Amazon S3 and Amazon DynamoDB.
+
+# RAM
+
+- **AWS Resource Access Manager (RAM):** Share resources across AWS accounts or within an AWS Organization.
+    - **Use Case:** Centrally manage resources like VPC subnets, Transit Gateways, and Route 53 Resolver rules to avoid duplication and simplify management in multi-account environments.
+    - **Mechanism:** You create a "Resource Share" and specify the resources, the permissions (if applicable), and the participants (AWS accounts or OUs).
+    - **Key Benefit:** Enables centralized hub-and-spoke networking (e.g., sharing a TGW or VPC subnets from a central Network account to Spoke accounts) without needing to duplicate the infrastructure in each account.
+
+<!-- Add your custom notes below this line -->
