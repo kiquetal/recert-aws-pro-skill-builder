@@ -4,6 +4,8 @@
     - **Control Plane:** AWS managed; you only manage the data plane (compute).
     - **Integration:** Deeply integrated with AWS native services (IAM, ALB/NLB, CloudWatch, Secrets Manager).
 
+![Amazon ECS Architecture — illustrating ECS cluster, services, task definitions, and Fargate integration.](../assets/ecs-details.png)
+
 - **Amazon EKS (Elastic Kubernetes Service):** Managed Kubernetes service.
     - **Control Plane:** AWS manages the Kubernetes control plane across multiple AZs.
     - **Use Case:** When portability (standard Kubernetes APIs) and complex service-to-service orchestration are required.
