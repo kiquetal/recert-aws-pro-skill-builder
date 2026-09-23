@@ -61,6 +61,12 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
     - **VPC Lattice:** Simplifies service-to-service communication with built-in service discovery, connectivity, and security (mTLS) across VPCs and accounts without TGW or Peering.
     - **IP Address Management (IPAM):** Automates the discovery, planning, and monitoring of IP address space across your AWS organization.
 
+- **AWS Virtual Private Gateway (VGW):** The standard AWS-side VPN and Direct Connect concentrator. 
+    - **Scope:** It is attached to a **single VPC**.
+    - **Traffic:** Routes traffic between the VPC and the connected VPN or Direct Connect (Private VIF).
+    - **Limitation:** Does not support transitive routing (i.e., it cannot route traffic between two connected networks or multiple VPCs); for those needs, use a Transit Gateway (TGW).
+    - **Failover:** Always provisions two tunnels (for VPN); both must be configured on your CGW device.
+
 - **AWS Transit Gateway (TGW)** — regional hub for connecting VPCs, VPNs, and Direct Connect; supports routing domains (Route Tables) for traffic segmentation (Association/Propagation).
     - **TGW Attachments (What can it connect to?):**
         - **VPC Attachments:** Connects VPCs to the TGW.
