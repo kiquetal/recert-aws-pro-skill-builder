@@ -31,10 +31,8 @@ Serverless compute engine. ECS and EKS can run on target.
     - **Networking (`awsvpc` mode):** Every ECS task receives its own Elastic Network Interface (ENI) and private IP within the VPC, allowing security groups to be applied directly to the container/task.
     - **Service Discovery:** Use Route 53 Service Discovery (AWS Cloud Map) to automatically register and discover services within your VPC.
     - **Scalability:** **Service Auto Scaling** allows scaling tasks based on CPU/Memory utilization or custom metrics (e.g., SQS queue depth).
-
-The plugin used was docker/ecs-plugin
- 
-**Fargate **
-Serverless compute engine. ECS and EKS can run on target
-
-
+For the security model
+- Tasks get isolated compute
+- Network isolation ENI by tasks
+- Storage isolation 
+ Credential isolation.
