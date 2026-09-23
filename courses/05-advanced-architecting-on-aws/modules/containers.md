@@ -13,6 +13,9 @@
 
 - **Launch Types:**
     - **Fargate (Serverless):** No need to provision or manage servers. AWS manages the underlying infrastructure.
+        - *Fargate Construction:* You define task-level CPU and memory requirements in the task definition. Fargate then provisions the compute resources required to run your containers based on these definitions.
+
+![Fargate Construction — illustrating task definition CPU/Memory provisioning.](../assets/fargate-construct.png)
     - **EC2:** You manage the underlying instances, allowing deep control over OS, networking, and instance sizing.
 
 - **Docker Compose for ECS:** You can use `docker-compose.yml` to define multi-container applications and deploy them to Amazon ECS using the `docker ecs compose` command.
@@ -24,3 +27,10 @@
     - **Networking (`awsvpc` mode):** Every ECS task receives its own Elastic Network Interface (ENI) and private IP within the VPC, allowing security groups to be applied directly to the container/task.
     - **Service Discovery:** Use Route 53 Service Discovery (AWS Cloud Map) to automatically register and discover services within your VPC.
     - **Scalability:** **Service Auto Scaling** allows scaling tasks based on CPU/Memory utilization or custom metrics (e.g., SQS queue depth).
+
+The plugin used was docker/ecs-plugin
+ 
+**Fargate **
+Serverless compute engine. ECS and EKS can run on target
+
+
