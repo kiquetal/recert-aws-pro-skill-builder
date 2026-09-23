@@ -104,6 +104,15 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
     - **Mechanism:** You create a "Resource Share" and specify the resources, the permissions (if applicable), and the participants (AWS accounts or OUs).
     - **Key Benefit:** Enables centralized hub-and-spoke networking (e.g., sharing a TGW or VPC subnets from a central Network account to Spoke accounts) without needing to duplicate the infrastructure in each account.
 
+    - **Architectural Example: Centralized Networking Hub**
+        - **Scenario:** A central Network account owns the Transit Gateway (TGW) and shares it with multiple Spoke accounts.
+        - **The Workflow:**
+            1. **Networking Account:** Creates the Transit Gateway.
+            2. **RAM:** The Networking Account creates a "Resource Share" for the TGW and adds the Organization/OUs of the Spoke accounts as participants.
+            3. **Spoke Accounts:** The spoke accounts receive the shared TGW in their RAM console.
+            4. **Attachment:** Spoke accounts create a **Transit Gateway Attachment** to that shared TGW, effectively connecting their VPCs to the central hub without the hub account needing to manage the spokes' VPCs.
+        - **Result:** Centralized control of routing and security while maintaining decentralized account-level management.
+
 ![AWS RAM Resource Sharing — illustrating the centralized sharing of Transit Gateway and Subnets across multiple VPCs in different accounts.](../assets/ram-sharing.png)
 
 ### VPC Sharing Logic
