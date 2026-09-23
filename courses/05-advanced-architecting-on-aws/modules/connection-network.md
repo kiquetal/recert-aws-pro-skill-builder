@@ -115,4 +115,6 @@ When you share a subnet from the "Networking Account" (VPC-1) to an "App Account
     - **Reality:** The EC2 instances owned by Account B technically **reside within Account A's VPC**. They follow the network rules (Route Tables, NACLs) of Account A, not Account B.
     - **Architectural Advantage:** Offers the lowest possible latency and zero routing hops between accounts, as all resources coexist within the same VPC network boundary.
 
-![VPC Sharing Logic — illustrating Account B deploying resources into a subnet owned by Account A via AWS RAM.](../assets/vpc-sharing.png)
+- **NACLs & RAM Segmentation:** When sharing subnets across accounts, Network ACLs (NACLs) are managed by the VPC owner account. This allows the owner to enforce centralized security boundaries on shared subnets, ensuring that all participants comply with the same stateless traffic filtering rules.
+
+![NACL and RAM Segmentation — illustrating how the VPC owner can use NACLs to enforce centralized network security on shared subnets.](../assets/nacl-ram-segmentation.png)
