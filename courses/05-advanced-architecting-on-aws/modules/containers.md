@@ -28,14 +28,18 @@
 You have 3 options to run EKS pods:
 - **Managed EC2:** AWS helps you with some operations on the EC2 instances.
 - **EC2:** You are responsible for the application and infrastructure.
-- **Fargate:** Serverless compute engine. Use the Fargate scheduler to run pods without managing nodes.
-    - *Fargate Profile:* Defines which pods run on Fargate by specifying selectors (namespaces and labels).
+### EKS Node Management
 
-![Fargate Profile configuration — illustrating the setup of selectors for pods in Amazon EKS.](../assets/fargate-profile.png)
+| Feature | Managed Node Groups | Self-Managed Nodes |
+| :--- | :--- | :--- |
+| **Lifecycle Management** | **Automated** (Patching/Upgrade) | **Manual** |
+| **Customization** | Standardized (EKS Optimized AMI) | High (Custom AMI/Kernel tuning) |
+| **Scaling** | Integrated (Automatic) | Manual / Cluster Autoscaler |
+| **Operational Effort** | Low | High |
+| **Best For** | Most Production Workloads | Specialized Requirements |
 
-    - *Deployment Flow:* When a pod matches the selector in a Fargate profile, the EKS control plane schedules the pod to run on the Fargate compute engine, transparently provisioning the required capacity.
-
-![Fargate Deployment Flow — illustrating how EKS pods are deployed and scheduled to run on Fargate.](../assets/fargate-deployment-flow.png)
+- **Managed Node Groups:** Recommended for most production workloads. AWS automates node upgrades and patching.
+- **Self-Managed Nodes:** Required only if you need highly custom OS configurations, kernel tuning, or specific hardware drivers that standard EKS-optimized AMIs do not provide.
 
 ### Amazon EFS on EKS
 
