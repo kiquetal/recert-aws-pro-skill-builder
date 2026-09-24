@@ -52,3 +52,7 @@ You have 3 options to run EKS pods:
 
 ![Fargate Profile configuration — illustrating the setup of selectors for pods in Amazon EKS.](../assets/fargate-profile.png)
 
+    - *Deployment Flow:* When a pod matches the selector in a Fargate profile, the EKS control plane schedules the pod to run on the Fargate compute engine, transparently provisioning the required capacity.
+
+![Fargate Deployment Flow — illustrating how EKS pods are deployed and scheduled to run on Fargate.](../assets/fargate-deployment-flow.png)
+
