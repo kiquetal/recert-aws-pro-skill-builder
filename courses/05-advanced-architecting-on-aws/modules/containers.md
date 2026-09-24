@@ -63,8 +63,9 @@ You have 3 options to run EKS pods:
 
 ![Docker Compose file configuration — illustrating the structure of a docker-compose.yml file used for deployment to Amazon ECS.](../assets/docker-compose-aws.png)
 
-- **Advanced Architectural Considerations:**
-    - **IAM Task Roles:** Assign permissions to the *container/task* itself (not the underlying host), allowing the application to securely access AWS services (S3, DynamoDB) via IAM.
-    - **Networking (`awsvpc` mode):** Every ECS task receives its own Elastic Network Interface (ENI) and private IP within the VPC, allowing security groups to be applied directly to the container/task.
-    - **Service Discovery:** Use Route 53 Service Discovery (AWS Cloud Map) to automatically register and discover services within your VPC.
-    - **Scalability:** **Service Auto Scaling** allows scaling tasks based on CPU/Memory utilization or custom metrics (e.g., SQS queue depth).
+    - **Logging:**
+        - **ECS:** Use the `awslogs` driver to automatically send logs from container `stdout`/`stderr` to CloudWatch Logs.
+        - **EKS:** Use Fluent Bit to collect and forward container logs to CloudWatch Logs or Amazon OpenSearch Service.
+        - **Best Practice:** Centralize logs for security auditing, troubleshooting, and compliance reporting.
+
+![Container Logging — illustrating how container logs are streamed to Amazon CloudWatch.](../assets/container-logging.png)
