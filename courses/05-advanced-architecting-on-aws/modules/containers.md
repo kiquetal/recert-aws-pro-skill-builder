@@ -21,6 +21,12 @@
 
 ![Fargate Isolation — illustrating the security and isolation boundaries of Fargate tasks.](../assets/fargate-isolation.png)
 
+- **Fargate Limitations:**
+    - **No Privileged Containers/Pods:** Fargate does not support running containers in privileged mode.
+    - **No Host-level DaemonSets:** Traditional DaemonSets that require host-level access or binding are not supported.
+    - **No GPU Support:** Fargate compute resources are CPU/Memory optimized; GPU-enabled instances are not available.
+    - **No EBS Support:** Persistent storage is limited to Amazon EFS; Amazon EBS volumes cannot be mounted to Fargate tasks or pods.
+
 - **EC2:** You manage the underlying instances, allowing deep control over OS, networking, and instance sizing.
 
 ### Fargate on EKS
