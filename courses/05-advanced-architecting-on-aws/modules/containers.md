@@ -42,8 +42,9 @@ You have 3 options to run EKS pods:
 - **Amazon EFS CSI Driver:** To mount Amazon EFS file systems on EKS clusters, you must install the Amazon EFS CSI driver.
     - **How it works:** The driver manages the lifecycle of EFS mounts for your pods. You define a `StorageClass` pointing to your EFS File System ID.
     - **Persistence:** Allows multiple pods across different Availability Zones to share the same persistent file storage.
+    - **Fargate Compatibility:** EKS on Fargate supports mounting EFS volumes using the CSI driver, enabling persistent storage for serverless pods.
 
-![Amazon EFS on EKS — illustrating the mounting of EFS via the CSI driver to pods in an EKS cluster.](../assets/efs-eks-mount.png)
+![Amazon EFS on EKS with Fargate — illustrating the mounting of EFS via the CSI driver to Fargate pods in an EKS cluster.](../assets/efs-eks-fargate.png)
 
 - **Docker Compose for ECS:** You can use `docker-compose.yml` to define multi-container applications and deploy them to Amazon ECS using the `docker ecs compose` command.
 
