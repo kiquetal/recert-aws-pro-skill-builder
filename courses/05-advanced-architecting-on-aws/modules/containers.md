@@ -40,3 +40,18 @@ For the security model
 - Network isolation ENI by tasks
 - Storage isolation 
  Credential isolation.
+
+### Fargate on EKS
+
+You have 3 options o run EKS pods
+
+- Managed ec2
+Here AWS help you with some operation on the ec2
+
+- ec2
+You are responisble for the app and infra
+
+- fargate
+Serverless compute engine
+Use the fargate scheduler
+
