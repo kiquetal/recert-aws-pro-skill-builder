@@ -13,7 +13,11 @@
 ### CDK
 
 - **AWS CDK (Cloud Development Kit):** An open-source software development framework to define cloud infrastructure as code (IaC) using familiar programming languages (Python, TypeScript, Java, etc.).
-    - **Core Value:** Higher-level abstractions called **Constructs** allow you to define AWS resources with sensible defaults, reducing boilerplate compared to raw CloudFormation YAML/JSON.
+    - **Construct Levels:**
+        - **L1 Constructs (CloudFormation Resources):** Direct 1:1 mapping to CloudFormation resources. Provides low-level control.
+        - **L2 Constructs:** Higher-level abstractions that include sensible defaults, boilerplate reduction, and convenience methods.
+        - **L3 Constructs (Patterns):** Opinionated, high-level abstractions representing common reference architectures using multiple AWS services (e.g., an Application Load Balanced Fargate Service).
+    - **Core Value:** Uses constructs to define AWS resources, reducing boilerplate compared to raw CloudFormation YAML/JSON.
     - **Pro-Level Insight:** CDK synthesizes into standard CloudFormation templates. It is preferred for complex architectures because it allows loops, conditional logic, and modularized code reuse (patterns) that plain YAML cannot handle.
     - **CI/CD Integration:** CDK is designed to be integrated directly into your CI/CD pipelines (CodePipeline, GitHub Actions) to automate infrastructure deployment alongside application code.
 
