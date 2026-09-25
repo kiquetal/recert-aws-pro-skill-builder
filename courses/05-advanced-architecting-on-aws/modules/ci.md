@@ -10,7 +10,10 @@
 - **AWS CodeBuild:** Fully managed build service that compiles source code, runs tests, and produces software packages that are ready to deploy.
 - **AWS CodeDeploy:** Fully managed deployment service that automates software deployments to a variety of compute services such as Amazon EC2, AWS Fargate, AWS Lambda, and your on-premises servers.
 - **AWS CodePipeline:** Fully managed continuous delivery service that helps you automate your release pipelines for fast and reliable application and infrastructure updates. It integrates natively with third-party source providers.
-- **AWS CodeArtifact:** Fully managed artifact repository service that makes it easy for organizations of any size to securely store, publish, and share software packages.
+- **AWS CDK (Cloud Development Kit):** An open-source software development framework to define cloud infrastructure as code (IaC) using familiar programming languages (Python, TypeScript, Java, etc.).
+    - **Core Value:** Higher-level abstractions called **Constructs** allow you to define AWS resources with sensible defaults, reducing boilerplate compared to raw CloudFormation YAML/JSON.
+    - **Pro-Level Insight:** CDK synthesizes into standard CloudFormation templates. It is preferred for complex architectures because it allows loops, conditional logic, and modularized code reuse (patterns) that plain YAML cannot handle.
+    - **CI/CD Integration:** CDK is designed to be integrated directly into your CI/CD pipelines (CodePipeline, GitHub Actions) to automate infrastructure deployment alongside application code.
 
 - **Amazon RDS Blue/Green Deployments:** A feature where AWS manages the replication, but the *strategy* of when and how to perform the switchover is an **architectural decision**.
     - **Not a "Magic Button":** While AWS manages the replication, the architect must decide:
@@ -32,3 +35,8 @@
           |
     [Application] --> [Green (Becomes Production)]
 ```
+
+### CDK
+
+Main componenents: App,Stacks, Resources 
+
