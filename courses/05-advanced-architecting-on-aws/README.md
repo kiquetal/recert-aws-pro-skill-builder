@@ -23,6 +23,7 @@
 - [VPC Design & Networking](modules/connection-network.md)
 - [Containers on AWS](modules/containers.md)
 - [CI/CD on AWS](modules/ci.md)
+- [Databases & Deployment](modules/databases.md)
 - [Specialized Infrastructure](modules/specialized-infra.md)
 
 ## Key Takeaways
