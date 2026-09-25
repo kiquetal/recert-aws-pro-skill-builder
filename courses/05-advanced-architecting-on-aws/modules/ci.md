@@ -9,16 +9,12 @@
 - **AWS CodeArtifact:** Fully managed artifact repository service that makes it easy for organizations of any size to securely store, publish, and share software packages.
 # Databases & Deployment Patterns
 
-- **Amazon RDS Blue/Green Deployments:** A managed feature that allows you to stage infrastructure changes (engine upgrades, patch updates) on a "Green" staging environment and then switch over to production with minimized downtime.
-    - **How it works:**
-        - **Blue:** Current production environment.
-        - **Green:** Cloned staging environment (logical replica).
-        - **Sync:** Uses asynchronous logical replication to keep Green in sync with Blue.
-        - **Switchover:** DNS/Endpoint redirection occurs at the managed level, promoting Green to Production.
-    - **Key Architect Considerations:**
-        - **Retry Logic:** Application code must be prepared for short connection drops during the switchover.
-        - **Schema Compatibility:** You can run schema modifications on the Green environment before switchover, but they must be compatible with the Blue environment during replication.
-        - **Downtime:** Minimized but usually not strictly zero; always design for connection resiliency.
+- **Amazon RDS Blue/Green Deployments:** A feature where AWS manages the replication, but the *strategy* of when and how to perform the switchover is an **architectural decision**.
+    - **Not a "Magic Button":** While AWS manages the replication, the architect must decide:
+        - **Maintenance Window:** When to trigger the cutover (during low traffic is mandatory to minimize session drops).
+        - **Schema Compatibility:** Ensuring changes on Green don't break Blue during replication.
+        - **Application Resiliency:** The application *must* have retry logic to handle the brief connection reset during the DNS switchover.
+    - **Use Case:** Managed major version upgrades, parameter group changes, or OS patching with minimized downtime.
 
 ### Managed Service Failover (Blue/Green)
 ```text
