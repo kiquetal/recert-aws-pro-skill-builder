@@ -36,9 +36,3 @@
     (During Switchover)
           |
     [Application] --> [Green (Becomes Production)]
-```
-
-### CDK
-
-Main componenents: App,Stacks, Resources 
-
