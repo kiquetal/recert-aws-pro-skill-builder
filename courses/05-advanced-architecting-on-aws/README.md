@@ -24,7 +24,6 @@
 - [Containers on AWS](modules/containers.md)
 - [CI/CD & Databases](modules/ci.md)
 - [Specialized Infrastructure](modules/specialized-infra.md)
-- [Network Security & Hybrid Connectivity](modules/network-security.md)
 
 ## Key Takeaways
 
