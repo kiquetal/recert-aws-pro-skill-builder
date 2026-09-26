@@ -58,13 +58,13 @@
 ## Diagrams
 
 ### StackSets: Enablement and Deployment
-![StackSets member enablement + deploy sequence — one-time setup (create Administration role in mgmt; create Execution role in member with trust to mgmt + resource permissions), then deploy (CloudFormation assumes Administration role, which assumes the member's Execution role across the boundary to create resources).](../assets/stacksets-enablement.png)
+![StackSets member enablement + deploy sequence — one-time setup (create Administration role in mgmt; create Execution role in member with trust to mgmt + resource permissions), then deploy (CloudFormation assumes Administration role, which assumes the member's Execution role across the boundary to create resources).](../05-advanced-architecting-on-aws/assets/stacksets-enablement.png)
 
 ### StackSets: Conceptual
-![AWS StackSets conceptual diagram — an administrator account's stack set deploys stacks into Target account A and B across two regions.](../assets/aws-stacksets-conceptual.png)
+![AWS StackSets conceptual diagram — an administrator account's stack set deploys stacks into Target account A and B across two regions.](../05-advanced-architecting-on-aws/assets/aws-stacksets-conceptual.png)
 
 ### Security Services Org-wide
-![Enable security services for the organization — activating a service org-wide activates it across all member accounts (GuardDuty, Macie, IAM Access Analyzer, Firewall Manager, Config, and more).](../assets/enable-security-services.png)
+![Enable security services for the organization — activating a service org-wide activates it across all member accounts (GuardDuty, Macie, IAM Access Analyzer, Firewall Manager, Config, and more).](../05-advanced-architecting-on-aws/assets/enable-security-services.png)
 
 ### Delegated Admin
-![Delegate administration for security services — the management account delegates security-tooling ownership to a SecurityToolingProd account, which manages org-wide security services across member accounts.](../assets/delegated-admin-security.png)
+![Delegate administration for security services — the management account delegates security-tooling ownership to a SecurityToolingProd account, which manages org-wide security services across member accounts.](../05-advanced-architecting-on-aws/assets/delegated-admin-security.png)
