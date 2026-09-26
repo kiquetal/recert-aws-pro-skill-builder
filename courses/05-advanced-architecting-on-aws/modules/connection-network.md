@@ -71,10 +71,17 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
     - **Logical Components:** Attachments (pipes), Associations (mapping traffic to a route table), and Propagations (dynamic route population).
     - **Note on Direct Connect:** You **cannot** attach a physical Direct Connect connection directly to a Transit Gateway. You must attach it via a **Direct Connect Gateway** attachment.
     - **Multi-Account Connectivity:** Transit Gateway is **not limited to a single account**. It can be shared across accounts in an AWS Organization using **AWS Resource Access Manager (RAM)**.
-    - **Architectural Security: Dedicated TGW Subnets + NACLs:**
-        - *Best Practice:* Always create a **tiny, dedicated subnet (e.g., `/28`) per Availability Zone** exclusively for the Transit Gateway attachments. Never place EC2 instances or databases in these subnets.
-        - *Stateless Border Security:* Attach a strict **Network ACL (NACL)** to these dedicated TGW subnets. This acts as a stateless firewall at the VPC border, inspecting and filtering all inbound/outbound transit traffic before it reaches your workload subnets.
-        - *Routing Independence:* Isolating the TGW ENIs allows you to manage traffic steering (such as routing to an Inspection VPC with AWS Network Firewall) without impacting local VPC routing.
+    - **AWS Transit Gateway Design Best Practices (Official AWS Guidelines):**
+        - **Dedicated Subnets:** Always use a separate, dedicated subnet per VPC attachment in each Availability Zone. Use a **small CIDR (e.g., `/28`)** so you save your IP addresses for compute/EC2 resources.
+        - **Keep TGW Subnet NACLs OPEN:** Create one Network ACL (NACL) and associate it with all subnets associated with the Transit Gateway. **Keep this NACL completely open in both inbound and outbound directions.** 
+            - *Rationale:* Do not perform stateless filtering at the TGW subnets. Instead, apply custom NACLs directly to your **workload/application subnets** depending on your traffic flow.
+        - **Route Table Consolidation:** Associate the **same VPC Route Table** with all subnets associated with the Transit Gateway (unless you have a specialized middle-box/NAT design requiring separation).
+        - **Dynamic VPN Routing:** Use **BGP (Border Gateway Protocol) Site-to-Site VPN connections**. If your firewall/Customer Gateway supports multipath, enable it (ECMP) to scale bandwidth.
+        - **Enable Route Propagation:** Always enable route propagation for Direct Connect Gateway (DXGW) and BGP VPN attachments.
+        - **MTU Size Mismatch (VPC Peering Migration):** When migrating from VPC peering (which supports Jumbo Frames / 9001 MTU) to Transit Gateway, mismatched MTUs for asymmetric traffic can drop packets. **Update both VPCs at the same time** to avoid dropping jumbo packets.
+        - **High Availability is Built-in:** You do **not** need to deploy multiple Transit Gateways in a region for high availability; TGW is highly available by design. For disaster recovery/redundancy, use a single TGW in each separate Region.
+        - **Limit TGW Route Tables:** Keep the number of Transit Gateway Route Tables to a minimum unless your segmentation design explicitly requires multiple tables.
+        - **Unique ASNs:** For deployments with multiple transit gateways, configure a **unique Autonomous System Number (ASN)** for each of your transit gateways.
 
 ```text
        [ Transit Gateway ]
@@ -82,13 +89,13 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
     +-----------v---------------------+
     | VPC Boundary                    |
     |                                 |
-    |  [ TGW Subnet (e.g., /28) ]     |  <--- Only holds the TGW ENI
-    |  * Strict NACL Border Shield *  |  <--- Blocks/filters traffic here
+    |  [ TGW Subnet (e.g., /28) ]     |  <--- Dedicated subnet, small CIDR
+    |  * Keep NACL 100% OPEN *        |  <--- Do not filter at the TGW ENI level
     |           |                     |
     |    (Internal Routing)           |
     |           |                     |
     |  [ Application Subnet ]         |
-    |  (Your EC2, ECS, DBs, etc.)     |
+    |  * Apply Custom NACL here *     |  <--- Filter directly at the workloads
     +---------------------------------+
 ```
 
