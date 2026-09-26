@@ -1,4 +1,4 @@
-# Governance & Organization
+# AWS Security Engineer - Centralized Account Management
 
 - **AWS Organizations** — multi-account structure (OUs), SCPs, delegated admin, org-wide policies.
     - **Delegated Administrator:** Best practice to assign a dedicated member account (e.g., SecurityTooling) for security services (GuardDuty, Config, Security Hub) to avoid using the Management account for day-to-day operations.

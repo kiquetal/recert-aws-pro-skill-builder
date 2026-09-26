@@ -10,4 +10,5 @@ This repository tracks my progress on the AWS Professional Recertification path.
 - [04-simulearn-inter-region-peering](04-simulearn-inter-region-peering/README.md)
 - [05-advanced-architecting-on-aws](courses/05-advanced-architecting-on-aws/README.md)
 - [06-network-security-secure-hybrid](courses/06-network-security-secure-hybrid/README.md)
+- [07-security-engineer-centralized-account-management](courses/07-security-engineer-centralized-account-management/README.md)
 

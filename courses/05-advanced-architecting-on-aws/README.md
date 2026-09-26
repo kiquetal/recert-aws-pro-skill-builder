@@ -17,7 +17,6 @@
 
 ## Modules
 
-- [Governance & Organization](modules/governance.md)
 - [Hybrid Networking](modules/hybrid-networking.md)
 - [Route 53 & DNS](modules/dns.md)
 - [VPC Design & Networking](modules/connection-network.md)
