@@ -71,6 +71,10 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
     - **Logical Components:** Attachments (pipes), Associations (mapping traffic to a route table), and Propagations (dynamic route population).
     - **Note on Direct Connect:** You **cannot** attach a physical Direct Connect connection directly to a Transit Gateway. You must attach it via a **Direct Connect Gateway** attachment.
     - **Multi-Account Connectivity:** Transit Gateway is **not limited to a single account**. It can be shared across accounts in an AWS Organization using **AWS Resource Access Manager (RAM)**.
+    - **Architectural Security: Dedicated TGW Subnets + NACLs:**
+        - *Best Practice:* Always create a **tiny, dedicated subnet (e.g., `/28`) per Availability Zone** exclusively for the Transit Gateway attachments. Never place EC2 instances or databases in these subnets.
+        - *Stateless Border Security:* Attach a strict **Network ACL (NACL)** to these dedicated TGW subnets. This acts as a stateless firewall at the VPC border, inspecting and filtering all inbound/outbound transit traffic before it reaches your workload subnets.
+        - *Routing Independence:* Isolating the TGW ENIs allows you to manage traffic steering (such as routing to an Inspection VPC with AWS Network Firewall) without impacting local VPC routing.
 
 ![VPC Design and Networking — showing key components like IPAM, VPC Endpoints, and connectivity architecture.](../assets/vpc-design-network.png)
 
