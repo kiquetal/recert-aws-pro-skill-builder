@@ -43,6 +43,40 @@
     - **Invalid Termination Points:** You cannot terminate a Direct Connect VIF directly on an **EC2 Instance**, **Load Balancer (ALB/NLB)**, **Internet Gateway**, or **NAT Gateway**. DX VIFs require a BGP session and must terminate on specialized routing constructs (VGW/DXGW).
     - **Note:** It is *not encrypted* by default. Layer a VPN or use MACsec for encryption.
 
+### Direct Connect & Transit Gateway Integration (Pro Architecture)
+
+To connect your on-premises network to multiple VPCs across different regions using Direct Connect, you must use three core components: **Direct Connect (Physical Connection)**, **Direct Connect Gateway (DXGW)**, and **Transit Gateway (TGW)**.
+
+```text
+    [ On-Premises Data Center ]
+                 |
+        (Physical Fiber Link)
+                 |
+    [ Direct Connect Location ] (Meet-me room)
+                 |
+      (Transit VIF / VLAN)
+                 |
+    +------------v------------+
+    | Direct Connect Gateway  | (Global logical router)
+    +------------+------------+
+                 |
+         (TGW Association)
+                 |
+    +------------v------------+
+    | AWS Transit Gateway     | (Regional hub / Router)
+    +------+-------------+----+
+           |             |
+       (Attach 1)    (Attach 2)
+           |             |
+      [ VPC Prod ]   [ VPC Dev ]
+```
+
+- **The Flow:**
+    1. **Physical Path:** Data center router -> physical link -> **Direct Connect Location**.
+    2. **Logical Path (Transit VIF):** Transit VIF (VLAN) -> terminates on the **Direct Connect Gateway (DXGW)**. (Note: Transit VIF is required for TGW connectivity; Private VIFs are not compatible with TGW).
+    3. **The Global Bridge (DXGW):** Direct Connect Gateway acts as a global logical router, bridging the Transit VIF to regional Transit Gateways across different AWS regions.
+    4. **The Regional Hub (TGW):** DXGW associates with the regional **Transit Gateway (TGW)**, which routes traffic to individual VPCs via standard **VPC Attachments**.
+
 - **AWS Global Accelerator** — Improves availability/performance by routing user traffic over the AWS global network via Anycast IP addresses.
     - **Use Case:** Ideal for TCP/UDP applications (non-HTTP) where network performance and fast failover are required.
     - **vs. CloudFront:** Use CloudFront for caching HTTP content; use Global Accelerator for network-level acceleration of any TCP/UDP traffic.
