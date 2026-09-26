@@ -76,6 +76,22 @@ To route traffic from a VPC through the Network Firewall (in an Inspection VPC) 
         - *Stateless Border Security:* Attach a strict **Network ACL (NACL)** to these dedicated TGW subnets. This acts as a stateless firewall at the VPC border, inspecting and filtering all inbound/outbound transit traffic before it reaches your workload subnets.
         - *Routing Independence:* Isolating the TGW ENIs allows you to manage traffic steering (such as routing to an Inspection VPC with AWS Network Firewall) without impacting local VPC routing.
 
+```text
+       [ Transit Gateway ]
+                |
+    +-----------v---------------------+
+    | VPC Boundary                    |
+    |                                 |
+    |  [ TGW Subnet (e.g., /28) ]     |  <--- Only holds the TGW ENI
+    |  * Strict NACL Border Shield *  |  <--- Blocks/filters traffic here
+    |           |                     |
+    |    (Internal Routing)           |
+    |           |                     |
+    |  [ Application Subnet ]         |
+    |  (Your EC2, ECS, DBs, etc.)     |
+    +---------------------------------+
+```
+
 ![VPC Design and Networking — showing key components like IPAM, VPC Endpoints, and connectivity architecture.](../assets/vpc-design-network.png)
 
 
