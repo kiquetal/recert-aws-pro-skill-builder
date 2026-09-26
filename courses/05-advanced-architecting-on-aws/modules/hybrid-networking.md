@@ -45,7 +45,7 @@
 
 ### Direct Connect & Transit Gateway Integration (Pro Architecture)
 
-To connect your on-premises network to multiple VPCs across different regions using Direct Connect, you must use three core components: **Direct Connect (Physical Connection)**, **Direct Connect Gateway (DXGW)**, and **Transit Gateway (TGW)**.
+To connect your on-premises network to multiple VPCs across different regions using Direct Connect, you must use a specific chain of physical and logical components.
 
 ```text
     [ On-Premises Data Center ]
@@ -71,11 +71,20 @@ To connect your on-premises network to multiple VPCs across different regions us
       [ VPC Prod ]   [ VPC Dev ]
 ```
 
-- **The Flow:**
-    1. **Physical Path:** Data center router -> physical link -> **Direct Connect Location**.
-    2. **Logical Path (Transit VIF):** Transit VIF (VLAN) -> terminates on the **Direct Connect Gateway (DXGW)**. (Note: Transit VIF is required for TGW connectivity; Private VIFs are not compatible with TGW).
-    3. **The Global Bridge (DXGW):** Direct Connect Gateway acts as a global logical router, bridging the Transit VIF to regional Transit Gateways across different AWS regions.
-    4. **The Regional Hub (TGW):** DXGW associates with the regional **Transit Gateway (TGW)**, which routes traffic to individual VPCs via standard **VPC Attachments**.
+#### Exhaustive Checklist of Required Components:
+
+1.  **On-Premises Customer Router:** Must support **802.1Q VLAN tagging** and **BGP (Border Gateway Protocol)**.
+2.  **Physical Port:** A 1 Gbps, 10 Gbps, or 100 Gbps dedicated port at an AWS Direct Connect location (or a partner-hosted connection).
+3.  **Transit VIF (Virtual Interface):** The logical Layer 3 link. Configured with:
+    *   **VLAN ID:** To segregate traffic.
+    *   **BGP Authentication Key:** To secure the routing session.
+    *   **IP Peer Addresses:** One AWS-side `/30` private IP, one Customer-side `/30` private IP.
+4.  **Direct Connect Gateway (DXGW):** A global, non-regional virtual router. 
+    *   *Critical Rule:* **Must be assigned a unique Autonomous System Number (ASN)** (e.g., `64512`) that is completely different from your on-premises ASN and the peered Transit Gateway's ASN.
+5.  **Transit Gateway (TGW):** The regional router inside your AWS account.
+    *   *Critical Rule:* **Must have a different ASN** than the DXGW. If they have the same ASN, the BGP peering will fail.
+6.  **TGW Attachment:** The logical attachment linking the DXGW to the TGW.
+7.  **TGW Route Table (Association/Propagation):** To allow the TGW to dynamically learn on-premises routes and advertise VPC CIDRs back to the DXGW.
 
 - **AWS Global Accelerator** — Improves availability/performance by routing user traffic over the AWS global network via Anycast IP addresses.
     - **Use Case:** Ideal for TCP/UDP applications (non-HTTP) where network performance and fast failover are required.
