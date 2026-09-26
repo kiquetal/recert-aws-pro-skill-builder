@@ -21,4 +21,3 @@
 
 ## Diagrams
 *(Reference architectural diagrams for secure hybrid traffic flow)*
-EOF
