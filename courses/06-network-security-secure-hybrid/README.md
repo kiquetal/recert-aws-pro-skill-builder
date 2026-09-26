@@ -1,5 +1,13 @@
 # Network Security & Secure Hybrid Connectivity
 
+## Metadata
+
+| Field           | Value                                                        |
+| --------------- | ------------------------------------------------------------ |
+| Name            | Network Security & Secure Hybrid Connectivity                |
+| Type            | Course                                                       |
+| Skill Builder   | https://skillbuilder.aws/learn/P2FJURERGC/aws-security-engineer-network-security-and-secure-hybrid-connectivity/YN151Z2JYB |
+
 - **Core Principles:**
     - Zero-Trust Architecture: Never trust, always verify.
     - Defense-in-Depth: Multiple layers of security (Edge, Network, Application).
